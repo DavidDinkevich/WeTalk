@@ -1,15 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import LoginView from './login-view/LoginView';
+import ChatInfo from './chat-list/ChatInfo'
+import ChatList from './chat-list/ChatList'
+
 
 function App() {
+  const chats = [ 
+    {name: 'Aviya', message: 'Is the best!'},
+    {name: 'Shachar', message: 'Is the best!'},
+  ];
+  
+  const chatInfos = chats.map((chatInfo, key) => {
+    return <ChatInfo {...chatInfo} key={key}/>
+  });
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Sit back and relax while we do the hard work :)
-        </p>
-      </header>
+    <div>
+      {/* <LoginView/> */}
+      <ChatList chatInfos={chatInfos}/>
     </div>
   );
 }
