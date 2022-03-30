@@ -1,22 +1,11 @@
 
 import ChatInfo from './ChatInfo'
 
-function ChatList({chatInfos}) {
+function ChatList({ chatInfos }) {
     return (
-        
-        <div style={{ width: '30%'}}>
-            <ul className="list-group list-group-unordered" style={{position:'absolute', width: "25%", height:"100%", overflow:'scroll'}}>
-                {/* <ChatInfo name="Aviya" message="is the best"/> */}
-                {/* <ChatInfo/> */}
-                {/* <ChatInfo/> */}
-                {/* <ChatInfo/> */}
-                {/* <ChatInfo/> */}
-                {/* <ChatInfo/> */}
-                {/* <ChatInfo/> */}
-                {/* <ChatInfo/> */}
-                {/* <ChatInfo/> */}
+        <div>
+            <ul className="list-group list-group-unordered" style={{ margin: '0px 0px 0px 0px', position: 'absolute', width: "25%", height: "100%", overflow: 'scroll' }}>
                 {chatInfos}
-                
             </ul>
         </div>);
 }
