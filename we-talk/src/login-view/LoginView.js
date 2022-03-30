@@ -5,15 +5,21 @@ function LoginView() {
     return (
         <>
             <div style={{ position: 'absolute', width: '100%', height: '100%', backgroundImage: 'url(login_background.png)' }}>
-                <div className="container">
-                    <div className="row justify-content-md-center" style={{ marginTop: '20%' }}>
-                        <div className="col-xl-6 gy-15" style={{ minWidth: "200px" }}>
+                <div className="container" style={{ margin:'0', position:'absolute', top:'50%',
+                left: '50%', msTransform: 'translate(-50%, -50%)', transform: 'translate(-50%, -50%)'}}>
+                    <div className="row justify-content-md-center" >
+                        <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ minWidth: "100px" }}>
                             <label style={{
-                                marginTop: '50px', marginRight: '100px', fontSize: '1000%', fontFamily: 'Cascadia Code',
+                                 fontSize: '1000%', fontFamily: 'Cascadia Code',
                                 color: 'white', textShadow: '1px black'
                             }}>
                                 WeTalk
                             </label>
+                            <h2 style = {{
+                                color: 'white', marginTop:'0px'
+                            }}>
+                                <i>The right way to connect with friends.</i>
+                            </h2>
                         </div>
                         <BrowserRouter>
                             <Routes>
@@ -37,7 +43,7 @@ function LoginView() {
 
 function LoginDialog() {
     return (
-        <div className="col" >
+        <div className="col dflex" >
             <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
                 <form className="px-4 py-3" style={{ float: 'center' }}>
                     <div className="mb-3">
@@ -48,7 +54,7 @@ function LoginDialog() {
                     <div className="mb-3">
                         {/* <label htmlFor="exampleDropdownFormPassword1" className="form-label">Password</label> */}
                         <input type="password" className="form-control" id="passwordField" placeholder="Password"
-                            style={{ lineHeight: '3' }}></input>
+                            style={{ lineHeight: '3'}}></input>
                     </div>
                     <div className="mb-3">
                         <div className="form-check">
