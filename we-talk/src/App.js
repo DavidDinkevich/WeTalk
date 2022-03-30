@@ -1,8 +1,7 @@
 import './App.css';
 import LoginView from './login-view/LoginView';
 import ChatInfo from './chat-list/ChatInfo'
-import ChatList from './chat-list/ChatList'
-
+import MainView from './main-view/MainView';
 
 function App() {
   const chats = [ 
@@ -17,7 +16,8 @@ function App() {
   return (
     <div>
       {/* <LoginView/> */}
-      <ChatList chatInfos={chatInfos}/>
+      {/* <ChatList chatInfos={chatInfos}/> */}
+      <MainView chatList={chatInfos} selfInfo='David' />
     </div>
   );
 }

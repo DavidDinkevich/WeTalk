@@ -1,6 +1,6 @@
 
 function Message({ source, author, message }) {
-    const messageSide = source === 'self' ? 'msg-self' : 'msg-remote';
+    // const messageSide = source === 'self' ? 'msg-self' : 'msg-remote';
     if (source === 'remote') {
         return (
             <article className="msg-container msg-remote" id="msg-0">
@@ -18,8 +18,8 @@ function Message({ source, author, message }) {
                             </p>
                         </div>
                         <span className="timestamp" style={{ height: '100%' }}>
-                            <span className="username">Name</span>•
-                            <span className="posttime">3 minutes ago</span>
+                            <span className="username">{author}</span>•
+                            <span className="posttime">Now</span>
                         </span>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ function Message({ source, author, message }) {
                             </p>
                         </div>
                         <span className="timestamp">
-                            <span className="username">Name</span>•
+                            <span className="username">{author}</span>•
                             <span className="posttime">Now</span>
                         </span>
                     </div>
