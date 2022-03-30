@@ -5,13 +5,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: #1c1e22;
+    background:cornflowerblue;
 }
 body {
   display: flex;
   align-items: center;
   justify-content: center;
     flex-direction: column;
+    
 }
 ::-webkit-scrollbar {
   width: 4px;
@@ -21,20 +22,24 @@ body {
   border-radius: 2px;
 }
 .chatbox {
+    background: white;
+    padding-top: 20px;
+
     width: 300px;
     height: inherit;
     max-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    /* box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28); */
 }
 .chat-window {
     flex: auto;
   /* display: flex; */
   /* flex-direction: column-reverse; */
+  box-shadow: none;
     max-height: calc(100% - 60px);
-    background: #2f323b;
+    background: white;
     overflow: scroll;
     padding-left: 10px;
 }
@@ -51,11 +56,11 @@ body {
     outline: 0 none;
     border: none;
     width: calc(100% - 60px);
-    color: white;
+    color: black;
     text-indent: 10px;
     font-size: 12pt;
     padding: 0;
-    background: #40434e;
+    background: white;
 }
 .chat-input button {
     float: right;
@@ -77,7 +82,7 @@ body {
     box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }
 .chat-input input[good] + button path {
-    fill: white;
+    fill: #7C79D5;
 }
 .msg-container {
     position: relative;
@@ -88,13 +93,14 @@ body {
 }
 .msg-box {
     display: flex;
-    background: #5b5e6c;
+    background: #E3E3EB;
+    color: black;
     padding: 10px 10px 0 10px;
     border-radius: 10px;
     max-width: 80%;
     width: auto;
     float: left;
-    box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+    /* box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24); */
 }
 .user-img {
     display: inline-block;
@@ -117,7 +123,7 @@ body {
     display: inline-block;
     font-size: 15pt;
     line-height: 20pt;
-    color: white;
+    color: black;
     
     margin: 0 0 4px 0;
 }
@@ -126,7 +132,7 @@ body {
 }
 .timestamp {
     /* color: rgba(0,0,0,.38); */
-    color: rgba(255,255,255,.7);
+    color: rgb(95, 94, 94);
 
     font-size: 12pt;
     margin-bottom: 10px;
@@ -138,7 +144,7 @@ body {
     margin-left: 3px;
 }
 .msg-self .msg-box {
-    background: #2671ff;
+    background: #7C79D5;
     float: right;
     margin-right: 10px;
 }
@@ -146,8 +152,10 @@ body {
     margin: 0 0 10px 10px;
 }
 .msg-self .msg {
+    color: white;
     text-align: right;
 }
 .msg-self .timestamp {
     text-align: right;
+    color:#E3E3EB
 }
