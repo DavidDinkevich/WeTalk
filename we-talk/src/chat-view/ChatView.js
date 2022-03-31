@@ -17,7 +17,7 @@ const messagesList = [
 function ChatView() {
     const [UIMessageList, setUIMessagesList] = useState(messagesList);
 
-    const uilist = messagesList.map((message, key) => {
+    const uilist = UIMessageList.map((message, key) => {
         return <Message {...message} key={key} />;
     });
 
@@ -27,10 +27,10 @@ function ChatView() {
         messageField.value = '';
 
         if (text.trim().length !== 0) {
-            messagesList.push({ source: 'self', author: 'אביה אלגברלי', message: text });
-            setUIMessagesList(messagesList);
-            const rootElement = document.getElementById("root");
-            ReactDOM.render(<App />, rootElement);
+            let newMessage = { source: 'self', author: 'אביה אלגברלי', message: text };
+            setUIMessagesList(UIMessageList.concat([newMessage]));
+            // const rootElement = document.getElementById("root");
+            // ReactDOM.render(<App />, rootElement);
         }
     }
 
