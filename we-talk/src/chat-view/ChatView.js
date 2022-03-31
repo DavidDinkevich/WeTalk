@@ -34,6 +34,17 @@ function ChatView() {
         }
     }
 
+    /*
+        When image upload button is clicked, programmatically click
+        the invisible upload image textfield
+    */
+    const uploadImage = function () {
+        const upload_image_button = document.getElementById("upload_image_textfield");
+        if (upload_image_button) {
+            upload_image_button.click();
+        }
+    }
+
     return (
         <div style={{ position: 'relative', width: '100%', height: '100%', background: '#7C79D5' }}>
             <section className="chatbox" style={{ width: 'inherit' }}>
@@ -47,13 +58,19 @@ function ChatView() {
                     if (keyCode === 'Enter')
                         sendMessage();
                 }}>
-                    <button className='button' style={{ float: 'left', border: 'none', background: '#7C79D5' }} >
+                    {/* Invisible text field that can upload images */}
+                    <input type="file" id="upload_image_textfield" multiple accept="image/*" style={{ display: "none" }}></input>
+                    
+                    <button id='upload_image_button'
+                        className='button'
+                        style={{ float: 'left', border: 'none', background: '#7C79D5' }}
+                        onClick={uploadImage} >
                         {/* <span> */}
-                            <div style={{ background: '#7C79D5' }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" style={{ marginTop: '-4px', width: '60px', height: '60px' }} fill="currentColor" class="bi bi-paperclip" viewBox="0 0 24 24">
-                                    <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                                </svg>
-                            </div>
+                        <div style={{ background: '#7C79D5' }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" style={{ color: '#9D9CE2', float: 'center', marginLeft: '4px', width: '50px', height: '50px' }} fill="currentColor" class="bi bi-paperclip" viewBox="0 0 24 24">
+                                <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
+                            </svg>
+                        </div>
                         {/* </span> */}
                     </button>
 
