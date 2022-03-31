@@ -23,17 +23,11 @@ function ChatView() {
         return <Message {...message} key={key} />;
     });
 
-    const sendMessage = function () {
-        let messageField = document.getElementById('message_box');
-        let text = messageField.value;
-        messageField.value = '';
-
-        if (text.trim().length !== 0) {
-            let newMessage = { source: 'self', author: 'אביה אלגברלי', message: text };
-            setUIMessagesList(UIMessageList.concat([newMessage]));
-            // const rootElement = document.getElementById("root");
-            // ReactDOM.render(<App />, rootElement);
-        }
+    const sendMessage = function ({message}) {
+        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי'}, {message});
+        
+        console.log('sent: ' + JSON.stringify(newMessage) );
+        setUIMessagesList(UIMessageList.concat([newMessage]));
     }
 
     return (
@@ -43,13 +37,21 @@ function ChatView() {
                     {uilist}
                 </section>
 
-                <MediaUploadView />
+                <MediaUploadView sendMediaMessage={(mediaMessage) => {
+                    if (mediaMessage.imgPath != null) {
+                        sendMessage({imgPath: '../logo.svg'});
+                    }
+                }}/>
 
                 <div id='footer' className="chat-input" style={{ background: '#7C79D5' }} onKeyDown={(e) => {
                     if (!e) e = window.event;
                     var keyCode = e.code || e.key;
-                    if (keyCode === 'Enter')
-                        sendMessage();
+                    if (keyCode === 'Enter') {
+                        let messageField = document.getElementById('message_box');
+                        let text = messageField.value;
+                        messageField.value = '';                
+                        sendMessage({message: text});
+                    }
                 }}>
                     
                     <button id='upload_image_button'

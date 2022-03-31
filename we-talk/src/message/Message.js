@@ -59,7 +59,7 @@ function InnerMessageContent({ text, imagePath }) {
 
     return (
         <>
-            <img src={ './logo192.png' } alt={''} />
+            <img src={ imagePath } alt={"Couldn't load message"} />
             <br></br>
             <p className="msg" id="msg-1">
                 {text}
