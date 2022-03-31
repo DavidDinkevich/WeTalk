@@ -3,6 +3,7 @@ import Message from '../message/Message';
 import ReactDOM from "react-dom";
 import App from '../App'
 
+
 const messagesList = [
     { source: 'remote', author: 'שחר מורשת', message: 'יאו אני מתה לחזור לפרוייקט בתכנות!!!!' },
     { source: 'remote', author: 'שחר מורשת', message: 'את גם מרגישה ככה?' },
@@ -20,7 +21,7 @@ function ChatView() {
         return <Message {...message} key={key} />;
     });
 
-    const sendMessage = function() {
+    const sendMessage = function () {
         let messageField = document.getElementById('message_box');
         let text = messageField.value;
         messageField.value = '';
@@ -39,13 +40,26 @@ function ChatView() {
                 <section className="chat-window" style={{ position: 'relative', height: '100%' }}>
                     {uilist}
                 </section>
+                <>
+                </>
 
-                <div id='footer' className="chat-input" style={{background: '#7C79D5'}} onKeyDown={(e) => {
+                <button className='button' style={{ border: 'none', background: 'white' }} >
+                    <span>
+                        <div style={{ position: 'absolute', width: '3%', height: '10%', background: '#7C79D5', top: '90%', left: '0%' }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="90%" height="88%" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+                                <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
+                            </svg>
+                        </div>
+                    </span>
+                </button>
+
+                <div id='footer' className="chat-input" style={{ background: '#7C79D5' }} onKeyDown={(e) => {
                     if (!e) e = window.event;
-                    var keyCode = e.code || e.key;                    
+                    var keyCode = e.code || e.key;
                     if (keyCode === 'Enter')
                         sendMessage();
-                    }}>
+                }}>
+
                     <input type="text" id='message_box' autoComplete="on" placeholder="Type a message" />
                     <button onClick={sendMessage}>
                         <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
