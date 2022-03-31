@@ -1,7 +1,9 @@
 import { useState } from 'react';
+
 import Message from '../message/Message';
 import ReactDOM from "react-dom";
 import App from '../App'
+import MediaUploadView from './MediaUploadView';
 
 
 const messagesList = [
@@ -34,17 +36,6 @@ function ChatView() {
         }
     }
 
-    /*
-        When image upload button is clicked, programmatically click
-        the invisible upload image textfield
-    */
-    const uploadImage = function () {
-        const upload_image_button = document.getElementById("upload_image_textfield");
-        if (upload_image_button) {
-            upload_image_button.click();
-        }
-    }
-
     return (
         <div style={{ position: 'relative', width: '100%', height: '100%', background: '#7C79D5' }}>
             <section className="chatbox" style={{ width: 'inherit' }}>
@@ -52,19 +43,27 @@ function ChatView() {
                     {uilist}
                 </section>
 
+                <MediaUploadView />
+
                 <div id='footer' className="chat-input" style={{ background: '#7C79D5' }} onKeyDown={(e) => {
                     if (!e) e = window.event;
                     var keyCode = e.code || e.key;
                     if (keyCode === 'Enter')
                         sendMessage();
                 }}>
-                    {/* Invisible text field that can upload images */}
-                    <input type="file" id="upload_image_textfield" multiple accept="image/*" style={{ display: "none" }}></input>
                     
                     <button id='upload_image_button'
                         className='button'
                         style={{ float: 'left', border: 'none', background: '#7C79D5' }}
-                        onClick={uploadImage} >
+                        onClick={()=>{
+                            let mediaUploadView = document.getElementById('media_upload_view');
+                            console.log(mediaUploadView)
+                            if (mediaUploadView.style.visibility === 'hidden')
+                                mediaUploadView.style.visibility = 'visible';
+                            else {
+                                mediaUploadView.style.visibility = 'hidden';
+                            }
+                        }} >
                         {/* <span> */}
                         <div style={{ background: '#7C79D5' }}>
                             <svg xmlns="http://www.w3.org/2000/svg" style={{ color: '#9D9CE2', float: 'center', marginLeft: '4px', width: '50px', height: '50px' }} fill="currentColor" className="bi bi-paperclip" viewBox="0 0 24 24">

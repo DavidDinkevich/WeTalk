@@ -8,7 +8,7 @@ function MainView({ chatList, selfInfo }) {
             <div className='col-lg-4' style={{ background: 'rgb(240, 240, 240)', width: '26%', padding:'0px' }}>
                 <LeftScreen chatList={chatList} selfInfo={selfInfo} />
             </div>
-            <div className='col' style={{ }}>
+            <div className='col'>
                 <ChatView />
             </div>
 
