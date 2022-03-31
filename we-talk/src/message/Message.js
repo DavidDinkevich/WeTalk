@@ -31,9 +31,9 @@ function Message({ source, author, message }) {
                 <div className="msg-box">
                     <div className="flr">
                         <div className="messages">
-                            <p className="msg" id="msg-1">
-                                {message}
-                            </p>
+
+                            <InnerMessageContent text={message} imagePath={'/'} />
+
                         </div>
                         <span className="timestamp">
                             <span className="username">{author}</span>•
@@ -53,3 +53,20 @@ function Message({ source, author, message }) {
 }
 
 export default Message;
+
+function InnerMessageContent({ text, imagePath }) {
+    console.log(text)
+
+    return (
+        <>
+            <img src={ './logo192.png' } alt={''} />
+            <br></br>
+            <p className="msg" id="msg-1">
+                {text}
+            </p>
+        </>
+
+    );
+}
+
+
