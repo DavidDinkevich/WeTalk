@@ -13,26 +13,47 @@ function MediaUploadView({ sendMediaMessage, getLastMessageID}) {
 
     const sendImageOnChange = function() {
         const upload_image_textfield = document.getElementById("upload_image_textfield");
-
         let path = upload_image_textfield.value;
-        console.log("i read: " + path);
-        if (path.length > 0) {
 
+        if (path.length > 0) {
             var fReader = new FileReader();
             fReader.readAsDataURL(upload_image_textfield.files[0]);
             
             fReader.onloadend = function(event){
-                let result = event.target.result;
-                // console.log('sending: ' + result);
                 sendMediaMessage(); // Send new empty message
-                // console.log('number is: ' + getLastMessageID());
                 let lastMessage = document.getElementById(getLastMessageID());
-                lastMessage.src = result;    
+                let image = document.createElement('img');
+                image.src = event.target.result;
+                image.alt = "Can't display image :/";
+                image.className = "img-fluid";
+                lastMessage.insertBefore(image, lastMessage.children[0]);
             }
-                        
-
         }
     }
+
+    const sendVideoOnChange = function() {
+        const upload_video_textfield = document.getElementById("upload_video_textfield");
+        let path = upload_video_textfield.value;
+
+        if (path.length > 0) {         
+            var fReader = new FileReader();
+            fReader.readAsDataURL(upload_video_textfield.files[0]);
+            
+            fReader.onloadend = function(event){
+                sendMediaMessage(); // Send new empty message
+                let lastMessage = document.getElementById(getLastMessageID());
+                let video = document.createElement('video');
+                video.className = 'img-fluid';
+                video.controls = true;
+                let source = document.createElement('source');
+                source.src = event.target.result;
+                // source.type = 'video/mp4';
+                video.appendChild(source);
+                lastMessage.insertBefore(video, lastMessage.children[0]);
+            }
+        }
+    }
+
 
     return (
         <>
@@ -42,10 +63,14 @@ function MediaUploadView({ sendMediaMessage, getLastMessageID}) {
                     sendImageOnChange();
                     let mediaUploadView = document.getElementById('media_upload_view');
                     mediaUploadView.style.visibility = 'hidden';
-
                 }}></input>
             {/* Invisible text field that can upload videos */}
-            <input type="file" id="upload_video_textfield" multiple accept="video/*" style={{ display: "none" }}></input>
+            <input type="file" id="upload_video_textfield" multiple accept="video/*" style={{ display: "none" }}
+                onChange={() => {
+                    sendVideoOnChange();
+                    let mediaUploadView = document.getElementById('media_upload_view');
+                    mediaUploadView.style.visibility = 'hidden';                    
+                }}></input>
             {/* Invisible text field that can upload images */}
             <input type="file" id="upload_recording_textfield" multiple accept="audio/*" style={{ display: "none" }}></input>
 

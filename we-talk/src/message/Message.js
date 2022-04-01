@@ -21,6 +21,8 @@ function Message({ source, author, message, imgPath, messageID }) {
                             <span className="username">{author}</span>•
                             <span className="posttime">Now</span>
                         </span>
+                        <img src="#" id={messageID} className="img-fluid" alt=""></img>
+
                     </div>
                 </div>
             </article>
@@ -29,12 +31,12 @@ function Message({ source, author, message, imgPath, messageID }) {
         return (
             <article className="msg-container msg-self">
                 <div className="msg-box">
-
-                    <div className="flr">
-                    <img src="#" id={messageID} className="img-fluid" alt=""></img>
+                    <div id={messageID} className="flr">
                         <div className="messages">
 
-                            <InnerMessageContent text={message} imagePath={imgPath} />
+                            <p className="msg" id="msg-1">
+                                {message}
+                            </p>
 
                         </div>
                         <span className="timestamp">
@@ -55,18 +57,4 @@ function Message({ source, author, message, imgPath, messageID }) {
 }
 
 export default Message;
-
-function InnerMessageContent({ text, imagePath }) {
-    return (
-        <>
-            <img src={ imagePath } alt={''} />
-            {/* <br></br> */}
-            <p className="msg" id="msg-1">
-                {text}
-            </p>
-        </>
-
-    );
-}
-
 
