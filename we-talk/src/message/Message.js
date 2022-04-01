@@ -1,9 +1,9 @@
 
-function Message({ source, author, message }) {
+function Message({ source, author, message, imgPath, messageID }) {
     // const messageSide = source === 'self' ? 'msg-self' : 'msg-remote';
     if (source === 'remote') {
         return (
-            <article className="msg-container msg-remote" id="msg-0">
+            <article className="msg-container msg-remote">
                 <div className="msg-box">
                     <img
                         className="user-img"
@@ -27,12 +27,15 @@ function Message({ source, author, message }) {
         );
     } else {
         return (
-            <article className="msg-container msg-self" id="msg-0">
+            <article className="msg-container msg-self">
                 <div className="msg-box">
+                    {/* <div  className='msg_image_area'></div> */}
+                    <img src="#" id={messageID} className="img-fluid" alt=""></img>
+
                     <div className="flr">
                         <div className="messages">
 
-                            <InnerMessageContent text={message} imagePath={'/'} />
+                            <InnerMessageContent text={message} imagePath={imgPath} />
 
                         </div>
                         <span className="timestamp">
@@ -55,12 +58,12 @@ function Message({ source, author, message }) {
 export default Message;
 
 function InnerMessageContent({ text, imagePath }) {
-    console.log(text)
+    console.log('img_path: ' + imagePath)
 
     return (
         <>
-            <img src={ imagePath } alt={"Couldn't load message"} />
-            <br></br>
+            <img src={ imagePath } alt={''} />
+            {/* <br></br> */}
             <p className="msg" id="msg-1">
                 {text}
             </p>

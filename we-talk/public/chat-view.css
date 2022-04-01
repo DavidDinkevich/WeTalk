@@ -103,6 +103,16 @@ body {
     float: left;
     /* box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24); */
 }
+.msg_image_area {
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-position: center; */
+    /* width: 200px; */
+    /* float: right; */
+    background: white;
+}
+
 .user-img {
     display: inline-block;
     border-radius: 50%;

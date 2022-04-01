@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
 import Message from '../message/Message';
-import ReactDOM from "react-dom";
-import App from '../App'
 import MediaUploadView from './MediaUploadView';
 
 
@@ -10,6 +8,11 @@ const messagesList = [
     { source: 'remote', author: 'שחר מורשת', message: 'יאו אני מתה לחזור לפרוייקט בתכנות!!!!' },
     { source: 'remote', author: 'שחר מורשת', message: 'את גם מרגישה ככה?' },
 ];
+
+function createMessageID(messageNumber) {
+    console.log('creating message ID from: ' + messageNumber);
+    return `${'אביה אלגברלי'} - ${messageNumber}`;
+}
 
 
 // const UIMessageList = messagesList.map((message, key) => {
@@ -20,28 +23,29 @@ function ChatView() {
     const [UIMessageList, setUIMessagesList] = useState(messagesList);
 
     const uilist = UIMessageList.map((message, key) => {
-        return <Message {...message} key={key} />;
+        return <Message {...message} messageID={createMessageID(key)} key={key} />;
     });
 
-    const sendMessage = function ({message}) {
-        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי'}, {message});
+    const sendMessage = function ({message, imgPath}) {
+        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי'}, {message, imgPath});
         
-        console.log('sent: ' + JSON.stringify(newMessage) );
+        // console.log('got: ' + JSON.stringify(message) + ' and sent: ' + JSON.stringify(newMessage) );
+
         setUIMessagesList(UIMessageList.concat([newMessage]));
     }
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '100%', background: '#7C79D5' }}>
-            <section className="chatbox" style={{ width: 'inherit' }}>
+            <section id='x' className="chatbox" style={{ width: 'inherit' }}>
                 <section className="chat-window" style={{ position: 'relative', height: '100%' }}>
                     {uilist}
                 </section>
 
-                <MediaUploadView sendMediaMessage={(mediaMessage) => {
-                    if (mediaMessage.imgPath != null) {
-                        sendMessage({imgPath: '../logo.svg'});
-                    }
-                }}/>
+                <MediaUploadView sendMediaMessage={() => {
+                    sendMessage({message: ''}); // empty
+                }} getLastMessageID={() => {
+                    return createMessageID(UIMessageList.length);
+                }} />
 
                 <div id='footer' className="chat-input" style={{ background: '#7C79D5' }} onKeyDown={(e) => {
                     if (!e) e = window.event;
@@ -93,3 +97,4 @@ function ChatView() {
 }
 
 export default ChatView;
+

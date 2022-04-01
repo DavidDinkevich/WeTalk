@@ -1,19 +1,10 @@
-import { wait } from "@testing-library/user-event/dist/utils";
 
-function MediaUploadView({ sendMediaMessage }) {
+function MediaUploadView({ sendMediaMessage, getLastMessageID}) {
 
     /*
-        When image upload button is clicked, programmatically click
-        the invisible upload image textfield
+        When file upload button is clicked, programmatically click
+        the invisible upload file textfield
     */
-
-    // var myModal = document.getElementById('myModal')
-    // var myInput = document.getElementById('myInput')
-
-    // myModal.addEventListener('shown.bs.modal', function () {
-    //   myInput.focus()
-    // })
-
 
     const chooseFile = function (textField) {
         const textFieldElement = document.getElementById(textField);
@@ -26,31 +17,39 @@ function MediaUploadView({ sendMediaMessage }) {
         let path = upload_image_textfield.value;
         console.log("i read: " + path);
         if (path.length > 0) {
-            console.log('sending: ' + path);
-            sendMediaMessage({ imgPath: path })
+
+            var fReader = new FileReader();
+            fReader.readAsDataURL(upload_image_textfield.files[0]);
+            
+            fReader.onloadend = function(event){
+                let result = event.target.result;
+                // console.log('sending: ' + result);
+                sendMediaMessage(); // Send new empty message
+                // console.log('number is: ' + getLastMessageID());
+                let lastMessage = document.getElementById(getLastMessageID());
+                lastMessage.src = result;    
+            }
+                        
+
         }
-
     }
-
-    // window.onClick = function () {
-    //     console.log('trying')
-    //     let mediaUploadView = document.getElementById('media_upload_view');
-    //     mediaUploadView.style.visibility = 'hidden';
-
-    // }
-
 
     return (
         <>
             {/* Invisible text field that can upload images */}
             <input type="file" id="upload_image_textfield" multiple accept="image/*" style={{ display: "none" }}
-                onChange={sendImageOnChange}></input>
+                onChange={() => {
+                    sendImageOnChange();
+                    let mediaUploadView = document.getElementById('media_upload_view');
+                    mediaUploadView.style.visibility = 'hidden';
+
+                }}></input>
             {/* Invisible text field that can upload videos */}
             <input type="file" id="upload_video_textfield" multiple accept="video/*" style={{ display: "none" }}></input>
             {/* Invisible text field that can upload images */}
             <input type="file" id="upload_recording_textfield" multiple accept="audio/*" style={{ display: "none" }}></input>
 
-            <div className="btn-group-vertical" id='media_upload_view' style={{ visibility: 'hidden', width: '60px', height: '240px' }}>
+            <div className="btn-group-vertical" id='media_upload_view' style={{ position:'absolute', zIndex:'absolute', marginBottom: '20px', bottom:'8%', visibility: 'hidden', width: '60px', height: '240px' }}>
                 <button id='img_upload' type="button" className="btn btn-outline-primary"
                     style={{ borderColor: '#7C79D5', margin: '10px', borderRadius: '15px 50px 30px' }}
                     onClick={() => chooseFile('upload_image_textfield')}>
@@ -80,25 +79,6 @@ function MediaUploadView({ sendMediaMessage }) {
 
             </div>
         </>
-
-    );
-}
-
-function FileUploadModal({ extensions }) {
-    var myModal = document.getElementById('file_upload_module')
-    var myInput = document.getElementById('img_upload')
-
-    myModal.addEventListener('shown.bs.modal', function () {
-        console.log('dsfsdf')
-        myInput.focus()
-    })
-
-    return (
-        <div id='file_upload_module' className="modal-dialog modal-dialog-centered">
-            {/* Invisible text field that can upload images */}
-            <input type="file" id="upload_image_textfield" multiple accept={extensions}></input>
-        </div>
-
 
     );
 }
