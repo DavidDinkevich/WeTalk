@@ -6,12 +6,12 @@ import MediaUploadView from './MediaUploadView';
 
 const messagesList = [
     { source: 'remote', author: 'שחר מורשת', message: 'יאו אני מתה לחזור לפרוייקט בתכנות!!!!' },
-    { source: 'remote', author: 'שחר מורשת', message: 'את גם מרגישה ככה?' },
+    { source: 'remote', author: 'שחר מורשת', message: 'את מרגישה ככה גם?' },
 ];
 
 function createMessageID(messageNumber) {
     // console.log('creating message ID from: ' + messageNumber);
-    return `${'אביה אלגברלי'} - ${messageNumber}`;
+    return `${'אביה אלגברלי'}-${messageNumber}`;
 }
 
 export const hideMediaUploadView = function() {
@@ -30,14 +30,20 @@ function ChatView() {
         return <Message {...message} messageID={createMessageID(key)} key={key} />;
     });
 
-    const sendMessage = function ({ message, imgPath }) {
-        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי' }, { message, imgPath });
-
-        // console.log('got: ' + JSON.stringify(message) + ' and sent: ' + JSON.stringify(newMessage) );
-
+    const sendMessage = function ({ message }) {
+        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי' }, { message });
         setUIMessagesList(UIMessageList.concat([newMessage]));
+    }
 
-
+    const sendMessageFromInputBox = function() {
+        let messageField = document.getElementById('message_box');
+        let text = messageField.value;
+        if (text.length > 0) {
+            messageField.value = ''; // Clear box
+            sendMessage({ message: text });
+            // Scroll to bottom
+            scrollDown();
+        }
     }
 
     const toggleMediaUploadView = function () {
@@ -53,7 +59,6 @@ function ChatView() {
         // Scroll to bottom
         var objDiv = document.getElementById("chat-window");
         objDiv.scrollTop = objDiv.scrollHeight;
-
     }
 
     return (
@@ -65,7 +70,7 @@ function ChatView() {
                 </section>
 
                 <MediaUploadView sendMediaMessage={() => {
-                    sendMessage({ message: '' }); // empty
+                    sendMessage({ }); // empty
                 }} getLastMessageID={() => {
                     return createMessageID(UIMessageList.length);
                 }} />
@@ -74,13 +79,7 @@ function ChatView() {
                     if (!e) e = window.event;
                     var keyCode = e.code || e.key;
                     if (keyCode === 'Enter') {
-                        let messageField = document.getElementById('message_box');
-                        let text = messageField.value;
-                        messageField.value = '';
-                        sendMessage({ message: text });
-                        // Scroll to bottom
-                        scrollDown();
-
+                        sendMessageFromInputBox();
                     }
                 }}>
 
@@ -99,7 +98,7 @@ function ChatView() {
 
                     <input type="text" id='message_box' autoComplete="off" placeholder="Type a message" />
 
-                    <button onClick={sendMessage}>
+                    <button onClick={sendMessageFromInputBox}>
                         <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
                             <path
                                 fill="#7C79D5"
