@@ -1,4 +1,4 @@
-
+import {hideMediaUploadView} from './ChatView'
 function MediaUploadView({ sendMediaMessage, getLastMessageID}) {
 
     /*
@@ -54,6 +54,27 @@ function MediaUploadView({ sendMediaMessage, getLastMessageID}) {
         }
     }
 
+    const sendAudioOnChange = function() {
+        const upload_audio_textfield = document.getElementById("upload_audio_textfield");
+        let path = upload_audio_textfield.value;
+
+        if (path.length > 0) {         
+            var fReader = new FileReader();
+            fReader.readAsDataURL(upload_audio_textfield.files[0]);
+            
+            fReader.onloadend = function(event){
+                sendMediaMessage(); // Send new empty message
+                let lastMessage = document.getElementById(getLastMessageID());
+                let audio = document.createElement('audio');
+                audio.className = 'msg_audio';
+                audio.controls = true;
+                let source = document.createElement('source');
+                source.src = event.target.result;
+                audio.appendChild(source);
+                lastMessage.insertBefore(audio, lastMessage.children[0]);
+            }
+        }
+    }
 
     return (
         <>
@@ -61,18 +82,20 @@ function MediaUploadView({ sendMediaMessage, getLastMessageID}) {
             <input type="file" id="upload_image_textfield" multiple accept="image/*" style={{ display: "none" }}
                 onChange={() => {
                     sendImageOnChange();
-                    let mediaUploadView = document.getElementById('media_upload_view');
-                    mediaUploadView.style.visibility = 'hidden';
+                    hideMediaUploadView();
                 }}></input>
             {/* Invisible text field that can upload videos */}
             <input type="file" id="upload_video_textfield" multiple accept="video/*" style={{ display: "none" }}
                 onChange={() => {
                     sendVideoOnChange();
-                    let mediaUploadView = document.getElementById('media_upload_view');
-                    mediaUploadView.style.visibility = 'hidden';                    
+                    hideMediaUploadView();
                 }}></input>
             {/* Invisible text field that can upload images */}
-            <input type="file" id="upload_recording_textfield" multiple accept="audio/*" style={{ display: "none" }}></input>
+            <input type="file" id="upload_audio_textfield" multiple accept="audio/*" style={{ display: "none" }}
+                onChange={() => {
+                    sendAudioOnChange();
+                    hideMediaUploadView();
+                }}></input>
 
             <div className="btn-group-vertical" id='media_upload_view' style={{ position:'absolute', zIndex:'absolute', marginBottom: '20px', bottom:'8%', visibility: 'hidden', width: '60px', height: '240px' }}>
                 <button id='img_upload' type="button" className="btn btn-outline-primary"
@@ -93,7 +116,7 @@ function MediaUploadView({ sendMediaMessage, getLastMessageID}) {
                 </button>
                 <button type="button" className="btn btn-outline-primary"
                     style={{ borderColor: '#7C79D5', margin: '10px', borderRadius: '15px 50px 30px' }}
-                    onClick={() => chooseFile('upload_recording_textfield')}
+                    onClick={() => chooseFile('upload_audio_textfield')}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#7C79D5" className="bi bi-mic" viewBox="0 0 16 16">
                         <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />

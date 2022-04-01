@@ -14,6 +14,10 @@ function createMessageID(messageNumber) {
     return `${'אביה אלגברלי'} - ${messageNumber}`;
 }
 
+export const hideMediaUploadView = function() {
+    let mediaUploadView = document.getElementById('media_upload_view');
+    mediaUploadView.style.visibility = 'hidden';
+}
 
 // const UIMessageList = messagesList.map((message, key) => {
 //     return <Message {...message} key={key} />;
@@ -43,11 +47,6 @@ function ChatView() {
         else {
             mediaUploadView.style.visibility = 'hidden';
         }
-    }
-
-    const hideMediaUploadView = function() {
-        let mediaUploadView = document.getElementById('media_upload_view');
-        mediaUploadView.style.visibility = 'hidden';
     }
 
     function scrollDown() {
