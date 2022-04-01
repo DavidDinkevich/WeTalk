@@ -29,10 +29,9 @@ function Message({ source, author, message, imgPath, messageID }) {
         return (
             <article className="msg-container msg-self">
                 <div className="msg-box">
-                    {/* <div  className='msg_image_area'></div> */}
-                    <img src="#" id={messageID} className="img-fluid" alt=""></img>
 
                     <div className="flr">
+                    <img src="#" id={messageID} className="img-fluid" alt=""></img>
                         <div className="messages">
 
                             <InnerMessageContent text={message} imagePath={imgPath} />

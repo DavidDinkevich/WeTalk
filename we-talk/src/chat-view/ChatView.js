@@ -36,17 +36,32 @@ function ChatView() {
 
     }
 
+    const toggleMediaUploadView = function () {
+        let mediaUploadView = document.getElementById('media_upload_view');
+        if (mediaUploadView.style.visibility === 'hidden')
+            mediaUploadView.style.visibility = 'visible';
+        else {
+            mediaUploadView.style.visibility = 'hidden';
+        }
+    }
+
+    const hideMediaUploadView = function() {
+        let mediaUploadView = document.getElementById('media_upload_view');
+        mediaUploadView.style.visibility = 'hidden';
+    }
+
     function scrollDown() {
         // Scroll to bottom
         var objDiv = document.getElementById("chat-window");
         objDiv.scrollTop = objDiv.scrollHeight;
-        
+
     }
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '100%', background: '#7C79D5' }}>
             <section className="chatbox" style={{ width: 'inherit' }}>
-                <section id="chat-window" className="chat-window" style={{ position: 'relative', height: '100%' }}>
+                <section id="chat-window" className="chat-window" style={{ position: 'relative', height: '100%' }}
+                        onClick={hideMediaUploadView}>
                     {uilist}
                 </section>
 
@@ -64,7 +79,7 @@ function ChatView() {
                         let text = messageField.value;
                         messageField.value = '';
                         sendMessage({ message: text });
-                                // Scroll to bottom
+                        // Scroll to bottom
                         scrollDown();
 
                     }
@@ -73,15 +88,7 @@ function ChatView() {
                     <button id='upload_image_button'
                         className='button'
                         style={{ float: 'left', border: 'none', background: '#7C79D5' }}
-                        onClick={() => {
-                            let mediaUploadView = document.getElementById('media_upload_view');
-                            console.log(mediaUploadView)
-                            if (mediaUploadView.style.visibility === 'hidden')
-                                mediaUploadView.style.visibility = 'visible';
-                            else {
-                                mediaUploadView.style.visibility = 'hidden';
-                            }
-                        }} >
+                        onClick={toggleMediaUploadView} >
                         {/* <span> */}
                         <div style={{ background: '#7C79D5' }}>
                             <svg xmlns="http://www.w3.org/2000/svg" style={{ color: '#9D9CE2', float: 'center', marginLeft: '4px', width: '50px', height: '50px' }} fill="currentColor" className="bi bi-paperclip" viewBox="0 0 24 24">
