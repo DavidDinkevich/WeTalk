@@ -58,8 +58,6 @@ function Message({ source, author, message, imgPath, messageID }) {
 export default Message;
 
 function InnerMessageContent({ text, imagePath }) {
-    console.log('img_path: ' + imagePath)
-
     return (
         <>
             <img src={ imagePath } alt={''} />

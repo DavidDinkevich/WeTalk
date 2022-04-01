@@ -10,7 +10,7 @@ const messagesList = [
 ];
 
 function createMessageID(messageNumber) {
-    console.log('creating message ID from: ' + messageNumber);
+    // console.log('creating message ID from: ' + messageNumber);
     return `${'אביה אלגברלי'} - ${messageNumber}`;
 }
 
@@ -26,23 +26,32 @@ function ChatView() {
         return <Message {...message} messageID={createMessageID(key)} key={key} />;
     });
 
-    const sendMessage = function ({message, imgPath}) {
-        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי'}, {message, imgPath});
-        
+    const sendMessage = function ({ message, imgPath }) {
+        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי' }, { message, imgPath });
+
         // console.log('got: ' + JSON.stringify(message) + ' and sent: ' + JSON.stringify(newMessage) );
 
         setUIMessagesList(UIMessageList.concat([newMessage]));
+
+
+    }
+
+    function scrollDown() {
+        // Scroll to bottom
+        var objDiv = document.getElementById("chat-window");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        
     }
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '100%', background: '#7C79D5' }}>
-            <section id='x' className="chatbox" style={{ width: 'inherit' }}>
-                <section className="chat-window" style={{ position: 'relative', height: '100%' }}>
+            <section className="chatbox" style={{ width: 'inherit' }}>
+                <section id="chat-window" className="chat-window" style={{ position: 'relative', height: '100%' }}>
                     {uilist}
                 </section>
 
                 <MediaUploadView sendMediaMessage={() => {
-                    sendMessage({message: ''}); // empty
+                    sendMessage({ message: '' }); // empty
                 }} getLastMessageID={() => {
                     return createMessageID(UIMessageList.length);
                 }} />
@@ -53,15 +62,18 @@ function ChatView() {
                     if (keyCode === 'Enter') {
                         let messageField = document.getElementById('message_box');
                         let text = messageField.value;
-                        messageField.value = '';                
-                        sendMessage({message: text});
+                        messageField.value = '';
+                        sendMessage({ message: text });
+                                // Scroll to bottom
+                        scrollDown();
+
                     }
                 }}>
-                    
+
                     <button id='upload_image_button'
                         className='button'
                         style={{ float: 'left', border: 'none', background: '#7C79D5' }}
-                        onClick={()=>{
+                        onClick={() => {
                             let mediaUploadView = document.getElementById('media_upload_view');
                             console.log(mediaUploadView)
                             if (mediaUploadView.style.visibility === 'hidden')
@@ -79,7 +91,7 @@ function ChatView() {
                         {/* </span> */}
                     </button>
 
-                    <input type="text" id='message_box' autoComplete="on" placeholder="Type a message" />
+                    <input type="text" id='message_box' autoComplete="off" placeholder="Type a message" />
 
                     <button onClick={sendMessage}>
                         <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
