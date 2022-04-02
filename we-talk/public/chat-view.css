@@ -57,7 +57,7 @@ body {
     line-height: 60px;
     outline: 0 none;
     border: none;
-    width: calc(100% - 60px - 60px);
+    width: calc(100% - 3 * 60px);
     color: black;
     text-indent: 10px;
     font-size: 12pt;
