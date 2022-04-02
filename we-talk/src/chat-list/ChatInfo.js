@@ -1,4 +1,9 @@
-function ChatInfo({ name, message }) {
+function ChatInfo({ contact }) {
+    let messages = contact.messagesList;
+    let lastMessage = ''
+    if (messages.length > 0){
+        lastMessage = messages[messages.length -1].message;
+    }
     return (
         <li className="list-group-item d-flex justify-content-between align-items-start" style={{width:'100%', borderRight:'none'}}>
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="80" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
@@ -7,8 +12,8 @@ function ChatInfo({ name, message }) {
             </svg>
 
             <div className="ms-2 me-center">
-                <div className="fw-bold" style={{ fontSize: '25px', paddingBottom: '6px' }}>{name}</div>
-                {message}
+                <div className="fw-bold" style={{ fontSize: '25px', paddingBottom: '6px' }}>{contact.name}</div>
+                {lastMessage}
             </div>
             <div>
                 <span className="ms-5 badge bg-primary rounded-pill">14</span>

@@ -4,11 +4,6 @@ import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
 
 
-const messagesList = [
-    { source: 'remote', author: 'שחר מורשת', message: 'יאו אני מתה לחזור לפרוייקט בתכנות!!!!' },
-    { source: 'remote', author: 'שחר מורשת', message: 'את מרגישה ככה גם?' },
-];
-
 function createMessageID(messageNumber) {
     // console.log('creating message ID from: ' + messageNumber);
     return `${'אביה אלגברלי'}-${messageNumber}`;
@@ -23,15 +18,16 @@ export const hideMediaUploadView = function() {
 //     return <Message {...message} key={key} />;
 // });
 
-function ChatView() {
-    const [UIMessageList, setUIMessagesList] = useState(messagesList);
+function ChatView({activeContact}) {
+    const [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
 
     const uilist = UIMessageList.map((message, key) => {
         return <Message {...message} messageID={createMessageID(key)} key={key} />;
     });
 
     const sendMessage = function ({ message }) {
-        let newMessage = Object.assign({ source: 'self', author: 'אביה אלגברלי' }, { message });
+        let newMessage = Object.assign({ source: 'self', author: 'david' }, { message });
+        activeContact.messagesList.push(newMessage);
         setUIMessagesList(UIMessageList.concat([newMessage]));
     }
 
