@@ -22,8 +22,9 @@ export const hideMediaUploadView = function () {
 
 function ChatView({ activeContact }) {
     const [recordAudioModalIsOpen, setRecordAudioModalIsOpen] = useState(false);
-
-    const [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
+    let [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
+    // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
+    UIMessageList = activeContact.messagesList;
 
     const uilist = UIMessageList.map((message, key) => {
         return <Message {...message} messageID={createMessageID(key)} key={key} />;
