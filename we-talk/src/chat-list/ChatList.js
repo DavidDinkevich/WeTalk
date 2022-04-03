@@ -1,9 +1,19 @@
 import {contactList} from "../App"
 import ChatInfo from "./ChatInfo";
+import { useState } from "react";
 
-function ChatList({ activeContact }) {
+function displayActiveContact (contact, setActiveContact) {
+    setActiveContact(contact);
+}
+
+function ChatList({ setActiveContact }) {
+    console.log("shahhhhhhharrrr")
     let chatInfos = contactList.map((contact,key)=> {
-        return <ChatInfo contact={contact} key={key} />
+        return (
+            <button id='displayActiveContact' className='button' onClick={() => displayActiveContact(contact, setActiveContact)} >
+                <ChatInfo contact={contact} key={key} />
+            </button>
+        );
     });
     return (
         <ul className="list-group list-group-unordered" style={{ margin: '0', padding:'0px', position: 'relative', width:'100%', height: "100%", overflow: 'scroll' }}>
