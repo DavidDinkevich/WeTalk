@@ -1,8 +1,10 @@
 import './App.css';
-import LoginView from './login-view/LoginView';
+import {LoginView, SignupView} from './login-view/LoginView';
 import ChatInfo from './chat-list/ChatInfo'
 import MainView from './main-view/MainView';
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 
 export const contactList = [
   { name: 'Aviya', image: 'C:\pic.jpg', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?' }] },
@@ -12,7 +14,7 @@ export const contactList = [
       { source: 'remote', author: 'שחר מורשת', message: 'איך אתה?' },
     ]
   },
-  
+
 ];
 
 function App() {
@@ -23,10 +25,19 @@ function App() {
   });
 
   return (
-    <div style={{width:'100%', height:'100%'}}> 
-      {/* <ChatList chatInfos={chatInfos}/> */}
-  {/* <MainView selfInfo={'David'} activeContact={activeContact} /> */}
-      <MainView selfInfo={'David'} activeContact={activeContact} setActiveContact={setActiveContact} />
+    <div style={{ width: '100%', height: '100%' }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={
+            <LoginView />
+
+          }></Route>
+          <Route path='/chat' element={
+            <MainView selfInfo={'David'} activeContact={activeContact} setActiveContact={setActiveContact}></MainView>
+          }></Route>
+          <Route path='/sign-up' element={ <SignupView />} />
+        </Routes>
+      </BrowserRouter>
 
     </div>
   );
