@@ -7,7 +7,6 @@ function displayActiveContact (contact, setActiveContact) {
 }
 
 function ChatList({ setActiveContact }) {
-    console.log("shahhhhhhharrrr")
     let chatInfos = contactList.map((contact,key)=> {
         return (
             <button id='displayActiveContact' className='button' onClick={() => displayActiveContact(contact, setActiveContact)} >
