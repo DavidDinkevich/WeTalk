@@ -1,14 +1,13 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function LoginView() {
     return (
         <>
-            <div style={{ position: 'absolute', width: '100%', height: '100%', backgroundImage: 'url(login_background.png)' }}>
-                <div className="container" style={{ margin:'0', position:'absolute', top:'50%',
-                left: '50%', msTransform: 'translate(-50%, -50%)', transform: 'translate(-50%, -50%)'}}>
+       
+            <div style={{ backgroundImage: 'url(login_background.png)', width: '100vw', height:'100vh' }}>
+                <div className="container" style={{ margin:'100', paddingTop:'7%',left: '50%'}}>
                     <div className="row justify-content-md-center" >
-                        <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ minWidth: "100px" }}>
+                        <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft:'0%' }}>
                             <label style={{
                                  fontSize: '1000%', fontFamily: 'Cascadia Code',
                                 color: 'white', textShadow: '1px black'
@@ -48,7 +47,7 @@ function LoginDialog() {
                 <form className="px-4 py-3" style={{ float: 'center' }}>
                     <div className="mb-3">
                         {/* <label htmlFor="exampleDropdownFormEmail1" className="form-label">Email address</label> */}
-                        <input type="email" className="form-control" id="emailField" placeholder="email@example.com"
+                        <input type="email" className="form-control" id="emailField" placeholder="nameExample"
                             style={{ lineHeight: '3' }}></input>
                     </div>
                     <div className="mb-3">
@@ -83,7 +82,7 @@ function SignupDialog() {
                 <form className="px-4 py-3" style={{ float: 'center' }}>
                     <div className="mb-3">
                         {/* <label htmlFor="exampleDropdownFormEmail1" className="form-label">Email address</label> */}
-                        <input type="email" className="form-control" id="emailField" placeholder="email@example.com"
+                        <input type="email" className="form-control" id="emailField" placeholder="nameExample"
                             style={{ lineHeight: '3' }}></input>
                     </div>
                     <div className="mb-3">
@@ -114,5 +113,3 @@ function SignupDialog() {
 }
 
 export default LoginView;
-
-

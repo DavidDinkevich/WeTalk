@@ -20,10 +20,10 @@ function App() {
   });
 
   return (
-    <div>
-      {/* <LoginView/> */}
+    <div style={{width:'100%', height:'100%'}}>
+       <LoginView/> 
       {/* <ChatList chatInfos={chatInfos}/> */}
-      <MainView selfInfo={'David'} activeContact={activeContact} />
+  {/* <MainView selfInfo={'David'} activeContact={activeContact} /> */}
 
     </div>
   );
