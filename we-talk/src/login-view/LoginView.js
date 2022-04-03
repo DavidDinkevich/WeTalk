@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
 function LoginView() {
     return (
         <>
        
             <div style={{ backgroundImage: 'url(login_background.png)', width: '100vw', height:'100vh' }}>
-                <div className="container" style={{ margin:'100', paddingTop:'7%',left: '50%'}}>
+                <div className="container" style={{ margin:'100', paddingTop:'5%',left: '50%'}}>
                     <div className="row justify-content-md-center" >
                         <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft:'0%' }}>
                             <label style={{
@@ -15,12 +15,11 @@ function LoginView() {
                                 WeTalk
                             </label>
                             <h2 style = {{
-                                color: 'white', marginTop:'0px'
+                                color: 'white', marginTop:'-6%', marginLeft: '2%'
                             }}>
                                 <i>The right way to connect with friends.</i>
                             </h2>
                         </div>
-                        <BrowserRouter>
                             <Routes>
                                 <Route path='/' element={
                                     <LoginDialog />
@@ -30,7 +29,6 @@ function LoginView() {
                                     <SignupDialog />
                                 }></Route>
                             </Routes>
-                        </BrowserRouter>
                     </div>
                 </div>
             </div>
@@ -47,7 +45,7 @@ function LoginDialog() {
                 <form className="px-4 py-3" style={{ float: 'center' }}>
                     <div className="mb-3">
                         {/* <label htmlFor="exampleDropdownFormEmail1" className="form-label">Email address</label> */}
-                        <input type="email" className="form-control" id="emailField" placeholder="nameExample"
+                        <input className="form-control" id="emailField" placeholder="nameExample"
                             style={{ lineHeight: '3' }}></input>
                     </div>
                     <div className="mb-3">
@@ -63,7 +61,9 @@ function LoginDialog() {
                             </label>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-primary">Sign in</button>
+                    <Link to="/chat" type="submit" className="btn btn-primary">Sign in
+                    
+                    </Link>
                 </form>
                 <div className="dropdown-divider"></div>
                 <a className="dropdown-item" href="/sign-up">New around here? Sign up</a>
