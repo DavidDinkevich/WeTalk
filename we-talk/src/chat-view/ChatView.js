@@ -23,6 +23,8 @@ function ChatView({ activeContact }) {
     const [recordAudioModalIsOpen, setRecordAudioModalIsOpen] = useState(false);
     let [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
     // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
+    console.log('activeContact.messagesList: ' + activeContact.messagesList);
+    console.log('UIMessageList: ' + UIMessageList);
     UIMessageList = activeContact.messagesList;
 
     const uilist = UIMessageList.map((message, key) => {
@@ -47,7 +49,7 @@ function ChatView({ activeContact }) {
     }
 
     const getLastMessageID = function() {
-        return createMessageID(UIMessageList.length);
+        return createMessageID(UIMessageList.length - 1);
     }
 
     const toggleMediaUploadView = function () {

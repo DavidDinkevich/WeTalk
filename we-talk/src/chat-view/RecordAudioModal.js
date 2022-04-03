@@ -31,13 +31,13 @@ const createRecorder = () =>
                     const audioBlob = new Blob(audioChunks);
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
-                    
+
                     const play = () => audio.play();
-                    const getURL = () => { return audioUrl; }
-                    resolve({ audioBlob, audioUrl, getURL });
+                    resolve({ audioBlob, audioUrl });
                 });
 
-                mediaRecorder.stop();
+                if (mediaRecorder !== undefined && mediaRecorder.state !== 'inactive')
+                    mediaRecorder.stop();
             });
 
         resolve({ start, stop });
@@ -46,7 +46,7 @@ const createRecorder = () =>
 var recorder; // Global recorder object
 let audio;
 
-function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) {
+function RecordAudioModal({ isOpen, closeModal, sendMessage, getLastMessageID }) {
     let [recordingState, setRecordingState] = useState('none');
     let [timerText, setTimerText] = useState();
 
@@ -57,7 +57,7 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
             recorder = await createRecorder();
             recorder.start();
         })();
-    
+
         if (stoptime === true) {
             stoptime = false;
             timerCycle();
@@ -69,10 +69,8 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
             min = parseInt(min);
             hr = parseInt(hr);
 
-            console.log('recording')
-            
             sec = sec + 1;
-            
+
             if (sec === 60) {
                 min = min + 1;
                 sec = 0;
@@ -82,21 +80,20 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
                 min = 0;
                 sec = 0;
             }
-            
+
             if (sec < 10 || sec === 0)
-            sec = '0' + sec;
+                sec = '0' + sec;
             if (min < 10 || min === 0)
-            min = '0' + min;
+                min = '0' + min;
             if (hr < 10 || hr === 0)
-            hr = '0' + hr;
-            
+                hr = '0' + hr;
+
             let text = hr + ':' + min + ':' + sec;
             let timerTextEl = document.getElementById('timer_text');
             if (timerTextEl !== null) {
                 setTimerText(text);
-                console.log(timerTextEl)
                 timerTextEl.innerHTML = text;
-                
+
                 setTimeout(timerCycle, 1000);
             }
         }
@@ -107,8 +104,8 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
         stoptime = true;
 
         (async () => {
-            audio = await recorder.stop();
-            // audio.play();
+            if (recorder !== undefined && recorder !== null && recorder.state !== 'inactive')
+                audio = await recorder.stop();
         })();
     }
 
@@ -123,14 +120,17 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
     const toggleRecord = function () {
         toggleAnimation();
 
+        let timerText = document.getElementById('timer_text');
+        let sendButton = document.getElementById('send_recording_button');
         switch (recordingState) {
             case 'none':
-                let timerText = document.getElementById('timer_text');
                 timerText.style.visibility = 'visible';
+                sendButton.disabled = true;
                 resetTimer();
                 startRecording();
                 break;
             case 'recording':
+                sendButton.disabled = false;
                 pauseRecording();
                 break;
         }
@@ -150,25 +150,26 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
     }
 
     const handleCloseModal = function () {
+        pauseRecording();
         closeModal();
         resetTimer();
-        if (recorder.state === 'recording')
-            recorder.stop();
-        setRecordingState('none');
+        recorder = null;
     }
 
-    const sendRecording = function() {
-        sendMessage();
-        setTimeout(() => {
-            attachAudio('self', audio.audioUrl, getLastMessageID());
-        }, 50);
-        
-        handleCloseModal();
+    const sendRecording = function () {
+        if (sec + min + hr !== -1) {
+            sendMessage();
+            setTimeout(() => {
+                attachAudio('self', audio.audioUrl, getLastMessageID());
+            }, 50); // Delay a bit to give recording time to be processed
+
+            handleCloseModal();
+        }
     }
 
 
     return (
-        <Modal id='record_audio_modal' className="modal fade" aria-hidden="true" show={isOpen} style={{position:'absolute'}}>
+        <Modal id='record_audio_modal' className="modal fade" aria-hidden="true" show={isOpen} style={{ position: 'absolute' }}>
             <Modal.Header>
                 <Modal.Title>Record</Modal.Title>
             </Modal.Header>
@@ -197,7 +198,7 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
             </Modal.Body>
             <Modal.Footer>
                 <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={handleCloseModal}>Cancel</button>
-                <button type="button" className="btn btn-success" onClick={sendRecording}>Send</button>
+                <button type="button" id='send_recording_button' className="btn btn-success" onClick={sendRecording}>Send</button>
             </Modal.Footer>
         </Modal>
 
