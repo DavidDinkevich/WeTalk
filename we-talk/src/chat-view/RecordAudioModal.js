@@ -1,4 +1,5 @@
-/* eslint-disable no-fallthrough */
+/* eslint-disable default-case */
+
 import { Modal } from "react-bootstrap"
 import { useState } from 'react';
 import { attachAudio } from "../message/Message";
@@ -7,7 +8,7 @@ import { attachAudio } from "../message/Message";
 var stoptime = true;
 let hr = 0;
 let min = 0;
-let sec = 0;
+let sec = -1;
 
 /*
     RECORDING MECHANICS
@@ -31,7 +32,6 @@ const createRecorder = () =>
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
                     
-                    
                     const play = () => audio.play();
                     const getURL = () => { return audioUrl; }
                     resolve({ audioBlob, audioUrl, getURL });
@@ -44,6 +44,7 @@ const createRecorder = () =>
     });
 
 var recorder; // Global recorder object
+let audio;
 
 function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) {
     let [recordingState, setRecordingState] = useState('none');
@@ -68,8 +69,10 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
             min = parseInt(min);
             hr = parseInt(hr);
 
+            console.log('recording')
+            
             sec = sec + 1;
-
+            
             if (sec === 60) {
                 min = min + 1;
                 sec = 0;
@@ -79,38 +82,40 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
                 min = 0;
                 sec = 0;
             }
-
+            
             if (sec < 10 || sec === 0)
-                sec = '0' + sec;
+            sec = '0' + sec;
             if (min < 10 || min === 0)
-                min = '0' + min;
+            min = '0' + min;
             if (hr < 10 || hr === 0)
-                hr = '0' + hr;
-
+            hr = '0' + hr;
+            
             let text = hr + ':' + min + ':' + sec;
-            setTimerText(text);
             let timerTextEl = document.getElementById('timer_text');
-            timerTextEl.innerHTML = text;
-
-            setTimeout(timerCycle, 1000);
+            if (timerTextEl !== null) {
+                setTimerText(text);
+                console.log(timerTextEl)
+                timerTextEl.innerHTML = text;
+                
+                setTimeout(timerCycle, 1000);
+            }
         }
     }
 
     const pauseRecording = function () {
-        setRecordingState('paused');
+        setRecordingState('none');
         stoptime = true;
 
         (async () => {
-            const audio = await recorder.stop();
-            sendMessage();
-            attachAudio('self', audio.getURL(), getLastMessageID())
+            audio = await recorder.stop();
             // audio.play();
         })();
     }
 
     function resetTimer() {
         let timerTextEl = document.getElementById('timer_text');
-        sec = min = hr = 0;
+        min = hr = 0;
+        sec = -1;
         setTimerText('00:00:00');
         timerTextEl.innerHTML = '00:00:00';
     }
@@ -122,12 +127,12 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
             case 'none':
                 let timerText = document.getElementById('timer_text');
                 timerText.style.visibility = 'visible';
-            case 'paused':
+                resetTimer();
                 startRecording();
                 break;
-            default:
+            case 'recording':
                 pauseRecording();
-
+                break;
         }
     }
 
@@ -143,6 +148,24 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
             circleRipple2.style.visibility = 'hidden';
         }
     }
+
+    const handleCloseModal = function () {
+        closeModal();
+        resetTimer();
+        if (recorder.state === 'recording')
+            recorder.stop();
+        setRecordingState('none');
+    }
+
+    const sendRecording = function() {
+        sendMessage();
+        setTimeout(() => {
+            attachAudio('self', audio.audioUrl, getLastMessageID());
+        }, 50);
+        
+        handleCloseModal();
+    }
+
 
     return (
         <Modal id='record_audio_modal' className="modal fade" aria-hidden="true" show={isOpen} style={{position:'absolute'}}>
@@ -173,8 +196,8 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
 
             </Modal.Body>
             <Modal.Footer>
-                <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={closeModal}>Cancel</button>
-                <button type="button" className="btn btn-success">Send</button>
+                <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={handleCloseModal}>Cancel</button>
+                <button type="button" className="btn btn-success" onClick={sendRecording}>Send</button>
             </Modal.Footer>
         </Modal>
 
@@ -182,21 +205,11 @@ function RecordAudioModal({isOpen, closeModal, sendMessage, getLastMessageID }) 
 }
 
 function RecordButtonImage({ state }) {
-    console.log('sdfsdfsdf');
-    if (state === 'paused') {
+    if (state === 'recording') {
         return (
             <>
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#7ef996" className="bi bi-play" viewBox="-5 -4 24 24">
-                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z" />
-                </svg>
-            </>
-        );
-    }
-    else if (state === 'recording') {
-        return (
-            <>
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#7ef996" className="bi bi-pause" viewBox="-4 -4 24 24">
-                    <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="50" fill="#7ef996" className="bi bi-square-fill" viewBox="-4 -8 24 30">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
                 </svg>
             </>
         );
