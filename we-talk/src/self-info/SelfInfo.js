@@ -1,6 +1,8 @@
 // import {chats} from  "../App";
 import ChatInfo from "../chat-list/ChatInfo";
-
+import { contactList } from "../App";
+import { addContact } from "../chat-list/ChatList";
+import Message from "../message/Message";
 
 function SelfInfo({ name, refreshChatUIList }) {
     return (
@@ -31,6 +33,9 @@ function SelfInfo({ name, refreshChatUIList }) {
 
             <button className='button' onClick={() => {
                 let input = prompt('Please enter the name of the contact:');
+                let newContact = {name: input ,image:'', messagesList: []};
+                addContact(newContact);
+                console.log(contactList);
             }
             } style={{ border: 'none', background: 'white' }} >
 

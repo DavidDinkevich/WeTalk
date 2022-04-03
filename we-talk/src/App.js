@@ -23,14 +23,10 @@ function App() {
   });
 
   return (
-    <div style={{width:'100%', height:'100%'}}>
-       <LoginView/> 
+    <div style={{width:'100%', height:'100%'}}> 
       {/* <ChatList chatInfos={chatInfos}/> */}
-<<<<<<< HEAD
   {/* <MainView selfInfo={'David'} activeContact={activeContact} /> */}
-=======
       <MainView selfInfo={'David'} activeContact={activeContact} setActiveContact={setActiveContact} />
->>>>>>> 8ad66b3809342db59617bf51cd9b7812ed84dd8e
 
     </div>
   );
