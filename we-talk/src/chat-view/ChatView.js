@@ -5,7 +5,6 @@ import MediaUploadView from './MediaUploadView';
 
 import RecordAudioModal from './RecordAudioModal';
 
-
 function createMessageID(messageNumber) {
     // console.log('creating message ID from: ' + messageNumber);
     return `${'אביה אלגברלי'}-${messageNumber}`;
