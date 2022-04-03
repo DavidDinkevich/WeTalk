@@ -1,5 +1,5 @@
 import './App.css';
-import LoginView from './login-view/LoginView';
+import {LoginView, SignupView} from './login-view/LoginView';
 import ChatInfo from './chat-list/ChatInfo'
 import MainView from './main-view/MainView';
 import { useState } from 'react';
@@ -35,6 +35,7 @@ function App() {
           <Route path='/chat' element={
             <MainView selfInfo={'David'} activeContact={activeContact} setActiveContact={setActiveContact}></MainView>
           }></Route>
+          <Route path='/sign-up' element={ <SignupView />} />
         </Routes>
       </BrowserRouter>
 
