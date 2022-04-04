@@ -7,13 +7,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
 export const contactList = [
-  { name: 'Aviya', image: 'C:\pic.jpg', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?' }] },
+  { name: 'Aviya', image: 'C:\pic.jpg', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?', time:'11:05' }], unread: 1 },
   {
     name: 'Shachar', image: '/logo192.png', messagesList: [
-      { source: 'remote', author: 'שחר מורשת', message: ' שלום!!!!' },
-      { source: 'remote', author: 'שחר מורשת', message: 'איך אתה?' },
-    ]
-  },
+      { source: 'remote', author: 'שחר מורשת', message: ' שלום!!!!', time:'12:30'},
+      { source: 'remote', author: 'שחר מורשת', message: 'איך אתה?', time:'12:40'},
+    ] , unread: 2
+  }
 
 ];
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
-
+import { refreshUIChatList } from '../chat-list/ChatList';
 import RecordAudioModal from './RecordAudioModal';
 
 function createMessageID(messageNumber) {
@@ -23,8 +23,6 @@ function ChatView({ activeContact }) {
     const [recordAudioModalIsOpen, setRecordAudioModalIsOpen] = useState(false);
     let [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
     // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
-    console.log('activeContact.messagesList: ' + activeContact.messagesList);
-    console.log('UIMessageList: ' + UIMessageList);
     UIMessageList = activeContact.messagesList;
 
     const uilist = UIMessageList.map((message, key) => {
@@ -32,9 +30,13 @@ function ChatView({ activeContact }) {
     });
 
     const sendMessage = function ({ message }) {
-        let newMessage = Object.assign({ source: 'self', author: 'david' }, { message });
+        let date = String(new Date()).split(" ")[4]
+        date = date.substring(0, date.lastIndexOf(":"));
+        console.log(date);
+        let newMessage = Object.assign({ source: 'self', author: 'david', time:date }, { message });
         activeContact.messagesList.push(newMessage);
         setUIMessagesList(UIMessageList.concat([newMessage]));
+        refreshUIChatList();
     }
 
     const sendMessageFromInputBox = function () {

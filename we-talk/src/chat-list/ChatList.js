@@ -6,22 +6,33 @@ function displayActiveContact(contact, setActiveContact) {
     setActiveContact(contact);
 }
 
+function zeroUnReadMessages(contact){
+    document.getElementById(contact.name+"unread messages").style.visibility = "hidden"
+}
+
 export let addContact;
+export let refreshUIChatList;
 
 function ChatList({ setActiveContact }) {
     let [UIChatList, setUIChatList] = useState(contactList);
+    
+    refreshUIChatList = () => {
+        // Force refresh of UIChatList
+        setUIChatList(UIChatList.concat([]));
+    }
 
     addContact = function(newContact) {
         contactList.push(newContact);
         setUIChatList(UIChatList.concat([newContact]));
     };
-    console.log("We're here!!")
 
     UIChatList = contactList;
     let chatInfos = UIChatList.map((contact, key) => {
-        console.log("Test: " + contact)
         return (
-            <button id='displayActiveContact' key={key}className='button' onClick={() => displayActiveContact(contact, setActiveContact)} >
+            <button id='displayActiveContact' key={key}className='button' onClick={() => {
+                displayActiveContact(contact, setActiveContact); 
+                zeroUnReadMessages(contact);
+            }} >
                 <ChatInfo contact={contact}  />
             </button>
         );
