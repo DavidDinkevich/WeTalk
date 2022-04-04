@@ -29,6 +29,7 @@ function MediaUploadView({ sendMediaMessage }) {
                     sendMediaMessage({ audio: event.target.result });
             }
             hideMediaUploadView();
+            inputField.value = ''; // Clear input field, allowing same file to be uploaded twice
         }
     }
 
