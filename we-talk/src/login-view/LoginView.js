@@ -11,7 +11,7 @@ export function LoginView() {
 
 return (
     <>
-        <div style={{ backgroundImage: 'url(login_background.png)', width: '100vw', height: '100vh' }}>
+        <div style={{ backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_1280.jpg)', width: '100vw', height: '100vh' }}>
             <div className="container" style={{ margin: '100', paddingTop: '7%', left: '50%' }}>
                 <div className="row justify-content-md-center" >
                     <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
@@ -80,7 +80,7 @@ return (
 export function SignupView() {
     return (
         <>
-            <div style={{ backgroundImage: 'url(login_background.png)', width: '100vw', height: '100vh' }}>
+            <div style={{ backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_1280.jpg)', width: '100vw', height: '100vh' }}>
                 <div className="container" style={{ margin: '100', paddingTop: '7%', left: '50%' }}>
                     <div className="row justify-content-md-center" >
                         <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
