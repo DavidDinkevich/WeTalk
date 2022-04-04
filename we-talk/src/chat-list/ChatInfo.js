@@ -1,14 +1,9 @@
 function ChatInfo({ contact }) {
     let messages = contact.messagesList;
-    if (messages == undefined)
-        return (<>My name is Shachar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1</>);
-
-    console.log(messages)
     let lastMessage = ''
     if (messages.length > 0) {
         lastMessage = messages[messages.length - 1].message;
     }
-
     return (
         <li className="list-group-item d-flex justify-content-between align-items-start" style={{ width: '100%', borderRight: 'none' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="80" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
@@ -21,8 +16,8 @@ function ChatInfo({ contact }) {
                 {lastMessage}
             </div>
             <div>
-                <span className="ms-5 badge bg-primary rounded-pill">14</span>
-                <div className="" style={{ paddingTop: '20px' }}>1 minute ago</div>
+                <span id={contact.name+"unread messages"} className="ms-5 badge bg-primary rounded-pill">{contact.unread}</span>
+                <div className="" style={{ paddingTop: '20px' }}>{messages[messages.length-1].time}</div>
             </div>
         </li>
 

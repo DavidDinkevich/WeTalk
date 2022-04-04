@@ -3,9 +3,15 @@ import ChatInfo from "./ChatInfo";
 import { useState } from "react";
 
 export let addContact;
+export let refreshUIChatList;
 
 function ChatList({ activeContact, setActiveContact }) {
     let [UIChatList, setUIChatList] = useState(contactList);
+    
+    refreshUIChatList = () => {
+        // Force refresh of UIChatList
+        setUIChatList(UIChatList.concat([]));
+    }
 
     function displayActiveContact(newContact, activeContact, setActiveContact) {
         if (activeContact === newContact)

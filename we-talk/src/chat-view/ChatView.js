@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Message, { emptyMessageJSON } from '../message/Message';
 import MediaUploadView from './MediaUploadView';
 import RecordAudioModal from './RecordAudioModal';
+import { refreshUIChatList } from '../chat-list/ChatList';
 
 export function createMessageID(name, messageNumber) {
     // console.log('creating message ID from: ' + messageNumber);
@@ -34,10 +35,15 @@ function ChatView({ activeContact }) {
     });
 
     const sendMessage = function ({ message='', image='', video='', audio='' }) {
-        let newMessage = emptyMessageJSON();
-        newMessage = Object.assign(newMessage, { source: 'self', author: 'david', message, image, video, audio });
+        // Get date for message
+        let date = String(new Date()).split(" ")[4]
+        date = date.substring(0, date.lastIndexOf(":"));
+        
+        let newMessage = Object.assign(emptyMessageJSON(), { source: 'self', author: 'david', time:date }, { message, image, video, audio });
+
         activeContact.messagesList.push(newMessage);
         setUIMessagesList(UIMessageList.concat([newMessage]));
+        refreshUIChatList();
     }
 
     const sendMessageFromInputBox = function () {
