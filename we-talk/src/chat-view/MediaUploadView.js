@@ -1,7 +1,6 @@
 import { hideMediaUploadView } from './ChatView'
-import { attachImage, attachVideo, attachAudio } from '../message/Message'
 
-function MediaUploadView({ sendMediaMessage, getLastMessageID }) {
+function MediaUploadView({ sendMediaMessage }) {
 
     /*
         When file upload button is clicked, programmatically click
@@ -22,13 +21,12 @@ function MediaUploadView({ sendMediaMessage, getLastMessageID }) {
             fReader.readAsDataURL(inputField.files[0]);
 
             fReader.onloadend = function (event) {
-                sendMediaMessage(); // Send new empty message
                 if (media === 'img')
-                    attachImage('self', event.target.result, getLastMessageID());
+                    sendMediaMessage({ image: event.target.result });
                 else if (media === 'video')
-                    attachVideo('self', event.target.result, getLastMessageID());
-                else
-                    attachAudio('self', event.target.result, getLastMessageID());
+                    sendMediaMessage({ video: event.target.result });
+                else if (media === 'audio')
+                    sendMediaMessage({ audio: event.target.result });
             }
             hideMediaUploadView();
         }

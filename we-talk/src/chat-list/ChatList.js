@@ -2,27 +2,28 @@ import { contactList } from "../App"
 import ChatInfo from "./ChatInfo";
 import { useState } from "react";
 
-function displayActiveContact(contact, setActiveContact) {
-    setActiveContact(contact);
-}
-
 export let addContact;
 
-function ChatList({ setActiveContact }) {
+function ChatList({ activeContact, setActiveContact }) {
     let [UIChatList, setUIChatList] = useState(contactList);
 
-    addContact = function(newContact) {
+    function displayActiveContact(newContact, activeContact, setActiveContact) {
+        if (activeContact === newContact)
+            return;
+        setActiveContact(newContact);
+    }
+    
+
+    addContact = function (newContact) {
         contactList.push(newContact);
         setUIChatList(UIChatList.concat([newContact]));
     };
-    console.log("We're here!!")
 
     UIChatList = contactList;
     let chatInfos = UIChatList.map((contact, key) => {
-        console.log("Test: " + contact)
         return (
-            <button id='displayActiveContact' key={key}className='button' onClick={() => displayActiveContact(contact, setActiveContact)} >
-                <ChatInfo contact={contact}  />
+            <button id='displayActiveContact' key={key} className='button' onClick={() => displayActiveContact(contact, activeContact, setActiveContact)} >
+                <ChatInfo contact={contact} />
             </button>
         );
     });

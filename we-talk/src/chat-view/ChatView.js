@@ -1,38 +1,41 @@
 import { useState } from 'react';
 
-import Message from '../message/Message';
+import Message, { emptyMessageJSON } from '../message/Message';
 import MediaUploadView from './MediaUploadView';
-
 import RecordAudioModal from './RecordAudioModal';
 
-function createMessageID(messageNumber) {
+export function createMessageID(name, messageNumber) {
     // console.log('creating message ID from: ' + messageNumber);
-    return `${'אביה אלגברלי'}-${messageNumber}`;
+    return `${name}-${messageNumber}`;
 }
+
+export function getAccountNameFromMsgID(messageID) {
+    return messageID.split('-')[0];
+}
+
+export function getMessageIndexFromMsgID(messageID) {
+    return messageID.split('-')[1];
+}
+
 
 export const hideMediaUploadView = function () {
     let mediaUploadView = document.getElementById('media_upload_view');
     mediaUploadView.style.visibility = 'hidden';
 }
 
-// const UIMessageList = messagesList.map((message, key) => {
-//     return <Message {...message} key={key} />;
-// });
-
 function ChatView({ activeContact }) {
     const [recordAudioModalIsOpen, setRecordAudioModalIsOpen] = useState(false);
     let [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
     // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
-    console.log('activeContact.messagesList: ' + activeContact.messagesList);
-    console.log('UIMessageList: ' + UIMessageList);
     UIMessageList = activeContact.messagesList;
 
-    const uilist = UIMessageList.map((message, key) => {
-        return <Message {...message} messageID={createMessageID(key)} key={key} />;
+    const uiList = UIMessageList.map((message, key) => {
+        return <Message {...message} messageID={createMessageID(activeContact.name, key)} key={key} />;        
     });
 
-    const sendMessage = function ({ message }) {
-        let newMessage = Object.assign({ source: 'self', author: 'david' }, { message });
+    const sendMessage = function ({ message='', image='', video='', audio='' }) {
+        let newMessage = emptyMessageJSON();
+        newMessage = Object.assign(newMessage, { source: 'self', author: 'david', message, image, video, audio });
         activeContact.messagesList.push(newMessage);
         setUIMessagesList(UIMessageList.concat([newMessage]));
     }
@@ -49,7 +52,7 @@ function ChatView({ activeContact }) {
     }
 
     const getLastMessageID = function() {
-        return createMessageID(UIMessageList.length - 1);
+        return createMessageID(activeContact.name, UIMessageList.length - 1);
     }
 
     const toggleMediaUploadView = function () {
@@ -77,12 +80,12 @@ function ChatView({ activeContact }) {
             <section className="chatbox" style={{ width: 'inherit' }}>
                 <section id="chat-window" className="chat-window" style={{ position: 'relative', height: '100%' }}
                     onClick={hideMediaUploadView}>
-                    {uilist}
+                    {uiList}
                 </section>
 
-                <MediaUploadView sendMediaMessage={() => {
-                    sendMessage({}); // empty
-                }} getLastMessageID={getLastMessageID} />
+                <MediaUploadView sendMediaMessage={({image, video, audio}) => {
+                    sendMessage({image, video, audio}); // empty
+                }} />
 
                 <div id='footer' className="chat-input" style={{ background: '#7C79D5' }} onKeyDown={(e) => {
                     if (!e) e = window.event;
@@ -108,7 +111,7 @@ function ChatView({ activeContact }) {
                     <RecordAudioModal 
                         isOpen={recordAudioModalIsOpen} 
                         closeModal={() => setRecordAudioModalIsOpen(false) }
-                        sendMessage={() => sendMessage({}) /* Send empty message */ }
+                        sendAudio={({audio}) => sendMessage({audio: audio})}
                         getLastMessageID={getLastMessageID}
                     />
 

@@ -2,7 +2,6 @@
 
 import { Modal } from "react-bootstrap"
 import { useState } from 'react';
-import { attachAudio } from "../message/Message";
 
 // STOPWATCH
 var stoptime = true;
@@ -46,7 +45,7 @@ const createRecorder = () =>
 var recorder; // Global recorder object
 let audio;
 
-function RecordAudioModal({ isOpen, closeModal, sendMessage, getLastMessageID }) {
+function RecordAudioModal({ isOpen, closeModal, sendAudio, getLastMessageID }) {
     let [recordingState, setRecordingState] = useState('none');
     let [timerText, setTimerText] = useState();
 
@@ -158,10 +157,7 @@ function RecordAudioModal({ isOpen, closeModal, sendMessage, getLastMessageID })
 
     const sendRecording = function () {
         if (sec + min + hr !== -1) {
-            sendMessage();
-            setTimeout(() => {
-                attachAudio('self', audio.audioUrl, getLastMessageID());
-            }, 50); // Delay a bit to give recording time to be processed
+            sendAudio({audio: audio.audioUrl})
 
             handleCloseModal();
         }
