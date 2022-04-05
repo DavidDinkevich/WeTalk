@@ -59,7 +59,7 @@ export function LoginView() {
                                         </div>
                                     </div>
 
-                                    <button type="submit" className="btn btn-primary" style={{ marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} onClick={onSubmit}>Sign in</button>
+                                    <button type="submit" className="btn btn-primary" style={{background:'#0D168F', border:'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} onClick={onSubmit}>Sign in</button>
                                 </form>
 
                                 <div className="dropdown-divider"></div>
