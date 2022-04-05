@@ -1,8 +1,10 @@
 function ChatInfo({ contact }) {
     let messages = contact.messagesList;
-    let lastMessage = ''
+    let lastMessageText = ''
+    let time = ''
     if (messages.length > 0) {
-        lastMessage = messages[messages.length - 1].message;
+        lastMessageText = messages[messages.length - 1].message;
+        time = messages[messages.length - 1].time;
     }
     return (
         <li className="list-group-item d-flex justify-content-between align-items-start" style={{ width: '100%', borderRight: 'none' }}>
@@ -13,11 +15,11 @@ function ChatInfo({ contact }) {
 
             <div className="ms-2 me-center">
                 <div className="fw-bold" style={{ fontSize: '25px', paddingBottom: '6px' }}>{contact.name}</div>
-                {lastMessage}
+                {lastMessageText}
             </div>
             <div>
                 <span id={contact.name+"unread messages"} className="ms-5 badge bg-primary rounded-pill">{contact.unread}</span>
-                <div className="" style={{ paddingTop: '20px' }}>{messages[messages.length-1].time}</div>
+                <div className="" style={{ paddingTop: '20px' }}>{time}</div>
             </div>
         </li>
 

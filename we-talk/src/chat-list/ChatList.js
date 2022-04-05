@@ -1,6 +1,7 @@
 import { getActiveUser, getContactList } from "../DataBase"
 import ChatInfo from "./ChatInfo";
 import { useState } from "react";
+import { showChatView } from "../main-view/MainView";
 
 export let addContact;
 export let refreshUIChatList;
@@ -36,6 +37,7 @@ function ChatList({ activeContact, setActiveContact }) {
             <button id='displayActiveContact' key={key} className='button' onClick={() => {
                 displayActiveContact(contact, activeContact, setActiveContact);
                 zeroUnReadMessages(contact);
+                showChatView();
             }
             } >
                 <ChatInfo contact={contact} />
