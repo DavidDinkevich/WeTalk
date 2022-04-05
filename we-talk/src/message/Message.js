@@ -11,56 +11,51 @@ function Message({ source, author, message, time, messageID }) {
 
     if (source === 'remote') {
         return (
-            <>
-                <article className="msg-container msg-remote">
-                    <div className="msg-box">
-                        <img
-                            className="user-img"
-                            id="user-0"
-                            // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
-                            src={recipientImage}
-                            alt='???'
-                        />
-                        <div id={messageID} className="flr">
-                            <div className="messages">
-                                <p className="msg" id="msg-0" >
-                                    {message}
-                                </p>
-                            </div>
-                            <span className="timestamp">
-                                <span className="posttime">{time}</span> • 
-                                <span className="username">{' '+author}</span>
-                            </span>
-
+            <article className="msg-container msg-remote">
+                <div className="msg-box">
+                    <img
+                        className="user-img"
+                        id="user-0"
+                        // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
+                        src={recipientImage}
+                        alt='???'
+                    />
+                    <div id={messageID} className="flr">
+                        <div className="messages">
+                            <p className="msg" id="msg-0" >
+                                {message}
+                            </p>
                         </div>
-                    </div>
-                </article>
-            </>
+                        <span className="timestamp">
+                            <span className="posttime">{time}</span> •
+                            <span className="username">{' ' + author}</span>
+                        </span>
 
+                    </div>
+                </div>
+            </article>
         );
     } else {
         return (
-            <>
-                <article className="msg-container msg-self">
-                    <div className="msg-box">
-                        <div id={messageID} className="flr">
-                            <RenderMessageContent messageID={messageID} />
+            <article className="msg-container msg-self">
+                <div className="msg-box">
+                    <div id={messageID} className="flr">
+                        <RenderMessageContent messageID={messageID} />
 
-                            <span className="timestamp">
-                                <span className="username">{author}</span> •
-                                <span className="posttime"> {' '+time}</span>
-                            </span>
-                        </div>
-                        <img
-                            className="user-img"
-                            id="user-0"
-                            // src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro"
-                            src={senderImage}
-                            alt='???'
-                        />
+                        <span className="timestamp">
+                            <span className="username">{author}</span> •
+                            <span className="posttime"> {' ' + time}</span>
+                        </span>
                     </div>
-                </article>
-            </>
+                    <img
+                        className="user-img"
+                        id="user-0"
+                        // src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro"
+                        src={senderImage}
+                        alt='???'
+                    />
+                </div>
+            </article>
         );
     }
 }
