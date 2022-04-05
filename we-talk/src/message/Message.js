@@ -1,10 +1,13 @@
 
 
-import { getContactByName } from '../DataBase'
+import { getActiveUser, getContactByName } from '../DataBase'
 import { getAccountNameFromMsgID, getMessageIndexFromMsgID } from '../DataBase';
 
-function Message({ source, author, message, messageID }) {
+function Message({ source, author, message, time, messageID }) {
     // const messageSide = source === 'self' ? 'msg-self' : 'msg-remote';
+    let senderImage = getActiveUser().image;
+    let recipientName = getAccountNameFromMsgID(messageID);
+    let recipientImage = getContactByName(recipientName).image;
 
     if (source === 'remote') {
         return (
@@ -14,7 +17,8 @@ function Message({ source, author, message, messageID }) {
                         <img
                             className="user-img"
                             id="user-0"
-                            src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
+                            // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
+                            src={recipientImage}
                             alt='???'
                         />
                         <div id={messageID} className="flr">
@@ -24,8 +28,8 @@ function Message({ source, author, message, messageID }) {
                                 </p>
                             </div>
                             <span className="timestamp">
-                                <span className="username">{author}</span>•
-                                <span className="posttime">Now</span>
+                                <span className="posttime">{time}</span> • 
+                                <span className="username">{' '+author}</span>
                             </span>
 
                         </div>
@@ -43,14 +47,15 @@ function Message({ source, author, message, messageID }) {
                             <RenderMessageContent messageID={messageID} />
 
                             <span className="timestamp">
-                                <span className="username">{author}</span>•
-                                <span className="posttime">Now</span>
+                                <span className="username">{author}</span> •
+                                <span className="posttime"> {' '+time}</span>
                             </span>
                         </div>
                         <img
                             className="user-img"
                             id="user-0"
-                            src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro"
+                            // src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro"
+                            src={senderImage}
                             alt='???'
                         />
                     </div>

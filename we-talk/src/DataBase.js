@@ -2,14 +2,16 @@
 
 export const users = [
     {
-        username: 'David',
+        username: 'Shachar',
+        password: 'noam',
+        image: '/shachar_profile.png',
         contactList: [
             { 
-                name: 'Aviya', image: '/logo192.png', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 1 },
+                name: 'Aviya', image: '/aviya_profile.png', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 1 },
             {
-                name: 'Shachar', image: '/logo192.png', messagesList: [
-                    { source: 'remote', author: 'שחר מורשת', message: ' שלום!!!!', image: '', video: '', audio: '', time: '12:30' },
-                    { source: 'remote', author: 'שחר מורשת', message: 'איך אתה?', image: '', video: '', audio: '', time: '12:40' },
+                name: 'David', image: '/david_profile.png', messagesList: [
+                    { source: 'remote', author: 'David', message: ' שלום!!!!', image: '', video: '', audio: '', time: '12:30' },
+                    { source: 'remote', author: 'David', message: 'איך את?', image: '', video: '', audio: '', time: '12:40' },
                 ], unread: 2
             }
         ]

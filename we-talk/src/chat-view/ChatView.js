@@ -28,7 +28,7 @@ function ChatView({ activeContact }) {
         date = date.substring(0, date.lastIndexOf(":"));
         
         let newMessage = Object.assign(emptyMessageJSON(), { source: 'self', author: 'david', time:date }, { message, image, video, audio });
-
+        console.log(newMessage)
         activeContact.messagesList.push(newMessage);
         setUIMessagesList(UIMessageList.concat([newMessage]));
         refreshUIChatList();
