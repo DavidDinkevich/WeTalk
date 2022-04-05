@@ -12,7 +12,7 @@ function SelfInfo({ name, refreshChatUIList }) {
 
     function addNewContact() {
         let input = document.getElementById('inputBox');
-        let newContact = { name: input.value, image: '', messagesList: [] };
+        let newContact = { name: input.value, image: '', messagesList: [] , time:''};
         console.log(input.value);
         addContact(newContact);
         setIsOpen(false);
