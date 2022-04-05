@@ -1,22 +1,10 @@
 import { useState } from 'react';
 
-import Message, { emptyMessageJSON } from '../message/Message';
+import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
 import RecordAudioModal from './RecordAudioModal';
 import { refreshUIChatList } from '../chat-list/ChatList';
-
-export function createMessageID(name, messageNumber) {
-    // console.log('creating message ID from: ' + messageNumber);
-    return `${name}-${messageNumber}`;
-}
-
-export function getAccountNameFromMsgID(messageID) {
-    return messageID.split('-')[0];
-}
-
-export function getMessageIndexFromMsgID(messageID) {
-    return messageID.split('-')[1];
-}
+import {createMessageID, emptyMessageJSON} from '../DataBase'
 
 
 export const hideMediaUploadView = function () {

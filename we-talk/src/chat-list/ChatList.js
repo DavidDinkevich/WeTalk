@@ -1,4 +1,4 @@
-import { contactList } from "../App"
+import { getContactList } from "../DataBase"
 import ChatInfo from "./ChatInfo";
 import { useState } from "react";
 
@@ -10,6 +10,7 @@ function zeroUnReadMessages(contact) {
 }
 
 function ChatList({ activeContact, setActiveContact }) {
+    let contactList = getContactList(activeContact.name);
     let [UIChatList, setUIChatList] = useState(contactList);
 
     refreshUIChatList = () => {

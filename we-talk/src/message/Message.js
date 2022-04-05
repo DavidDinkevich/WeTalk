@@ -1,11 +1,7 @@
 
 
-import { getContactByName } from '../App'
-import { getAccountNameFromMsgID, getMessageIndexFromMsgID } from '../chat-view/ChatView';
-
-export const emptyMessageJSON = function () {
-    return { source: '', author: '', message: '', image: '', video: '', audio: '' };
-}
+import { getContactByName } from '../DataBase'
+import { getAccountNameFromMsgID, getMessageIndexFromMsgID } from '../DataBase';
 
 function Message({ source, author, message, messageID }) {
     // const messageSide = source === 'self' ? 'msg-self' : 'msg-remote';
