@@ -12,10 +12,11 @@ function SelfInfo({ name, refreshChatUIList }) {
 
     function addNewContact() {
         let input = document.getElementById('inputBox');
-        let newContact = { name: input.value, image: '', messagesList: [] , time:''};
-        console.log(input.value);
-        addContact(newContact);
-        setIsOpen(false);
+        if (input.value !== ''){
+            let newContact = { name: input.value, image: '', messagesList: [] , time:''};
+            addContact(newContact);
+            setIsOpen(false);
+        }
     }
 
     function CloseAddingWindow(){
@@ -68,7 +69,7 @@ function SelfInfo({ name, refreshChatUIList }) {
 
                     <div className="input-group flex-nowrap">
                         <span className="input-group-text" id="addon-wrapping"></span>
-                        <input type="text" id="inputBox" className="form-control" placeholder="Name" aria-label="Please enter the name of the contact:" aria-describedby="addon-wrapping"></input>
+                        <input type="text" id="inputBox" className="form-control" placeholder="Name" aria-label="Please enter the name of the contact:" aria-describedby="addon-wrapping" required></input>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
