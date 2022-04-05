@@ -4,7 +4,7 @@ import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
 import RecordAudioModal from './RecordAudioModal';
 import { refreshUIChatList } from '../chat-list/ChatList';
-import {createMessageID, emptyMessageJSON} from '../DataBase'
+import {createMessageID, emptyMessageJSON, getActiveUser} from '../DataBase'
 
 
 export const hideMediaUploadView = function () {
@@ -27,7 +27,13 @@ function ChatView({ activeContact }) {
         let date = String(new Date()).split(" ")[4]
         date = date.substring(0, date.lastIndexOf(":"));
         
-        let newMessage = Object.assign(emptyMessageJSON(), { source: 'self', author: 'david', time:date }, { message, image, video, audio });
+        let activeUserName = getActiveUser().username;
+        
+        let newMessage = Object.assign(
+            emptyMessageJSON(), 
+            { source: 'self', author: activeUserName, time:date }, 
+            { message, image, video, audio }
+        );
 
         activeContact.messagesList.push(newMessage);
         setUIMessagesList(UIMessageList.concat([newMessage]));

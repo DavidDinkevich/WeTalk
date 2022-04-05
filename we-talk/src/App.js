@@ -7,7 +7,6 @@ import {getContactByName} from './DataBase'
 
 function App() {
   let [activeContact, setActiveContact] = useState(getContactByName('Aviya'))
-  // let activeContact = contactList[0];
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
@@ -15,7 +14,6 @@ function App() {
         <Routes>
           <Route path='/' element={
             <LoginView />
-
           }></Route>
           <Route path='/chat' element={
             <MainView selfInfo={'David'} activeContact={activeContact} setActiveContact={setActiveContact}></MainView>

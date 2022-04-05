@@ -1,20 +1,36 @@
 
-export const contactList = [
-    { name: 'Aviya', image: '/logo192.png', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 1 },
-    {
-        name: 'Shachar', image: '/logo192.png', messagesList: [
-            { source: 'remote', author: 'שחר מורשת', message: ' שלום!!!!', image: '', video: '', audio: '', time: '12:30' },
-            { source: 'remote', author: 'שחר מורשת', message: 'איך אתה?', image: '', video: '', audio: '', time: '12:40' },
-        ], unread: 2
-    }
-];
 
-export function getContactByName(name) {
-    return contactList.find((value) => value.name === name);
+export const users = [
+    {
+        username: 'Shachar',
+        password: 'noam',
+        image: '/shachar_profile.png',
+        contactList: [
+            { 
+                name: 'Aviya', image: '/aviya_profile.png', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 1 },
+            {
+                name: 'David', image: '/david_profile.png', messagesList: [
+                    { source: 'remote', author: 'David', message: ' שלום!!!!', image: '', video: '', audio: '', time: '12:30' },
+                    { source: 'remote', author: 'David', message: 'איך את?', image: '', video: '', audio: '', time: '12:40' },
+                ], unread: 2
+            }
+        ]
+    }
+]
+
+let activeUser = users[0];
+
+export function getActiveUser() {
+    return activeUser;
 }
 
-export function getContactList(accountName) {
-    return contactList;
+export function getContactByName(contactName) {
+    // return getContactList(activeUser).find((value) => value.name === contactName);
+    return activeUser.contactList.find((value) => {return value.name === contactName; })
+}
+
+export function getContactList(username) {
+    return users.find((value) => {return value.username === username; }).contactList;
 }
 
 export const emptyMessageJSON = function () {
