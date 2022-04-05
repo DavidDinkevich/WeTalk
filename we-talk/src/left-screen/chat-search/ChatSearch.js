@@ -1,0 +1,40 @@
+
+import {useRef} from 'react';
+import {setUIChatList} from '../../chat-list/ChatList'
+import { getActiveUser } from '../../DataBase';
+
+function ChatSearch() {
+    const searchBox = useRef(null);
+
+    const search = function() {
+        console.log(searchBox.current.value);
+        setUIChatList(getActiveUser().contactList.filter((value) => {
+            console.log(value.name)
+            return value.name.includes(searchBox.current.value);
+        }));
+    }
+
+
+    return (
+        <div className="input-group flex-nowrap" style={{ padding: '0px' }}>
+            <span className="input-group-text" id="addon-wrapping" style={{ background: 'white', borderRight: 'none' }}>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={17}
+                    height={17}
+                    fill="currentColor"
+                    className="bi bi-search"
+                    viewBox="0 0 16 16"
+                >
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+
+            </span>
+            <input ref={searchBox} type="text" className="form-control" placeholder="Search a contact" aria-label="Username" aria-describedby="addon-wrapping" onKeyUp={search}
+                style={{ backgroundLeft: 'none' }} />
+        </div>
+
+    );
+}
+
+export default ChatSearch;

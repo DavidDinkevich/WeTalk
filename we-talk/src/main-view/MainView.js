@@ -17,8 +17,6 @@ function MainView({ selfInfo, activeContact, setActiveContact }) {
                 <LeftScreen selfInfo={selfInfo} activeContact={activeContact} setActiveContact={setActiveContact} />
             </div>
 
-
-
             <div className='col' style={{ maxHeight: 'inherit' , textAlign: 'center' }}>
                 {!chatViewHidden ? <ChatView activeContact={activeContact} /> : <Logo />}
             </div>
