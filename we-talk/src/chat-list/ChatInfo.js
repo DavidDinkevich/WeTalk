@@ -19,7 +19,7 @@ function ChatInfo({ contact }) {
                 className="user-img"
                 id="user-0"
                 // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
-                src={contactImage}
+                src={contactImage.length > 0 ? contactImage : '/anonymous_profile.webp'}
                 alt='???'
                 style={{ width: '20%', height:'100%', marginBottom:'auto', marginTop:'auto'}}
             />
@@ -28,9 +28,9 @@ function ChatInfo({ contact }) {
                 <div className="fw-bold" style={{ fontSize: '18px', paddingBottom: '6px' }}>{contact.name}</div>
                 {lastMessageText}
             </div>
-            <div>
+            <div style={{minWidth:'68px'}}>
                 <span id={contact.name + "unread messages"} className="ms-5 badge bg-primary rounded-pill">{contact.unread}</span>
-                <div className="" style={{ paddingTop: '20px' }}>{time}</div>
+                <div>{time}</div>
             </div>
         </li>
 

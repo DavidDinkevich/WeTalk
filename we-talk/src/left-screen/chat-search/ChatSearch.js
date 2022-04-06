@@ -10,7 +10,7 @@ function ChatSearch() {
         console.log(searchBox.current.value);
         setUIChatList(getActiveUser().contactList.filter((value) => {
             console.log(value.name)
-            return value.name.includes(searchBox.current.value);
+            return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
         }));
     }
 
