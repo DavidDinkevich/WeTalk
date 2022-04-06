@@ -3,11 +3,12 @@
 export const users = [
     {
         username: 'Shachar',
-        password: 'noam',
+        password: '123sh',
         image: '/shachar_profile.png',
         contactList: [
-            { 
-                name: 'Aviya', image: '/aviya_profile.png', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 1 },
+            {
+                name: 'Aviya', image: '/aviya_profile.png', messagesList: [{ source: 'remote', author: 'אביה', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 1
+            },
             {
                 name: 'David', image: '/david_profile.png', messagesList: [
                     { source: 'remote', author: 'David', message: ' שלום!!!!', image: '', video: '', audio: '', time: '12:30' },
@@ -15,6 +16,24 @@ export const users = [
                 ], unread: 2
             }
         ]
+    },
+    {
+        username: 'Shir',
+        password: 'shir11',
+        image: '/photo-Shir.jpg',
+        contactList: []
+    },
+    {
+        username: 'Noa',
+        password: 'hello10',
+        image: '/photo-noa.jpg',
+        contactList: []
+    },
+    {
+        username: 'Lior',
+        password: 'li77',
+        image: '/photo-lior.webp',
+        contactList: []
     }
 ]
 
@@ -24,13 +43,19 @@ export function getActiveUser() {
     return activeUser;
 }
 
+export function getUserByName(name) {
+    return users.find((element) => {
+        return element.username === name
+    });
+}
+
 export function getContactByName(contactName) {
     // return getContactList(activeUser).find((value) => value.name === contactName);
-    return activeUser.contactList.find((value) => {return value.name === contactName; })
+    return activeUser.contactList.find((value) => { return value.name === contactName; })
 }
 
 export function getContactList(username) {
-    return users.find((value) => {return value.username === username; }).contactList;
+    return users.find((value) => { return value.username === username; }).contactList;
 }
 
 export const emptyMessageJSON = function () {
