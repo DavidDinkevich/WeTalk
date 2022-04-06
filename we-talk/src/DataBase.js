@@ -3,7 +3,7 @@
 export const users = [
     {
         username: 'Shachar',
-        password: '123sh',
+        password: '12345678sh',
         image: '/shachar_profile.png',
         contactList: [
             {
@@ -19,19 +19,19 @@ export const users = [
     },
     {
         username: 'Shir',
-        password: 'shir11',
+        password: 'shir12345',
         image: '/photo-Shir.jpg',
         contactList: []
     },
     {
         username: 'Noa',
-        password: 'hello10',
+        password: 'helloNoa1',
         image: '/photo-noa.jpg',
         contactList: []
     },
     {
         username: 'Lior',
-        password: 'li77',
+        password: 'lior101010',
         image: '/photo-lior.webp',
         contactList: []
     }
@@ -41,6 +41,11 @@ let activeUser = users[0];
 
 export function getActiveUser() {
     return activeUser;
+}
+
+export function addNewUser({name, password, image}) {
+    users.push({username: name, password, image, contactList:[]});
+    console.log('Added new user: ' + name + password + image);
 }
 
 export function getUserByName(name) {

@@ -2,7 +2,7 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { getActiveUser } from "../DataBase";
+import { getActiveUser, getContactByName } from "../DataBase";
 import { getUserByName } from "../DataBase";
 
 function SelfInfo() {
@@ -14,14 +14,14 @@ function SelfInfo() {
         input = input.value;
         if (input !== '') {
             let contactInDataBase = getUserByName(input);
-            if (contactInDataBase != null) {
+            if (contactInDataBase != null  && (getContactByName(input)== null)) {
                 let newContact = { name: contactInDataBase.username, image: contactInDataBase.image, messagesList: [], time: '' };
                 addContact(newContact);
                 setIsOpen(false);
             } else {
                 document.getElementById('messageContactNotRegistered').style.color = 'red';
                 document.getElementById('messageContactNotRegistered').style.paddingLeft ="2%"
-                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered";
+                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered or already exists";
             }
         }
     }
@@ -37,7 +37,7 @@ function SelfInfo() {
                 id="user-0"
                 src={getActiveUser().image}
                 alt='???'
-                style={{ height: "95%", width: "18%", marginTop: "1%", marginBottom: "0.5%" }}
+                style={{ height: "95%", width: "18%", marginTop: "0", marginBottom: "0" }}
             />
 
             <div id="selfInfo name" className="fw-bold" style={{ fontSize: '25px', paddingBottom: '6px', paddingRight: '0px', textAlign: "center", marginTop: "3%" }}>{getActiveUser().username}</div>

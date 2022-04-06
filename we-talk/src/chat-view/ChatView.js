@@ -87,7 +87,7 @@ function ChatView({ activeContact }) {
                     sendMessage({ image, video, audio }); // empty
                 }} />
 
-                <div id='footer' className="chat-input" style={{ background: '#6cc4ea',  borderBottomRightRadius: '15px'}} onKeyDown={(e) => {
+                <div id='footer' className="chat-input" style={{ background: '#6cc4ea',  borderBottomRightRadius: '15px', border: 'none'}} onKeyDown={(e) => {
                     if (!e) e = window.event;
                     var keyCode = e.code || e.key;
                     if (keyCode === 'Enter') {

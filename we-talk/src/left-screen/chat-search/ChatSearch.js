@@ -21,7 +21,7 @@ function ChatSearch() {
                     // borderTop:'none', borderRight:'none', borderLeft:'none', borderColor:'#e8e6e1', borderBottomWidth:'thin' }}>
                 }}>
             <span className="input-group-text" id="addon-wrapping" 
-                style={{ border:'black', background: 'rgb(250, 250, 250)' }}>
+                style={{ border:'black', background: 'rgb(240, 240, 240)' }}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width={17}
@@ -35,7 +35,7 @@ function ChatSearch() {
 
             </span>
             <input ref={searchBox} type="text" className="form-control" placeholder="Search a contact" aria-label="Username" aria-describedby="addon-wrapping" onKeyUp={search}
-                style={{ border:'none', background: 'rgb(250, 250, 250)' }} />
+                style={{ border:'none', background: 'rgb(240, 240, 240)' }} />
         </div>
 
     );
