@@ -7,9 +7,7 @@ function ChatSearch() {
     const searchBox = useRef(null);
 
     const search = function() {
-        console.log(searchBox.current.value);
         setUIChatList(getActiveUser().contactList.filter((value) => {
-            console.log(value.name)
             return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
         }));
     }

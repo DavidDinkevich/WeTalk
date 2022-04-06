@@ -69,7 +69,6 @@ export const emptyMessageJSON = function () {
 }
 
 export function createMessageID(name, messageNumber) {
-    // console.log('creating message ID from: ' + messageNumber);
     return `${name}-${messageNumber}`;
 }
 
