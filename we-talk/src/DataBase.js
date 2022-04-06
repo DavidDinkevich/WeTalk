@@ -43,6 +43,11 @@ export function getActiveUser() {
     return activeUser;
 }
 
+export function setActiveUser(name) {
+    let index = users.findIndex((user) => {return user.username === name});
+    activeUser = users[index];
+}
+
 export function addNewUser({name, password, image}) {
     users.push({username: name, password, image, contactList:[]});
    

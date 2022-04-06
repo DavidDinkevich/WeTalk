@@ -1,0 +1,23 @@
+.self-info-image{
+    height: 95%;
+    width: 18%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.message-not-registered{
+    padding-top: 10px;
+}
+.self-info-name{
+    font-size: 25px;
+    padding-bottom: 6px;
+    padding-right: 0px;
+    text-align: center;
+    margin-top: 3%;
+}
+.adding-contact-button{
+    border: none;
+    background: white;
+}
+.modal-add-contact{
+    position: absolute;
+}
