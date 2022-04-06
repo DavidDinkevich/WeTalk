@@ -55,7 +55,7 @@ function ChatList({ activeContact, setActiveContact }) {
     });
     return (
         <ul className="list-group list-group-unordered" 
-        style={{ margin: '0', padding: '0px', margin:'0px', position: 'relative', width: '100%', height: "100%", overflowY: 'scroll',maxHeight:'80vh', background:'inherit' }}>
+        style={{ margin: '0', padding: '0px', margin:'0px', position: 'relative', width: '100%', height: "100%", overflowY: 'scroll',maxHeight:'69vh',minHeight:'20vh' ,background:'inherit' }}>
             {chatInfos}
         </ul>
     );

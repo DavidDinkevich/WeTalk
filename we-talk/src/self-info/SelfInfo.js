@@ -2,7 +2,7 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { getActiveUser, users } from "../DataBase";
+import { getActiveUser, getContactList, users, getContactByName } from "../DataBase";
 import { getUserByName } from "../DataBase";
 
 function SelfInfo({ name }) {
@@ -14,14 +14,14 @@ function SelfInfo({ name }) {
         input = input.value;
         if (input !== '') {
             let contactInDataBase = getUserByName(input);
-            if (contactInDataBase != null) {
+            if (contactInDataBase != null  && (getContactByName(input)== null)) {
                 let newContact = { name: contactInDataBase.username, image: contactInDataBase.image, messagesList: [], time: '' };
                 addContact(newContact);
                 setIsOpen(false);
             } else {
                 document.getElementById('messageContactNotRegistered').style.color = 'red';
                 document.getElementById('messageContactNotRegistered').style.paddingLeft ="2%"
-                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered";
+                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered or already exists";
             }
         }
     }
