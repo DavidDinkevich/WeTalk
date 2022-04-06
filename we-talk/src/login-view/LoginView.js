@@ -1,30 +1,69 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { getUserByName, addNewUser } from '../DataBase';
 
-
-
-const check = function () {
-    if (document.getElementById('passwordField').value ==
-        document.getElementById('confirmPassword').value) {
-        document.getElementById('message').style.color = 'green';
-        document.getElementById('message').innerHTML = 'Passwords match!';
+const checkPasswordsMatch = function () {
+    let passwordFieldID = `signup_form_password_field`;
+    let passwordVerifyFieldID = `signup_form_confirm_password`;
+    if (document.getElementById(passwordFieldID).value ==
+        document.getElementById(passwordVerifyFieldID).value) {
+        document.getElementById('pswd_match_msg_id').style.color = 'green';
+        document.getElementById('pswd_match_msg_id').innerHTML = 'Passwords match!';
+        return true;
     } else {
-        document.getElementById('message').style.color = 'red';
-        document.getElementById('message').innerHTML = "Passwords don't match";
+        document.getElementById('pswd_match_msg_id').style.color = 'red';
+        document.getElementById('pswd_match_msg_id').innerHTML = "Passwords don't match";
+        return false;
     }
 }
 
-export function LoginView() {
-    const onSubmit = function () {
-        const userNameField = document.getElementById('userNameField');
-        const passwordField = document.getElementById('passwordField');
-        console.log(userNameField.value);
-        console.log(passwordField.value);
-        window.location.replace("/chat");
+const checkUserExists = function () {
+    const userNameField = document.getElementById('login_form_username_field');
+    const passwordField = document.getElementById('login_form_password_field');
+    console.log(userNameField.value);
+    console.log(passwordField.value);
 
+    if (getUserByName(userNameField.value) == null) {
+        document.getElementById('user_not_exist_msg').style.color = 'red';
+        document.getElementById('user_not_exist_msg').innerHTML = "User doesn't exist - please sign up before!"
+        return false;
     }
+    return true;
+}
+
+const onSubmitLogin = function () {
+        
+    const form = document.getElementById("submit_form");
+    console.log('submitting');
+    
+    if (checkUserExists()) {
+        const userName = document.getElementById(`login_form_username_field`).value;
+        const password = document.getElementById('login_form_password_field').value;
+        console.log(userName);
+        console.log(password);
+        addNewUser({name: userName, password: password, image:''});
+        form.submit();
+    }
+}
+
+const onSubmitSignup = function () {
+        
+    const form = document.getElementById("login_form");
+    console.log('submitting');
+    
+    if (checkPasswordsMatch()) {
+        const userName = document.getElementById(`signup_form_username_field`).value;
+        const password = document.getElementById('signup_form_password_field').value;
+        console.log(userName);
+        console.log(password);
+        addNewUser({name: userName, password: password, image:''});
+        // form.submit();
+    }
+}
 
 
 
+
+export function LoginView() {
     return (
         <>
             <div style={{ backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_1280.jpg)', width: '100vw', height: '100vh' }}>
@@ -47,10 +86,10 @@ export function LoginView() {
 
                         <div className="col dflex" >
                             <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
-                                <form action="/chat" onSubmit={() => { onSubmit(); return false; }} className="px-4 py-3" style={{ float: 'center' }}>
+                                <form action="#" id="login_form" onSubmit={() => {onSubmitLogin(); return false;}} className="px-4 py-3" style={{ float: 'center' }}>
                                     <div className="mb-3">
                                         <div className="input-group has-validation">
-                                            <input type="text" className="form-control" placeholder="Username" id="userNameField" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z@*#]{1,8})$" title="name must be only with characters." />
+                                            <input type="text" className="form-control" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z@*#]{1,8})$" title="name must be only with characters." />
                                             <div className="invalid-feedback">
                                                 Please choose a username.
                                             </div>
@@ -59,7 +98,7 @@ export function LoginView() {
 
                                     <div className="mb-3">
                                         <div className="input-group has-validation">
-                                            <input type="password" className="form-control" placeholder="Password" id="passwordField" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
+                                            <input type="password" className="form-control" placeholder="Password" id="login_form_password_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
                                             <div className="invalid-feedback">
                                                 Please choose a username.
                                             </div>
@@ -75,7 +114,9 @@ export function LoginView() {
                                         </div>
                                     </div>
 
-                                    <button type="submit" className="btn btn-primary" style={{ background: '#0D168F', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }}>Sign in</button>
+                                    <button type="submit" className="btn btn-primary" style={{ background: '#0D168F', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
+                                    <br />
+                                    <span id='user_not_exist_msg'></span>
                                 </form>
 
                                 <div className="dropdown-divider"></div>
@@ -115,20 +156,20 @@ export function SignupView() {
 
                         <div className="col" >
                             <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
-                                <form className="px-4 py-3" style={{ float: 'center' }}>
+                                <form id='signup_form' action="/chat" onSubmit={() => {onSubmitSignup(); return false;}} className="px-4 py-3" style={{ float: 'center' }}>
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" id="NameField" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z@*#]{1,8})$" title="name must be only with characters." placeholder="Username"
+                                        <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z@*#]{1,30})$" title="name must be only with characters." placeholder="Username"
                                             style={{ lineHeight: '3' }}></input>
                                     </div>
                                     <div className="mb-3">
-                                        <input type="password" className="form-control" id="passwordField" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
+                                        <input type="password" className="form-control" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
                                             style={{ lineHeight: '3' }}></input>
-                                        
+
                                     </div>
                                     <div className="mb-3">
-                                        <input type="password" onKeyUp={check} className="form-control" id="confirmPassword" placeholder="Confirm Password"
+                                        <input type="password" onKeyUp={checkPasswordsMatch} className="form-control" id="signup_form_confirm_password" placeholder="Confirm Password"
                                             style={{ lineHeight: '3' }}></input>
-                                            <span id='message'></span>
+                                        <span id='pswd_match_msg_id'></span>
                                     </div>
                                     <div className="mb-3">
                                         <div className="form-check">
@@ -139,8 +180,8 @@ export function SignupView() {
                                         </div>
                                     </div>
 
-                                    
-                                    <button type="submit" className="btn btn-primary" style={{background: '#0D168F',border: 'white' }}>Sign up</button>
+
+                                    <button type="submit" className="btn btn-primary" style={{ background: '#0D168F', border: 'white' }} >Sign up</button>
 
                                 </form>
 

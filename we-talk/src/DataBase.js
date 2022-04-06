@@ -43,6 +43,11 @@ export function getActiveUser() {
     return activeUser;
 }
 
+export function addNewUser({name, password, image}) {
+    users.push({username: name, password, image, contactList:[]});
+    console.log('Added new user: ' + name + password + image);
+}
+
 export function getUserByName(name) {
     return users.find((element) => {
         return element.username === name
