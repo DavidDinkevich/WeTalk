@@ -111,12 +111,12 @@ export function LoginView() {
                             </div>
 
                             <div className="mb-3">
-                                <div className="form-check">
+                                {/*<div className="form-check">
                                     <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
                                     <label className="form-check-label" htmlFor="dropdownCheck">
                                         Remember me
-                                    </label>
-                                </div>
+                    </label>
+                                </div>*/}
                             </div>
 
                             <button type="button" onClick={onSubmitLogin} className="btn btn-primary" style={{ background: '#0D168F', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
@@ -183,12 +183,15 @@ export function SignupView() {
                             <div id='not_valid_password_msg'>
                             </div>
                             <div className="mb-3">
-                                <div className="form-check">
+                            <p>Upload profile picture:</p>   
+                            <input type="file" id="upload_image_textfield" multiple accept="image/*"
+                            ></input>
+                                {/*<div className="form-check">
                                     <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
                                     <label className="form-check-label" htmlFor="dropdownCheck">
                                         Remember me
-                                    </label>
-                                </div>
+                    </label>
+                                </div>*/}
                             </div>
 
 
