@@ -1,3 +1,4 @@
+import './chat-search.css'
 
 import {useRef} from 'react';
 import {setUIChatList} from '../../chat-list/ChatList'
@@ -14,12 +15,10 @@ function ChatSearch() {
 
 
     return (
-        <div className="input-group flex-nowrap" 
-            style={{ padding: '10px', background:'white', borderRadius:'10px'
+        <div className="input-group flex-nowrap chat-search-container" 
                     // borderTop:'none', borderRight:'none', borderLeft:'none', borderColor:'#e8e6e1', borderBottomWidth:'thin' }}>
-                }}>
-            <span className="input-group-text" id="addon-wrapping" 
-                style={{ border:'black', background: 'rgb(240, 240, 240)' }}>
+                >
+            <span className="input-group-text chat-search-icon" id="addon-wrapping" >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width={17}
@@ -32,8 +31,7 @@ function ChatSearch() {
                 </svg>
 
             </span>
-            <input ref={searchBox} type="text" className="form-control" placeholder="Search a contact" aria-label="Username" aria-describedby="addon-wrapping" onKeyUp={search}
-                style={{ border:'none', background: 'rgb(240, 240, 240)' }} />
+            <input ref={searchBox} type="text" className="form-control chat-search-box" placeholder="Search a contact" aria-label="Username" aria-describedby="addon-wrapping" onKeyUp={search} />
         </div>
 
     );

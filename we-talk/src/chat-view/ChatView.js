@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import './chat-view.css'
 import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
 import RecordAudioModal from './RecordAudioModal';
