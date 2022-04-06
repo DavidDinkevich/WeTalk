@@ -1,5 +1,11 @@
 import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
 import { useLocation } from 'react-router-dom';
+import { hideMediaUploadView } from '../chat-view/ChatView';
+
+const chooseFile = function (textField) {
+    const textFieldElement = document.getElementById(textField);
+    textFieldElement.click();
+}
 
 const checkPasswordsMatch = function () {
     let passwordFieldID = `signup_form_password_field`;
@@ -216,20 +222,16 @@ export function SignupView() {
                                 </div>
                             </div>
 
-                            <div className="mb-3">
-                                <p>Upload profile picture:</p>
-                                <input type="file" id="upload_image_textfield" multiple accept="image/*"
-                                ></input>
-                                {/*<div className="form-check">
-                                    <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
-                                    <label className="form-check-label" htmlFor="dropdownCheck">
-                                        Remember me
-                    </label>
-                                </div>*/}
+                           {/* <input type = "file" accept="image/*"/>*/}
+                            
+                            <div class="mb-3">
+                                <input class="form-control image form1" placeholder='Image'></input>
+                                <input type="file" class="image" accept="image/*" id="upload" />
+                                <label class="addPhoto btn btn-primary" id="photo" >Add image</label>
                             </div>
 
 
-                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white' }} >Sign up</button>
+                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white', marginTop: '-3.5%' }} >Sign up</button>
 
 
                             <div className="dropdown-divider"></div>

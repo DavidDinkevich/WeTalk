@@ -14,6 +14,16 @@ export const users = [
                     { source: 'remote', author: 'David', message: ' שלום!!!!', image: '', video: '', audio: '', time: '12:30' },
                     { source: 'remote', author: 'David', message: 'איך את?', image: '', video: '', audio: '', time: '12:40' },
                 ], unread: 2
+            },
+            {
+                name: 'Shir', image: '/photo-Shir.jpg', messagesList: [
+                    { source: 'remote', author: 'Shir', message: 'אני שיר', image: '/bobsfog.jpg', video: '', audio: '', time: '09:33' },
+                ], unread: 1
+            },
+            {
+                name: 'Noa', image: '/photo-noa.jpg', messagesList: [
+                    { source: 'remote', author: 'Noa', message: 'היייי', image: '', video: '', audio: '', time: '10:45' },
+                ], unread: 1
             }
         ]
     },
