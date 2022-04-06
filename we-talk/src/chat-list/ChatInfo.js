@@ -25,11 +25,12 @@ function ChatInfo({ contact }) {
             />
 
             <div className="ms-2 me-center">
-                <div className="fw-bold" style={{ fontSize: '18px', paddingBottom: '6px' }}>{contact.name}</div>
+                <div className="fw-bold mb-1" style={{ fontSize: '18px' }}>{contact.name}</div>
                 {lastMessageText}
             </div>
-            <div style={{minWidth:'68px'}}>
-                <span id={contact.name + "unread messages"} className="ms-5 badge bg-primary rounded-pill">{contact.unread}</span>
+            <div className="" style={{minWidth:'68px', height:'100%'}}>
+                <span id={contact.name + "unread messages"} className="ms-2 mb-2 badge bg-primary rounded-pill"
+                    style={{textAlign:'center'}}>{contact.unread}</span>
                 <div>{time}</div>
             </div>
         </li>
