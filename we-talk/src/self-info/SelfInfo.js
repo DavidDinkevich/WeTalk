@@ -1,13 +1,10 @@
 // import {chats} from  "../App";
-import ChatInfo from "../chat-list/ChatInfo";
-import { contactList } from "../App";
 import { addContact } from "../chat-list/ChatList";
-import Message from "../message/Message";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
 import { getActiveUser } from "../DataBase";
 
-function SelfInfo({ name, refreshChatUIList }) {
+function SelfInfo({ name }) {
 
     let [isOpen, setIsOpen] = useState(false);
 

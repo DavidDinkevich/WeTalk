@@ -4,19 +4,23 @@ import { useState } from "react";
 import { showChatView } from "../main-view/MainView";
 
 export let addContact;
+export let setUIChatList;
 export let refreshUIChatList;
 
 function zeroUnReadMessages(contact) {
-    document.getElementById(contact.name + "unread messages").style.visibility = "hidden"
+    document.getElementById(contact.name + "unread messages").style.visibility = "hidden";
 }
 
 function ChatList({ activeContact, setActiveContact }) {
     let contactList = getContactList(getActiveUser().username);
-    let [UIChatList, setUIChatList] = useState(contactList);
+    let [UIChatList, setUIChatListHandle] = useState(contactList);
 
     refreshUIChatList = () => {
         // Force refresh of UIChatList
-        setUIChatList(UIChatList.concat([]));
+        setUIChatListHandle(UIChatList.concat([]));
+    }
+    setUIChatList = (value) => {
+        setUIChatListHandle(value); 
     }
 
     function displayActiveContact(newContact, activeContact, setActiveContact) {
@@ -28,10 +32,9 @@ function ChatList({ activeContact, setActiveContact }) {
 
     addContact = function (newContact) {
         contactList.push(newContact);
-        setUIChatList(UIChatList.concat([newContact]));
+        setUIChatListHandle(UIChatList.concat([newContact]));
     };
 
-    UIChatList = contactList;
     let chatInfos = UIChatList.map((contact, key) => {
         return (
             <button id='displayActiveContact' key={key} className='button' onClick={() => {
