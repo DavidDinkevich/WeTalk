@@ -1,4 +1,3 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { getUserByName, addNewUser } from '../DataBase';
 
 const checkPasswordsMatch = function () {
@@ -21,8 +20,9 @@ const checkUserExists = function () {
     const passwordField = document.getElementById('login_form_password_field');
     console.log(userNameField.value);
     console.log(passwordField.value);
+    let user = getUserByName(userNameField.value);
 
-    if (getUserByName(userNameField.value) == null) {
+    if (user == null || user.password != passwordField.value) {
         document.getElementById('user_not_exist_msg').style.color = 'red';
         document.getElementById('user_not_exist_msg').innerHTML = "User doesn't exist - please sign up before!"
         return false;
@@ -31,32 +31,32 @@ const checkUserExists = function () {
 }
 
 const onSubmitLogin = function () {
-        
-    const form = document.getElementById("submit_form");
+
+    const form = document.getElementById("login_form");
     console.log('submitting');
-    
+    console.log(checkUserExists())
+
     if (checkUserExists()) {
         const userName = document.getElementById(`login_form_username_field`).value;
         const password = document.getElementById('login_form_password_field').value;
-        console.log(userName);
-        console.log(password);
-        addNewUser({name: userName, password: password, image:''});
+        //window.location.replace('/chat');
         form.submit();
     }
 }
 
 const onSubmitSignup = function () {
-        
+
     const form = document.getElementById("login_form");
     console.log('submitting');
-    
+
     if (checkPasswordsMatch()) {
         const userName = document.getElementById(`signup_form_username_field`).value;
         const password = document.getElementById('signup_form_password_field').value;
         console.log(userName);
         console.log(password);
-        addNewUser({name: userName, password: password, image:''});
-        // form.submit();
+        addNewUser({ name: userName, password: password, image: '' });
+        //window.location.href = '/chat';
+        form.submit();
     }
 }
 
@@ -83,13 +83,12 @@ export function LoginView() {
                             </h2>
                         </div>
 
-
                         <div className="col dflex" >
                             <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
-                                <form action="#" id="login_form" onSubmit={() => {onSubmitLogin(); return false;}} className="px-4 py-3" style={{ float: 'center' }}>
+                                <form id="login_form" action="#" onSubmit={() => { onSubmitLogin(); return; }} className="px-4 py-3" style={{ float: 'center' }}>
                                     <div className="mb-3">
                                         <div className="input-group has-validation">
-                                            <input type="text" className="form-control" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z@*#]{1,8})$" title="name must be only with characters." />
+                                            <input type="text" className="form-control" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." />
                                             <div className="invalid-feedback">
                                                 Please choose a username.
                                             </div>
@@ -156,9 +155,9 @@ export function SignupView() {
 
                         <div className="col" >
                             <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
-                                <form id='signup_form' action="/chat" onSubmit={() => {onSubmitSignup(); return false;}} className="px-4 py-3" style={{ float: 'center' }}>
+                                <form id='signup_form' action="#" onSubmit={() => { onSubmitSignup(); return false; }} className="px-4 py-3" style={{ float: 'center' }}>
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z@*#]{1,30})$" title="name must be only with characters." placeholder="Username"
+                                        <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
                                             style={{ lineHeight: '3' }}></input>
                                     </div>
                                     <div className="mb-3">
