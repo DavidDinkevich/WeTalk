@@ -37,7 +37,7 @@ function SelfInfo() {
                 id="user-0"
                 src={getActiveUser().image}
                 alt='???'
-                style={{ height: "95%", width: "18%", marginTop: "0", marginBottom: "0" }}
+                style={{ height: "95%", width: "18%", marginTop: "1%", marginBottom: "0" }}
             />
 
             <div id="selfInfo name" className="fw-bold" style={{ fontSize: '25px', paddingBottom: '6px', paddingRight: '0px', textAlign: "center", marginTop: "3%" }}>{getActiveUser().username}</div>
