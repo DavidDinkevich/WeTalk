@@ -1,9 +1,9 @@
-// import {chats} from  "../App";
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
 import { getActiveUser, getContactByName } from "../DataBase";
 import { getUserByName } from "../DataBase";
+import './self-info.css';
 
 function SelfInfo() {
 
@@ -33,19 +33,18 @@ function SelfInfo() {
     return (
         <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
             <img
-                className="user-img"
+                className="user-img self-info-image"
                 id="user-0"
                 src={getActiveUser().image}
                 alt='???'
-                style={{ height: "95%", width: "18%", marginTop: "0", marginBottom: "0" }}
             />
 
-            <div id="selfInfo name" className="fw-bold" style={{ fontSize: '25px', paddingBottom: '6px', paddingRight: '0px', textAlign: "center", marginTop: "3%" }}>{getActiveUser().username}</div>
+            <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().username}</div>
 
-            <button className='button' onClick={() => {
+            <button className='button adding-contact-button' onClick={() => {
                 setIsOpen(true);
             }
-            } style={{ border: 'none', background: 'white' }} >
+            }>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-plus" viewBox="0 0 16 16" style={{ marginTop: "55%" }}>
                         <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
@@ -54,7 +53,7 @@ function SelfInfo() {
                 </span>
             </button>
 
-            <Modal id='add_contact' className="modal fade" aria-hidden="true" show={isOpen} style={{ position: 'absolute' }}>
+            <Modal id='add_contact' className="modal fade modal-add-contact" aria-hidden="true" show={isOpen}>
                 <Modal.Header>
                     <Modal.Title>Enter a contact:</Modal.Title>
                 </Modal.Header>
@@ -71,7 +70,7 @@ function SelfInfo() {
                                         }
                                     }} required></input>
                             </div>
-                            <div className="col" style={{ paddingTop: '10px' }}>
+                            <div className="col message-not-registered">
                                 <span id='messageContactNotRegistered'></span>
                             </div>
                         </div>
