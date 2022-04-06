@@ -1,4 +1,4 @@
-import { getUserByName, addNewUser } from '../DataBase';
+import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
 import { useLocation } from 'react-router-dom';
 
 const checkPasswordsMatch = function () {
@@ -50,7 +50,7 @@ const onSubmitSignup = function () {
         if (checkPasswordsMatch()) {
             console.log(password);
             addNewUser({ name: userName, password: password, image: '' });
-            window.location.replace('/chat');
+            window.location.replace('/');
         }
     }
 
