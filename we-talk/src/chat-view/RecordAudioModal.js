@@ -1,7 +1,8 @@
-/* eslint-disable default-case */
+import './record-audio-modal.css'
 
 import { Modal } from "react-bootstrap"
 import { useState } from 'react';
+import './record-button.css'
 
 // STOPWATCH
 var stoptime = true;
@@ -167,7 +168,7 @@ function RecordAudioModal({ isOpen, closeModal, sendAudio, getLastMessageID }) {
 
 
     return (
-        <Modal id='record_audio_modal' className="modal fade" aria-hidden="true" show={isOpen} style={{ position: 'absolute' }}>
+        <Modal id='record_audio_modal' className="modal fade record-audio-modal-window" aria-hidden="true" show={isOpen}>
             <Modal.Header>
                 <Modal.Title>Record</Modal.Title>
             </Modal.Header>
@@ -175,11 +176,11 @@ function RecordAudioModal({ isOpen, closeModal, sendAudio, getLastMessageID }) {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4" style={{ width: '100%', minHeight: '15vh', height: '15vh', paddingLeft: '40%' }}>
-                            <button style={{ height: '70%', padding: '0px', margin: '15px', background: 'inherit', border: 'none' }}
+                            <button class='record-audio-modal-container'
                                 onClick={toggleRecord}>
                                 <div className="box">
-                                    <div id={"circle_ripple"} className="circle_ripple" style={{ visibility: 'hidden' }}></div>
-                                    <div id={"circle_ripple-2"} className="circle_ripple-2" style={{ visibility: 'hidden' }}></div>
+                                    <div id={"circle_ripple"} className="circle_ripple record-audio-modal-circle"></div>
+                                    <div id={"circle_ripple-2"} className="circle_ripple-2 record-audio-modal-circle"></div>
                                     <div className="circle">
                                         <div className="circle-2">
                                             <RecordButtonImage state={recordingState} />
@@ -189,7 +190,7 @@ function RecordAudioModal({ isOpen, closeModal, sendAudio, getLastMessageID }) {
                             </button>
                         </div>
                     </div>
-                    <p id={'timer_text'} style={{ textAlign: 'center', visibility: 'hidden' }}></p>
+                    <p id={'timer_text'} class='record-audio-modal-timer'></p>
                 </div>
 
 

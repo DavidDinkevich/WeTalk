@@ -1,0 +1,21 @@
+
+.record-audio-modal-window {
+    position: absolute;
+}
+
+.record-audio-modal-container {
+    height: 70%;
+    padding: 0px;
+    margin: 15px;
+    background: inherit;
+    border: none;
+}
+
+.record-audio-modal-circle {
+    visibility: hidden;
+}
+
+.record-audio-modal-timer {
+    text-align: center;
+    visibility: hidden;
+}

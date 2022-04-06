@@ -1,3 +1,4 @@
+import './main-view.css';
 
 import LeftScreen from '../left-screen/LeftScreen.js';
 import ChatView from '../chat-view/ChatView.js';
@@ -12,13 +13,12 @@ function MainView({ selfInfo, activeContact, setActiveContact }) {
     showChatView = () => setChatViewHidden(false);
 
     return (
-        <div className='row g-0' style={{ maxHeight: '90vh', height: '90vh', width: '90vw', minWidth: '700px', background: '#f0f3f9', opacity:'0.8', 
-                                            borderRadius: '15px'}}>
-            <div className='col-lg-4' style={{width: '26%', minWidth:'300px', padding: '0px', background:'white', borderBottomLeftRadius: '15px', borderTopLeftRadius: '15px' }}>
+        <div className='row g-0 main-view-container'>
+            <div className='col-lg-4 left-side'>
                 <LeftScreen selfInfo={selfInfo} activeContact={activeContact} setActiveContact={setActiveContact} />
             </div>
 
-            <div className='col' style={{ minWidth: '400px', maxHeight: 'inherit' , textAlign: 'center'}}>
+            <div className='col right-side'>
                 {!chatViewHidden ? <ChatView activeContact={activeContact} /> : <Logo />}
             </div>
 

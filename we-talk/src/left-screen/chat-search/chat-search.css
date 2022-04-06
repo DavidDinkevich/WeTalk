@@ -1,0 +1,16 @@
+
+.chat-search-container {
+    padding: 10px;
+    background: white;
+    border-radius:  10px;
+}
+
+.chat-search-icon {
+    border: black;
+    background: rgb(240, 240, 240);
+}
+
+.chat-search-box {
+    border: none;
+    background:rgb(240, 240, 240);
+}

@@ -1,3 +1,5 @@
+import './chat-list.css'
+
 import { getActiveUser, getContactList } from "../DataBase"
 import ChatInfo from "./ChatInfo";
 import { useState } from "react";
@@ -38,9 +40,8 @@ function ChatList({ activeContact, setActiveContact }) {
 
     let chatInfos = UIChatList.map((contact, key) => {
         return (
-            <button id='displayActiveContact' key={key} className='button' 
-            style={{padding:'0px', margin:'0px', borderTop:'none', borderRight:'none', 
-            borderLeft:'none', borderColor:'#e8e6e1', borderBottomWidth:'thin'}}
+            <button id='displayActiveContact' key={key} className='button chat-info-button-container'
+        
             onClick={() => {
                 displayActiveContact(contact, activeContact, setActiveContact);
                 zeroUnReadMessages(contact);
@@ -52,8 +53,7 @@ function ChatList({ activeContact, setActiveContact }) {
         );
     });
     return (
-        <ul className="list-group list-group-unordered" 
-        style={{ margin: '0', padding: '0px', margin:'0px', position: 'relative', width: '100%', height: "100%", overflowY: 'scroll',maxHeight:'69vh',minHeight:'20vh' ,background:'inherit' }}>
+        <ul className="list-group list-group-unordered chat-list">
             {chatInfos}
         </ul>
     );
