@@ -2,10 +2,10 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { getActiveUser, users } from "../DataBase";
+import { getActiveUser, getContactByName } from "../DataBase";
 import { getUserByName } from "../DataBase";
 
-function SelfInfo({ name }) {
+function SelfInfo() {
 
     let [isOpen, setIsOpen] = useState(false);
 
@@ -14,30 +14,30 @@ function SelfInfo({ name }) {
         input = input.value;
         if (input !== '') {
             let contactInDataBase = getUserByName(input);
-            if (contactInDataBase != null) {
+            if (contactInDataBase != null && (getContactByName(input) == null)) {
                 let newContact = { name: contactInDataBase.username, image: contactInDataBase.image, messagesList: [], time: '' };
                 addContact(newContact);
                 setIsOpen(false);
             } else {
                 document.getElementById('messageContactNotRegistered').style.color = 'red';
-                document.getElementById('messageContactNotRegistered').style.paddingLeft ="2%"
-                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered";
+                document.getElementById('messageContactNotRegistered').style.paddingLeft = "2%"
+                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered or already exists";
             }
         }
     }
 
-    function CloseAddingWindow() {
+    function closeAddingWindow() {
         setIsOpen(false);
     }
 
     return (
-        <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start" style={{}}>
+        <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
             <img
                 className="user-img"
                 id="user-0"
                 src={getActiveUser().image}
                 alt='???'
-                style={{ height: "95%", width: "18%", marginTop: "1%", marginBottom: "0.5%" }}
+                style={{ height: "95%", width: "18%", marginTop: "0", marginBottom: "0" }}
             />
 
             <div id="selfInfo name" className="fw-bold" style={{ fontSize: '25px', paddingBottom: '6px', paddingRight: '0px', textAlign: "center", marginTop: "3%" }}>{getActiveUser().username}</div>
@@ -56,21 +56,30 @@ function SelfInfo({ name }) {
 
             <Modal id='add_contact' className="modal fade" aria-hidden="true" show={isOpen} style={{ position: 'absolute' }}>
                 <Modal.Header>
-                    <Modal.Title>Please enter the name of the contact:</Modal.Title>
+                    <Modal.Title>Enter a contact:</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <div className="input-group flex-nowrap">
-                        <span className="input-group-text" id="addon-wrapping"></span>
-                        <input type="text" id="inputBox" className="form-control" placeholder="Name" aria-label="Please enter the name of the contact:" aria-describedby="addon-wrapping" required></input>
-                        <span id='messageContactNotRegistered'></span>
+                        <div className="col">
+                            <div className="col">
+                                <input type="text" id="inputBox" className="form-control" placeholder="Name"
+                                    onKeyUp={(e) => {
+                                        if (!e) e = window.event;
+                                        var keyCode = e.code || e.key;
+                                        if (keyCode === 'Enter') {
+                                            addNewContact();
+                                        }
+                                    }} required></input>
+                            </div>
+                            <div className="col" style={{ paddingTop: '10px' }}>
+                                <span id='messageContactNotRegistered'></span>
+                            </div>
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Modal.Title>
-                        <button type="button" id='add_contact' className="btn btn-success" onClick={addNewContact}>Send</button>
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={CloseAddingWindow}>Cancel</button>
-                    </Modal.Title>
+                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={closeAddingWindow}>Cancel</button>
+                    <button type="button" id='add_contact' className="btn btn-success" onClick={addNewContact}>Add</button>
                 </Modal.Footer>
 
             </Modal>
