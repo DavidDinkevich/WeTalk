@@ -1,4 +1,5 @@
 import { getUserByName, addNewUser } from '../DataBase';
+import { useLocation } from 'react-router-dom';
 
 const checkPasswordsMatch = function () {
     let passwordFieldID = `signup_form_password_field`;
@@ -31,23 +32,17 @@ const checkUserExists = function () {
 }
 
 const onSubmitLogin = function () {
-
-    const form = document.getElementById("login_form");
-    console.log('submitting');
-    console.log(checkUserExists())
-
     if (checkUserExists()) {
         const userName = document.getElementById(`login_form_username_field`).value;
         const password = document.getElementById('login_form_password_field').value;
-        //window.location.replace('/chat');
-        form.submit();
+        window.location.replace('/chat');
+        console.log('the user exist');
     }
 }
 
 const onSubmitSignup = function () {
 
-    const form = document.getElementById("login_form");
-    console.log('submitting');
+    console.log('in submit sign up');
 
     if (checkPasswordsMatch()) {
         const userName = document.getElementById(`signup_form_username_field`).value;
@@ -55,13 +50,11 @@ const onSubmitSignup = function () {
         console.log(userName);
         console.log(password);
         addNewUser({ name: userName, password: password, image: '' });
-        //window.location.href = '/chat';
-        form.submit();
+        window.location.replace('/chat');
+
+
     }
 }
-
-
-
 
 export function LoginView() {
     return (
@@ -84,39 +77,40 @@ export function LoginView() {
                         </div>
 
                         <div className="col dflex" >
-                            <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
-                                <form id="login_form" action="#" onSubmit={() => { onSubmitLogin(); return; }} className="px-4 py-3" style={{ float: 'center' }}>
-                                    <div className="mb-3">
-                                        <div className="input-group has-validation">
-                                            <input type="text" className="form-control" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." />
-                                            <div className="invalid-feedback">
-                                                Please choose a username.
-                                            </div>
+                            <div style={{ background: 'white', borderRadius: '20px', padding: '2%' }}>
+
+                                <div className="mb-3">
+                                    <div className="input-group has-validation">
+                                        <input type="text" className="form-control" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." />
+                                        <div className="invalid-feedback">
+                                            Please choose a username.
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="mb-3">
-                                        <div className="input-group has-validation">
-                                            <input type="password" className="form-control" placeholder="Password" id="login_form_password_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
-                                            <div className="invalid-feedback">
-                                                Please choose a username.
-                                            </div>
+                                <div className="mb-3">
+                                    <div className="input-group has-validation">
+                                        <input type="password" className="form-control" placeholder="Password" id="login_form_password_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
+                                        <div className="invalid-feedback">
+                                            Please choose a username.
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="mb-3">
-                                        <div className="form-check">
-                                            <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
-                                            <label className="form-check-label" htmlFor="dropdownCheck">
-                                                Remember me
-                                            </label>
-                                        </div>
+                                <div className="mb-3">
+                                    <div className="form-check">
+                                        <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
+                                        <label className="form-check-label" htmlFor="dropdownCheck">
+                                            Remember me
+                                        </label>
                                     </div>
+                                </div>
 
-                                    <button type="submit" className="btn btn-primary" style={{ background: '#0D168F', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
-                                    <br />
-                                    <span id='user_not_exist_msg'></span>
-                                </form>
+                                <button type="button" onClick={onSubmitLogin} className="btn btn-primary" style={{ background: '#0D168F', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
+                                <br />
+
+                                <span id='user_not_exist_msg'></span>
+
 
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item" href="/sign-up">New around here? Sign up</a>
@@ -154,35 +148,33 @@ export function SignupView() {
                         </div>
 
                         <div className="col" >
-                            <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
-                                <form id='signup_form' action="#" onSubmit={() => { onSubmitSignup(); return false; }} className="px-4 py-3" style={{ float: 'center' }}>
-                                    <div className="mb-3">
-                                        <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
-                                            style={{ lineHeight: '3' }}></input>
-                                    </div>
-                                    <div className="mb-3">
-                                        <input type="password" className="form-control" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
-                                            style={{ lineHeight: '3' }}></input>
+                            <div style={{ background: 'white', borderRadius: '20px', padding: '2%' }}>
+                                <div className="mb-3">
+                                    <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
+                                        style={{ lineHeight: '3' }}></input>
+                                </div>
+                                <div className="mb-3">
+                                    <input type="password" className="form-control" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
+                                        style={{ lineHeight: '3' }}></input>
 
+                                </div>
+                                <div className="mb-3">
+                                    <input type="password" onKeyUp={checkPasswordsMatch} className="form-control" id="signup_form_confirm_password" placeholder="Confirm Password"
+                                        style={{ lineHeight: '3' }}></input>
+                                    <span id='pswd_match_msg_id'></span>
+                                </div>
+                                <div className="mb-3">
+                                    <div className="form-check">
+                                        <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
+                                        <label className="form-check-label" htmlFor="dropdownCheck">
+                                            Remember me
+                                        </label>
                                     </div>
-                                    <div className="mb-3">
-                                        <input type="password" onKeyUp={checkPasswordsMatch} className="form-control" id="signup_form_confirm_password" placeholder="Confirm Password"
-                                            style={{ lineHeight: '3' }}></input>
-                                        <span id='pswd_match_msg_id'></span>
-                                    </div>
-                                    <div className="mb-3">
-                                        <div className="form-check">
-                                            <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
-                                            <label className="form-check-label" htmlFor="dropdownCheck">
-                                                Remember me
-                                            </label>
-                                        </div>
-                                    </div>
+                                </div>
 
 
-                                    <button type="submit" className="btn btn-primary" style={{ background: '#0D168F', border: 'white' }} >Sign up</button>
+                                <button type="button" onClick={onSubmitSignup} className="btn btn-primary" style={{ background: '#0D168F', border: 'white' }} >Sign up</button>
 
-                                </form>
 
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item" href="/">Already have an account? Sign in</a>
