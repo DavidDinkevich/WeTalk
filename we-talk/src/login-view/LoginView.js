@@ -127,7 +127,7 @@ export function LoginView() {
 
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/sign-up">New around here? Sign up</a>
-                            <a className="dropdown-item" href="/">Forgot password?</a>
+                            {/*<a className="dropdown-item" href="/">Forgot password?</a>*/}
 
                         </div>
                     </div>
@@ -197,7 +197,7 @@ export function SignupView() {
 
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/">Already have an account? Sign in</a>
-                            <a className="dropdown-item" href="/">Forgot password?</a>
+                            {/*<a className="dropdown-item" href="/">Forgot password?</a>*/}
                         </div>
                     </div>
 
