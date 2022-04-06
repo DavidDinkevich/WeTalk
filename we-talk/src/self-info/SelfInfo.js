@@ -2,10 +2,10 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { getActiveUser, users } from "../DataBase";
+import { getActiveUser } from "../DataBase";
 import { getUserByName } from "../DataBase";
 
-function SelfInfo({ name }) {
+function SelfInfo() {
 
     let [isOpen, setIsOpen] = useState(false);
 
@@ -31,7 +31,7 @@ function SelfInfo({ name }) {
     }
 
     return (
-        <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start" style={{}}>
+        <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
             <img
                 className="user-img"
                 id="user-0"

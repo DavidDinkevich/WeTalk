@@ -39,7 +39,8 @@ function ChatList({ activeContact, setActiveContact }) {
     let chatInfos = UIChatList.map((contact, key) => {
         return (
             <button id='displayActiveContact' key={key} className='button' 
-            style={{padding:'0px', margin:'0px', borderTop:'none', borderRight:'none', borderLeft:'none', borderColor:'#e8e6e1', borderBottomWidth:'thin'}}
+            style={{padding:'0px', margin:'0px', borderTop:'none', borderRight:'none', 
+            borderLeft:'none', borderColor:'#e8e6e1', borderBottomWidth:'thin'}}
             onClick={() => {
                 displayActiveContact(contact, activeContact, setActiveContact);
                 zeroUnReadMessages(contact);

@@ -21,7 +21,7 @@ function ChatInfo({ contact }) {
                 // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
                 src={contactImage.length > 0 ? contactImage : '/anonymous_profile.webp'}
                 alt='???'
-                style={{ width: '20%', height:'100%', marginBottom:'auto', marginTop:'auto'}}
+                style={{ height:'100%', marginBottom:'auto', marginTop:'auto'}}
             />
 
             <div className="ms-2 me-center">

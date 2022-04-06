@@ -5,7 +5,7 @@ import ChatSearch from "./chat-search/ChatSearch";
 
 function LeftScreen({ selfInfo, activeContact, setActiveContact}) {
     return (
-        <div style={{ position:'relative', width:'100%', margin:'0', padding:'0', background:'white'}}>
+        <div style={{ position:'relative', width:'100%', margin:'0', padding:'0', background:'white', borderTopLeftRadius: 'inherit'}}>
             <SelfInfo name={selfInfo} />
             <ChatSearch />
             <ChatList activeContact={activeContact} setActiveContact={setActiveContact} />

@@ -16,9 +16,12 @@ function ChatSearch() {
 
 
     return (
-        <div className="input-group flex-nowrap" style={{ padding: '10px', background:'white', borderRadius:'10px' }}>
+        <div className="input-group flex-nowrap" 
+            style={{ padding: '10px', background:'white', borderRadius:'10px'
+                    // borderTop:'none', borderRight:'none', borderLeft:'none', borderColor:'#e8e6e1', borderBottomWidth:'thin' }}>
+                }}>
             <span className="input-group-text" id="addon-wrapping" 
-                style={{ border:'none', background: 'rgb(250, 250, 250)', borderRight: 'none' }}>
+                style={{ border:'black', background: 'rgb(250, 250, 250)' }}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width={17}
