@@ -45,7 +45,8 @@ export function getActiveUser() {
 
 export function addNewUser({name, password, image}) {
     users.push({username: name, password, image, contactList:[]});
-    console.log('Added new user: ' + name + password + image);
+   
+    console.log(users);
 }
 
 export function getUserByName(name) {
