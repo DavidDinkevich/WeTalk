@@ -18,6 +18,7 @@ function ChatList({ activeContact, setActiveContact }) {
     refreshUIChatList = () => {
         // Force refresh of UIChatList
         setUIChatListHandle(UIChatList.concat([]));
+        console.log(UIChatList);
     }
     setUIChatList = (value) => {
         console.log('setting')
@@ -33,6 +34,7 @@ function ChatList({ activeContact, setActiveContact }) {
 
     addContact = function (newContact) {
         contactList.push(newContact);
+        console.log(newContact);
         refreshUIChatList();
     };
 
