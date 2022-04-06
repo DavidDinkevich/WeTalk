@@ -34,8 +34,9 @@ function ChatList({ activeContact, setActiveContact }) {
 
     addContact = function (newContact) {
         contactList.push(newContact);
+        setUIChatListHandle(UIChatList.concat([newContact]))
         console.log(newContact);
-        refreshUIChatList();
+        // refreshUIChatList();
     };
 
     let chatInfos = UIChatList.map((contact, key) => {
