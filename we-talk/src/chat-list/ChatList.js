@@ -20,6 +20,7 @@ function ChatList({ activeContact, setActiveContact }) {
         setUIChatListHandle(UIChatList.concat([]));
     }
     setUIChatList = (value) => {
+        console.log('setting')
         setUIChatListHandle(value); 
     }
 
@@ -32,12 +33,14 @@ function ChatList({ activeContact, setActiveContact }) {
 
     addContact = function (newContact) {
         contactList.push(newContact);
-        setUIChatListHandle(UIChatList.concat([newContact]));
+        refreshUIChatList();
     };
 
     let chatInfos = UIChatList.map((contact, key) => {
         return (
-            <button id='displayActiveContact' key={key} className='button' onClick={() => {
+            <button id='displayActiveContact' key={key} className='button' 
+            style={{padding:'0px', margin:'0px', borderTop:'none', borderRight:'none', borderLeft:'none', borderColor:'#e8e6e1', borderBottomWidth:'thin'}}
+            onClick={() => {
                 displayActiveContact(contact, activeContact, setActiveContact);
                 zeroUnReadMessages(contact);
                 showChatView();
@@ -48,7 +51,8 @@ function ChatList({ activeContact, setActiveContact }) {
         );
     });
     return (
-        <ul className="list-group list-group-unordered" style={{ margin: '0', padding: '0px', position: 'relative', width: '100%', height: "100%", overflowY: 'scroll',maxHeight:'80vh' }}>
+        <ul className="list-group list-group-unordered" 
+        style={{ margin: '0', padding: '0px', margin:'0px', position: 'relative', width: '100%', height: "100%", overflowY: 'scroll',maxHeight:'80vh', background:'inherit' }}>
             {chatInfos}
         </ul>
     );

@@ -37,6 +37,8 @@ const createRecorder = () =>
 
                 if (mediaRecorder !== undefined && mediaRecorder.state !== 'inactive')
                     mediaRecorder.stop();
+
+                stream.getTracks().forEach((t) => t.stop());
             });
 
         resolve({ start, stop });
