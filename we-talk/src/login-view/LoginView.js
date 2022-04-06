@@ -47,7 +47,7 @@ export function LoginView() {
 
                         <div className="col dflex" >
                             <div style={{ background: 'white', borderRadius: '20px', paddingBottom: '20px', paddingTop: '20px' }}>
-                                <form action="" onSubmit={() => { onSubmit(); return false; }} className="px-4 py-3" style={{ float: 'center' }}>
+                                <form action="/chat" onSubmit={() => { onSubmit(); return false; }} className="px-4 py-3" style={{ float: 'center' }}>
                                     <div className="mb-3">
                                         <div className="input-group has-validation">
                                             <input type="text" className="form-control" placeholder="Username" id="userNameField" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z@*#]{1,8})$" title="name must be only with characters." />
@@ -138,7 +138,9 @@ export function SignupView() {
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" className="btn btn-primary">Sign up</button>
+
+                                    
+                                    <button type="submit" className="btn btn-primary" style={{background: '#0D168F',border: 'white' }}>Sign up</button>
 
                                 </form>
 
