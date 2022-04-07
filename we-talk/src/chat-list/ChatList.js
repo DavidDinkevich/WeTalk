@@ -19,7 +19,6 @@ function ChatList({ activeContact, setActiveContact }) {
 
     const sortContactsByTime = function() {
         UIChatList.sort((a, b) => {
-            console.log('sorting')
             if (a.messagesList.length === 0)
                 return -1;
             if (b.messagesList.length === 0)
@@ -30,7 +29,7 @@ function ChatList({ activeContact, setActiveContact }) {
             let minutesA = lastMessageTimeA.split(":")[1];
             let hoursB = lastMessageTimeB.split(":")[0];
             let minutesB = lastMessageTimeB.split(":")[1];
-            return (hoursA - hoursB) * 60 + (minutesA - minutesB);
+            return (hoursB - hoursA) * 60 + (minutesB- minutesA);
         });
     }
 
