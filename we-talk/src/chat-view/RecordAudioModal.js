@@ -141,7 +141,7 @@ function RecordAudioModal({ isOpen, closeModal, sendAudio, getLastMessageID }) {
     const toggleAnimation = function () {
         let circleRipple = document.getElementById('circle_ripple');
         let circleRipple2 = document.getElementById('circle_ripple-2');
-        if (circleRipple.style.visibility === 'hidden') {
+        if (circleRipple.style.visibility !== 'visible') {
             circleRipple.style.visibility = 'visible';
             circleRipple2.style.visibility = 'visible';
         }
@@ -176,7 +176,7 @@ function RecordAudioModal({ isOpen, closeModal, sendAudio, getLastMessageID }) {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4" style={{ width: '100%', minHeight: '15vh', height: '15vh', paddingLeft: '40%' }}>
-                            <button class='record-audio-modal-container'
+                            <button className='record-audio-modal-container'
                                 onClick={toggleRecord}>
                                 <div className="box">
                                     <div id={"circle_ripple"} className="circle_ripple record-audio-modal-circle"></div>
@@ -190,7 +190,7 @@ function RecordAudioModal({ isOpen, closeModal, sendAudio, getLastMessageID }) {
                             </button>
                         </div>
                     </div>
-                    <p id={'timer_text'} class='record-audio-modal-timer'></p>
+                    <p id={'timer_text'} className='record-audio-modal-timer'></p>
                 </div>
 
 
