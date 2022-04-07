@@ -7,7 +7,7 @@ function MediaUploadView({ sendMediaMessage }) {
         the invisible upload file textfield
     */
 
-    const chooseFile = function (textField) {
+    function chooseFile(textField) {
         const textFieldElement = document.getElementById(textField);
         textFieldElement.click();
     }
@@ -79,7 +79,6 @@ function MediaUploadView({ sendMediaMessage }) {
 
             </div>
         </>
-
     );
 }
 

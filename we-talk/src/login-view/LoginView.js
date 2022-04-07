@@ -1,5 +1,11 @@
 import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
 import { useLocation } from 'react-router-dom';
+import { hideMediaUploadView } from '../chat-view/ChatView';
+
+const chooseFile = function (textField) {
+    const textFieldElement = document.getElementById(textField);
+    textFieldElement.click();
+}
 
 const checkPasswordsMatch = function () {
     let passwordFieldID = `signup_form_password_field`;
@@ -45,13 +51,15 @@ const onSubmitSignup = function () {
     const password = document.getElementById('signup_form_password_field').value;
 
     console.log('in submit sign up');
-
-    if (isPasswordValid()) {
-        if (checkPasswordsMatch()) {
-            console.log(password);
-            addNewUser({ name: userName, password: password, image: '' });
-            window.location.replace('/');
+    if (isUserNameValid()) {
+        if (isPasswordValid()) {
+            if (checkPasswordsMatch()) {
+                console.log(password);
+                addNewUser({ name: userName, password: password, image: '' });
+                window.location.replace('/');
+            }
         }
+
     }
 
 }
@@ -60,16 +68,46 @@ function isPasswordValid() {
     var password = document.getElementById('signup_form_password_field').value;
     if (password == '') {
         document.getElementById('not_valid_password_msg').style.color = 'red';
-        document.getElementById('not_valid_password_msg').innerHTML = "Not a valid password!"
+        document.getElementById('not_valid_password_msg').innerHTML = "Password can't be empty"
         return false;
     }
-    if (password.length < 8) {
+    else if (password.length < 8) {
         document.getElementById('not_valid_password_msg').style.color = 'red';
-        document.getElementById('not_valid_password_msg').innerHTML = "Not a valid password!"
+        document.getElementById('not_valid_password_msg').innerHTML = "Password must be at least 8 characters"
+        return false;
+    }
+    else if (password.search(/[a-z]/i) < 0) {
+        document.getElementById('not_valid_password_msg').style.color = 'red';
+        document.getElementById('not_valid_password_msg').innerHTML = "Password must be alphanumeric"
+        return false;
+    }
+    else if (password.search(/[0-9]/) < 0) {
+        document.getElementById('not_valid_password_msg').style.color = 'red';
+        document.getElementById('not_valid_password_msg').innerHTML = "Password must be alphanumeric"
         return false;
     }
     return true;
 
+}
+
+function isUserNameValid() {
+    var userName = document.getElementById(`signup_form_username_field`).value;
+    if (userName == '') {
+        document.getElementById('not_valid_user_name_msg').style.color = 'red';
+        document.getElementById('not_valid_user_name_msg').innerHTML = "User name can't be empty"
+        return false;
+    }
+    if (userName.search(/[a-z]/i) < 0) {
+        document.getElementById('not_valid_user_name_msg').style.color = 'red';
+        document.getElementById('not_valid_user_name_msg').innerHTML = "User name  must be alphanumeric"
+        return false;
+    }
+    if (userName.search(/[0-9]/) < 0) {
+        document.getElementById('not_valid_user_name_msg').style.color = 'red';
+        document.getElementById('not_valid_user_name_msg').innerHTML = "User name  must be alphanumeric"
+        return false;
+    }
+    return true;
 }
 
 export function LoginView() {
@@ -119,7 +157,7 @@ export function LoginView() {
                                 </div>*/}
                             </div>
 
-                            <button type="button" onClick={onSubmitLogin} className="btn btn-primary" style={{ background: '#0D168F', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
+                            <button type="button" onClick={onSubmitLogin} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
                             <br />
 
                             <span id='user_not_exist_msg'></span>
@@ -166,6 +204,7 @@ export function SignupView() {
                                 <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
                                     style={{ lineHeight: '3' }}></input>
                             </div>
+                            <div id='not_valid_user_name_msg'> </div>
                             <div className="mb-3">
                                 <div className="input-group has-validation">
                                     <input type="password" className="form-control" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
@@ -176,26 +215,23 @@ export function SignupView() {
 
                                 <div className="mb-3">
                                     <input type="password" onKeyUp={checkPasswordsMatch} className="form-control" id="signup_form_confirm_password" placeholder="Confirm Password"
-                                        style={{ lineHeight: '3' }}></input>
+                                        style={{ lineHeight: '3', marginTop: '3%' }}></input>
                                     <span id='pswd_match_msg_id'></span>
                                 </div>
+                                <div id='not_valid_password_msg'>
+                                </div>
                             </div>
-                            <div id='not_valid_password_msg'>
-                            </div>
-                            <div className="mb-3">
-                            <p>Upload profile picture:</p>   
-                            <input type="file" id="upload_image_textfield" multiple accept="image/*"
-                            ></input>
-                                {/*<div className="form-check">
-                                    <input type="checkbox" className="form-check-input" id="dropdownCheck"></input>
-                                    <label className="form-check-label" htmlFor="dropdownCheck">
-                                        Remember me
-                    </label>
-                                </div>*/}
+
+                           {/* <input type = "file" accept="image/*"/>*/}
+                            
+                            <div class="mb-3">
+                               {/*} <input class="form-control image form1" placeholder='Image'></input>*/}
+                                <input type="file" id="upload" accept="image/*" hidden />
+                                <label class="addPhoto btn btn-primary" id="photo" for= "upload" >Add image</label>
                             </div>
 
 
-                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary" style={{ background: '#0D168F', border: 'white' }} >Sign up</button>
+                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white', marginTop: '-3.5%' }} >Sign up</button>
 
 
                             <div className="dropdown-divider"></div>
