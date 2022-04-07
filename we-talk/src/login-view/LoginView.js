@@ -222,8 +222,6 @@ export function SignupView() {
                                 </div>
                             </div>
 
-                           {/* <input type = "file" accept="image/*"/>*/}
-                            
                             <div class="mb-3">
                                {/*} <input class="form-control image form1" placeholder='Image'></input>*/}
                                 <input type="file" id="upload" accept="image/*" hidden />
