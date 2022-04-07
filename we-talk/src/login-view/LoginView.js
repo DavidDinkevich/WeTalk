@@ -225,9 +225,9 @@ export function SignupView() {
                            {/* <input type = "file" accept="image/*"/>*/}
                             
                             <div class="mb-3">
-                                <input class="form-control image form1" placeholder='Image'></input>
-                                <input type="file" class="image" accept="image/*" id="upload" />
-                                <label class="addPhoto btn btn-primary" id="photo" >Add image</label>
+                               {/*} <input class="form-control image form1" placeholder='Image'></input>*/}
+                                <input type="file" id="upload" accept="image/*" hidden />
+                                <label class="addPhoto btn btn-primary" id="photo" for= "upload" >Add image</label>
                             </div>
 
 
