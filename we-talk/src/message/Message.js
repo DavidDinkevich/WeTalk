@@ -20,12 +20,14 @@ function Message({ source, author, message, time, messageID }) {
                         src={recipientImage}
                         alt='???'
                     />
+
                     <div id={messageID} className="flr">
-                        <div className="messages">
+                        <RenderMessageContent messageID={messageID} />
+                        {/* <div className="messages">
                             <p className="msg" id="msg-0" >
                                 {message}
                             </p>
-                        </div>
+                        </div> */}
                         <span className="timestamp">
                             <span className="posttime">{time}</span> •
                             <span className="username">{' ' + author}</span>
