@@ -26,7 +26,13 @@ export const users = [
                 name: 'Noa', image: '/photo-noa.jpg', messagesList: [
                     { source: 'remote', author: 'Noa', message: '', image: '', video: '', audio: 'myRecord.ogg', time: '10:45' },
                 ], unread: 1
+            },
+            {
+                name: 'Lior', image: '/photo-lior.webp', messagesList: [
+                    { source: 'remote', author: 'Lior', message: "What's up?", image: '', video: '', audio: '', time: '11:31' },
+                ], unread: 1
             }
+
         ]
     },
     {
