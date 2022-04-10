@@ -20,19 +20,5 @@
     background: #6cc4ea;
 }
 
-.thumb {
-    display: inline-block;
-    position: relative;
-    /* width: 200px;
-    height: 200px;
-    margin: 5px; */
-    margin-top: auto;
-    margin-bottom: auto;
-    height: 40px;
-    width: 40px;
-    border: none;
-    border-radius: 50%;
-    background-position: center center;
-    background-size: cover;
-}
+
 

@@ -16,7 +16,7 @@
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-    max-height: '69vh';
-    min-height: '20vh';
-    background: 'inherit';   
+    max-height: 69vh;
+    min-height: 20vh;
+    background: inherit;   
 }

@@ -5,4 +5,8 @@
     padding: 0;
     background: white;
     border-top-left-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: inherit;
 }

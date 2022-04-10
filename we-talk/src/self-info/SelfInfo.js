@@ -32,12 +32,7 @@ function SelfInfo() {
 
     return (
         <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
-            <img
-                className="user-img self-info-image"
-                id="user-0"
-                src={getActiveUser().image}
-                alt='???'
-            />
+            <div className="thumb" style={{backgroundImage: `url(${getActiveUser().image})`}}></div>
 
             <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().username}</div>
 
