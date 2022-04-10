@@ -39,7 +39,7 @@ const checkUserExists = function () {
 
 const onSubmitLogin = function () {
     if (checkUserExists()) {
-        const userName = document.getElementById(`login_form_username_field`).value;
+        const displayName = document.getElementById(`login_form_username_field`).value;
         const password = document.getElementById('login_form_password_field').value;
         window.location.replace('/chat');
         console.log('the user exist');
@@ -47,7 +47,7 @@ const onSubmitLogin = function () {
 }
 
 const onSubmitSignup = function () {
-    const userName = document.getElementById(`signup_form_username_field`).value;
+    const displayName = document.getElementById(`signup_form_username_field`).value;
     const password = document.getElementById('signup_form_password_field').value;
 
     console.log('in submit sign up');
@@ -55,7 +55,7 @@ const onSubmitSignup = function () {
         if (isPasswordValid()) {
             if (checkPasswordsMatch()) {
                 console.log(password);
-                addNewUser({ name: userName, password: password, image: '' });
+                addNewUser({ name: displayName, password: password, image: '' });
                 window.location.replace('/');
             }
         }
@@ -91,18 +91,18 @@ function isPasswordValid() {
 }
 
 function isUserNameValid() {
-    var userName = document.getElementById(`signup_form_username_field`).value;
-    if (userName == '') {
+    var displayName = document.getElementById(`signup_form_username_field`).value;
+    if (displayName == '') {
         document.getElementById('not_valid_user_name_msg').style.color = 'red';
         document.getElementById('not_valid_user_name_msg').innerHTML = "User name can't be empty"
         return false;
     }
-    if (userName.search(/[a-z]/i) < 0) {
+    if (displayName.search(/[a-z]/i) < 0) {
         document.getElementById('not_valid_user_name_msg').style.color = 'red';
         document.getElementById('not_valid_user_name_msg').innerHTML = "User name  must be alphanumeric"
         return false;
     }
-    if (userName.search(/[0-9]/) < 0) {
+    if (displayName.search(/[0-9]/) < 0) {
         document.getElementById('not_valid_user_name_msg').style.color = 'red';
         document.getElementById('not_valid_user_name_msg').innerHTML = "User name  must be alphanumeric"
         return false;
@@ -206,6 +206,10 @@ export function SignupView() {
                             </div>
                             <div id='not_valid_user_name_msg'> </div>
                             <div className="mb-3">
+                                <input type="text" className="form-control" id="signup_form_displayName_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Display name"
+                                    style={{ lineHeight: '3' }}></input>
+                            </div>
+                            <div className="mb-3">
                                 <div className="input-group has-validation">
                                     <input type="password" className="form-control" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
                                         style={{ lineHeight: '3' }}></input>
@@ -223,9 +227,9 @@ export function SignupView() {
                             </div>
 
                             <div className="mb-3">
-                               {/*} <input className="form-control image form1" placeholder='Image'></input>*/}
+                                {/*} <input className="form-control image form1" placeholder='Image'></input>*/}
                                 <input type="file" id="upload" accept="image/*" hidden />
-                                <label className="addPhoto btn btn-primary" id="photo" for= "upload" >Add image</label>
+                                <label className="addPhoto btn btn-primary" id="photo" for="upload" >Add image</label>
                             </div>
 
 

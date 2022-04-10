@@ -2,7 +2,8 @@
 
 export const users = [
     {
-        username: 'Shachar',
+        username: 'Shachar100',
+        displayName: 'Shachar',
         password: '12345678sh',
         image: '/shachar_profile.png',
         contactList: [
@@ -36,37 +37,43 @@ export const users = [
         ]
     },
     {
-        username: 'Shir',
+        username: 'ShirCohen',
+        displayName: 'Shir',
         password: 'shir12345',
         image: '/photo-Shir.jpg',
         contactList: []
     },
     {
-        username: 'Noa',
+        username: 'NoaAdler10',
+        displayName: 'Noa',
         password: 'helloNoa1',
         image: '/photo-noa.jpg',
         contactList: []
     },
     {
-        username: 'Lior',
+        username: 'LiorBracha',
+        displayName: 'Lior',
         password: 'lior101010',
         image: '/photo-lior.webp',
         contactList: []
     },
     {
-        username: 'Keren',
+        username: 'KerenPeles',
+        displayName: 'Keren',
         password: 'keren9090',
         image: '/photo-keren.webp',
         contactList: []
     },
     {
-        username: 'Noam',
+        username: 'NoamTur1',
+        displayName: 'Noam',
         password: 'noam54321',
         image: '/photo-noam.jpg',
         contactList: []
     },
     {
-        username: 'Josh',
+        username: 'JoshFienstein',
+        displayName: 'Josh',
         password: '123123jjj',
         image: '/photo-josh.webp',
         contactList: []
@@ -80,12 +87,12 @@ export function getActiveUser() {
 }
 
 export function setActiveUser(name) {
-    let index = users.findIndex((user) => {return user.username === name});
+    let index = users.findIndex((user) => {return user.displayName === name});
     activeUser = users[index];
 }
 
 export function addNewUser({name, password, image}) {
-    users.push({username: name, password, image, contactList:[]});
+    users.push({displayName: name, password, image, contactList:[]});
    
     console.log(users);
 }
@@ -101,8 +108,8 @@ export function getContactByName(contactName) {
     return activeUser.contactList.find((value) => { return value.name === contactName; })
 }
 
-export function getContactList(username) {
-    return users.find((value) => { return value.username === username; }).contactList;
+export function getContactList(displayName) {
+    return users.find((value) => { return value.displayName === displayName; }).contactList;
 }
 
 export const emptyMessageJSON = function () {

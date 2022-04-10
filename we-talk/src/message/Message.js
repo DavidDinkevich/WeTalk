@@ -30,7 +30,7 @@ function Message({ source, author, message, time, messageID }) {
                         </div> */}
                         <span className="timestamp">
                             <span className="posttime">{time}</span> •
-                            <span className="username">{' ' + author}</span>
+                            <span className="displayName">{' ' + author}</span>
                         </span>
 
                     </div>
@@ -45,7 +45,7 @@ function Message({ source, author, message, time, messageID }) {
                         <RenderMessageContent messageID={messageID} />
 
                         <span className="timestamp">
-                            <span className="username">{author}</span> •
+                            <span className="displayName">{author}</span> •
                             <span className="posttime"> {' ' + time}</span>
                         </span>
                     </div>

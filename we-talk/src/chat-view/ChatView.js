@@ -27,7 +27,7 @@ function ChatView({ activeContact }) {
         let date = String(new Date()).split(" ")[4]
         date = date.substring(0, date.lastIndexOf(":"));
 
-        let activeUserName = getActiveUser().username;
+        let activeUserName = getActiveUser().displayName;
 
         let newMessage = Object.assign(
             emptyMessageJSON(),

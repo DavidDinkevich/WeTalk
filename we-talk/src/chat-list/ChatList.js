@@ -14,7 +14,7 @@ function zeroUnReadMessages(contact) {
 }
 
 function ChatList({ activeContact, setActiveContact }) {
-    let contactList = getContactList(getActiveUser().username);
+    let contactList = getContactList(getActiveUser().displayName);
     let [UIChatList, setUIChatListHandle] = useState(contactList);
 
     const sortContactsByTime = function() {

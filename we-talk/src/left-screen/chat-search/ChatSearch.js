@@ -31,7 +31,7 @@ function ChatSearch() {
                 </svg>
 
             </span>
-            <input ref={searchBox} type="text" className="form-control chat-search-box" placeholder="Search a contact" aria-label="Username" aria-describedby="addon-wrapping" onKeyUp={search} />
+            <input ref={searchBox} type="text" className="form-control chat-search-box" placeholder="Search a contact" aria-label="displayName" aria-describedby="addon-wrapping" onKeyUp={search} />
         </div>
 
     );

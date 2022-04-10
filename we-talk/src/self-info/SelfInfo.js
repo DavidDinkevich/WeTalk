@@ -15,7 +15,7 @@ function SelfInfo() {
         if (input !== '') {
             let contactInDataBase = getUserByName(input);
             if (contactInDataBase != null && (getContactByName(input) == null)) {
-                let newContact = { name: contactInDataBase.username, image: contactInDataBase.image, messagesList: [], time: '' };
+                let newContact = { name: contactInDataBase.displayName, image: contactInDataBase.image, messagesList: [], time: '' };
                 addContact(newContact);
                 setIsOpen(false);
             } else {
@@ -34,7 +34,7 @@ function SelfInfo() {
         <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
             <div className="thumb" style={{backgroundImage: `url(${getActiveUser().image})`}}></div>
 
-            <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().username}</div>
+            <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().displayName}</div>
 
             <button className='button adding-contact-button' onClick={() => {
                 setIsOpen(true);
