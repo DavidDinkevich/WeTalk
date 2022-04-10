@@ -26,14 +26,15 @@ function ChatInfo({ contact }) {
 
     return (
         <li className="list-group-item d-flex justify-content-between align-items-start chat-info-li">
-            <img
+            {/* <img
                 className="user-img chat-info-img"
                 id="user-0"
                 // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
                 src={contactImage.length > 0 ? contactImage : '/anonymous_profile.webp'}
                 alt='???'
-                style={{ height: '100%', marginBottom: 'auto', marginTop: 'auto' }}
-            />
+                style={{ marginBottom: 'auto', marginTop: 'auto' }}
+            /> */}
+            <div className="thumb" style={{backgroundImage: `url(${contactImage})`}}></div>
 
             <div className="ms-2 me-center ">
                 <div className="fw-bold mb-1 chat-info-text">{contact.name}</div>
