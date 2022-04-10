@@ -42,7 +42,7 @@ const onSubmitLogin = function () {
         const displayName = document.getElementById(`login_form_username_field`).value;
         const password = document.getElementById('login_form_password_field').value;
         window.location.replace('/chat');
-        console.log('the user exist');
+        console.log('the user exists');
     }
 }
 
@@ -114,7 +114,7 @@ export function LoginView() {
     return (
 
         <div style={{ backgroundImage: '/main_background.png', width: '100vw', height: '100vh' }}>
-            <div className="container" style={{ margin: '100', paddingTop: '7%', left: '50%' }}>
+            <div className="container" style={{ marginTop: '20vh', marginBottom: '20vh', left: '50%' }}>
                 <div className="row justify-content-md-center" >
                     <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
                         <label style={{

@@ -4,6 +4,7 @@
     height: 100%;
     min-height: 75px;
     border: none;
+    background: inherit;
 }
 
 .chat-info-text {

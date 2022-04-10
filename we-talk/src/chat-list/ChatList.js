@@ -46,6 +46,11 @@ function ChatList({ activeContact, setActiveContact }) {
     function displayActiveContact(newContact, activeContact, setActiveContact) {
         if (activeContact === newContact)
             return;
+        let oldContactButton = document.getElementById(`contact_button_${activeContact.name}`);
+        let newContactButton = document.getElementById(`contact_button_${newContact.name}`);
+        oldContactButton.style.background = 'white';
+        newContactButton.style.background = '#DDDDDD';
+        
         setActiveContact(newContact);
     }
 
@@ -60,7 +65,7 @@ function ChatList({ activeContact, setActiveContact }) {
 
     let chatInfos = UIChatList.map((contact, key) => {
         return (
-            <button id='displayActiveContact' key={key} className='button chat-info-button-container'
+            <button id={`contact_button_${contact.name}`} key={key} className='button chat-info-button-container'
         
             onClick={() => {
                 displayActiveContact(contact, activeContact, setActiveContact);

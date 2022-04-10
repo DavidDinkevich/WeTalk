@@ -5,6 +5,7 @@
     border-top: none;
     border-right: none;
     border-left: none;
+    background: inherit;
     border-color: #e8e6e1;
     border-bottom-width: thin;
 }
