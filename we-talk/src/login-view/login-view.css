@@ -1,0 +1,27 @@
+
+.inner-container{
+    margin: 100;
+    padding-top: 7%;
+    left: 50%;
+ }
+
+ .subtitle{
+    color: white;
+    margin-top: -6%;
+    margin-left: 2%;
+ }
+
+ .forms{
+    background: white;
+    border-radius: 20px;
+    padding: 2%;
+ }
+
+ .input{
+    line-height: 3;
+ }
+
+ .password-input{
+    line-height: 3;
+    margin-top: 3%;
+ }

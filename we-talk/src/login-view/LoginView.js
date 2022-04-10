@@ -1,6 +1,7 @@
 import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
 import { useLocation } from 'react-router-dom';
 import { hideMediaUploadView } from '../chat-view/ChatView';
+import './login-view.css';
 
 const chooseFile = function (textField) {
     const textFieldElement = document.getElementById(textField);
@@ -113,8 +114,8 @@ function isUserNameValid() {
 export function LoginView() {
     return (
 
-        <div style={{ backgroundImage: '/main_background.png', width: '100vw', height: '100vh' }}>
-            <div className="container" style={{ margin: '100', paddingTop: '7%', left: '50%' }}>
+        <div className="login-view-container" style={{ backgroundImage: '/main_background.png', width: '100vw', height: '100vh' }}>
+            <div className="container inner-container" >
                 <div className="row justify-content-md-center" >
                     <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
                         <label style={{
@@ -191,35 +192,33 @@ export function SignupView() {
                         }}>
                             WeTalk
                         </label>
-                        <h2 style={{
-                            color: 'white', marginTop: '-6%', marginLeft: '2%'
-                        }}>
+                        <h2 className='subtitle'>
                             <i>The right way to connect with friends.</i>
                         </h2>
                     </div>
 
-                    <div className="col" >
-                        <div style={{ background: 'white', borderRadius: '20px', padding: '2%' }}>
+                    <div className="col">
+                        <div className="forms">
                             <div className="mb-3">
-                                <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
-                                    style={{ lineHeight: '3' }}></input>
+                                <input type="text" className="form-control input" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
+                                    ></input>
                             </div>
                             <div id='not_valid_user_name_msg'> </div>
                             <div className="mb-3">
-                                <input type="text" className="form-control" id="signup_form_displayName_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Display name"
-                                    style={{ lineHeight: '3' }}></input>
+                                <input type="text" className="form-control input" id="signup_form_displayName_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Display name"
+                                    ></input>
                             </div>
                             <div className="mb-3">
                                 <div className="input-group has-validation">
-                                    <input type="password" className="form-control" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
-                                        style={{ lineHeight: '3' }}></input>
+                                    <input type="password" className="form-control input" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
+                                        ></input>
                                     <div className="invalid-feedback">
                                     </div>
                                 </div>
 
                                 <div className="mb-3">
-                                    <input type="password" onKeyUp={checkPasswordsMatch} className="form-control" id="signup_form_confirm_password" placeholder="Confirm Password"
-                                        style={{ lineHeight: '3', marginTop: '3%' }}></input>
+                                    <input type="password" onKeyUp={checkPasswordsMatch} className="form-control password-input" id="signup_form_confirm_password" placeholder="Confirm Password"
+                                        ></input>
                                     <span id='pswd_match_msg_id'></span>
                                 </div>
                                 <div id='not_valid_password_msg'>
