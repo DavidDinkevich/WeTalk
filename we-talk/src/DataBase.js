@@ -37,7 +37,7 @@ export const users = [
         ]
     },
     {
-        username: 'ShirCohen',
+        username: 'ShirCohen3',
         displayName: 'Shir',
         password: 'shir12345',
         image: '/photo-Shir.jpg',
@@ -51,14 +51,14 @@ export const users = [
         contactList: []
     },
     {
-        username: 'LiorBracha',
+        username: 'LiorBracha1998',
         displayName: 'Lior',
         password: 'lior101010',
         image: '/photo-lior.webp',
         contactList: []
     },
     {
-        username: 'KerenPeles',
+        username: 'KerenPeles20',
         displayName: 'Keren',
         password: 'keren9090',
         image: '/photo-keren.webp',
@@ -72,7 +72,7 @@ export const users = [
         contactList: []
     },
     {
-        username: 'JoshFienstein',
+        username: 'JoshFienstein7',
         displayName: 'Josh',
         password: '123123jjj',
         image: '/photo-josh.webp',
