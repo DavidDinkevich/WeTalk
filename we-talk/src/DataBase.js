@@ -52,6 +52,24 @@ export const users = [
         password: 'lior101010',
         image: '/photo-lior.webp',
         contactList: []
+    },
+    {
+        username: 'Keren',
+        password: 'keren9090',
+        image: '/photo-keren.webp',
+        contactList: []
+    },
+    {
+        username: 'Noam',
+        password: 'noam54321',
+        image: '/photo-noam.jpg',
+        contactList: []
+    },
+    {
+        username: 'Josh',
+        password: '123123jjj',
+        image: '/photo-josh.webp',
+        contactList: []
     }
 ]
 
