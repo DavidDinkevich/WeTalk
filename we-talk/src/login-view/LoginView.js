@@ -114,28 +114,23 @@ function isUserNameValid() {
 export function LoginView() {
     return (
 
-        <div className="login-view-container" style={{ backgroundImage: '/main_background.png', width: '100vw', height: '100vh' }}>
+        <div className="login-view-container background">
             <div className="container inner-container" >
                 <div className="row justify-content-md-center" >
-                    <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
-                        <label style={{
-                            fontSize: '1000%', fontFamily: 'Cascadia Code',
-                            color: 'white', textShadow: '1px black'
-                        }}>
+                    <div className="col-xl-6 col-lg-12 me-3 gy-15" >
+                        <label className= "words">
                             WeTalk
                         </label>
-                        <h2 style={{
-                            color: 'white', marginTop: '-6%', marginLeft: '2%'
-                        }}>
+                        <h2 className= "bottomwords" >
                             <i>The right way to connect with friends.</i>
                         </h2>
                     </div>
 
-                    <div className="col dflex" >
-                        <div style={{ background: 'white', borderRadius: '20px', padding: '2%' }}>
+                    <div className="col dflex nonvalid" >
+                        <div>
                             <div className="mb-3">
                                 <div className="input-group has-validation">
-                                    <input type="text" className="form-control" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." />
+                                    <input type="text" className="form-control name" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." />
                                     <div className="invalid-feedback">
                                     </div>
                                 </div>
@@ -143,7 +138,7 @@ export function LoginView() {
 
                             <div className="mb-3">
                                 <div className="input-group has-validation">
-                                    <input type="password" className="form-control" placeholder="Password" id="login_form_password_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
+                                    <input type="password" className="form-control psswrd" placeholder="Password" id="login_form_password_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
                                     <div className="invalid-feedback">
                                     </div>
                                 </div>
@@ -158,7 +153,7 @@ export function LoginView() {
                                 </div>*/}
                             </div>
 
-                            <button type="button" onClick={onSubmitLogin} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
+                            <button type="button" onClick={onSubmitLogin} className="btn btn-primary submitlogin" >Sign in</button>
                             <br />
 
                             <span id='user_not_exist_msg'></span>
@@ -182,14 +177,11 @@ export function LoginView() {
 export function SignupView() {
     return (
 
-        <div style={{ backgroundImage: '/main_background.png', width: '100vw', height: '100vh' }}>
-            <div className="container" style={{ margin: '100', paddingTop: '7%', left: '50%' }}>
+        <div className = "signupview" >
+            <div className="container">
                 <div className="row justify-content-md-center" >
-                    <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
-                        <label style={{
-                            fontSize: '1000%', fontFamily: 'Cascadia Code',
-                            color: 'white', textShadow: '1px black'
-                        }}>
+                    <div className="col-xl-6 col-lg-12 me-3 gy-15">
+                        <label className = "wetalkview">
                             WeTalk
                         </label>
                         <h2 className='subtitle'>
@@ -232,7 +224,7 @@ export function SignupView() {
                             </div>
 
 
-                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white', marginTop: '-3.5%' }} >Sign up</button>
+                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary submitsignup"  >Sign up</button>
 
 
                             <div className="dropdown-divider"></div>
