@@ -1,5 +1,5 @@
 
-
+import './message.css'
 import { getActiveUser, getContactByName } from '../DataBase'
 import { getAccountNameFromMsgID, getMessageIndexFromMsgID } from '../DataBase';
 
@@ -13,13 +13,15 @@ function Message({ source, author, message, time, messageID }) {
         return (
             <article className="msg-container msg-remote">
                 <div className="msg-box">
-                    <img
+                    {/* <img
                         className="user-img"
                         id="user-0"
                         // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
                         src={recipientImage}
                         alt='???'
-                    />
+                    /> */}
+                    <div className="thumb chat-info-image" style={{backgroundImage: `url(${recipientImage})`}} />
+
 
                     <div id={messageID} className="flr">
                         <RenderMessageContent messageID={messageID} />
