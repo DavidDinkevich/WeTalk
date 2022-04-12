@@ -44,21 +44,29 @@ const onSubmitLogin = function (navigate) {
         const username = document.getElementById(`login_form_username_field`).value;
         const password = document.getElementById('login_form_password_field').value;
         //window.location.replace('/chat');
-        navigate('/chat', { state: { username:username,password:password } });
+        navigate('/chat', { state: { username:username } });
     }
 }
 
-const onSubmitSignup = function () {
-    const displayName = document.getElementById(`signup_form_username_field`).value;
+const onSubmitSignup = function (navigate) {
+    const displayName = document.getElementById(`signup_form_displayName_field`).value;
     const password = document.getElementById('signup_form_password_field').value;
+    const imageField = document.getElementById('upload');
 
     console.log('in submit sign up');
     if (isUserNameValid()) {
         if (isPasswordValid()) {
             if (checkPasswordsMatch()) {
                 console.log(password);
-                addNewUser({ name: displayName, password: password, image: '' });
-                window.location.replace('/');
+                var fReader = new FileReader();
+                fReader.readAsDataURL(imageField.files[0]);
+    
+                fReader.onloadend = function (event) {
+                    addNewUser({ name: displayName, password: password, image: event.target.result });
+
+                    navigate('/chat', { state: { displayname:displayName ,password:password } });
+                }    
+               // window.location.replace('/');
             }
         }
 
@@ -177,6 +185,7 @@ export function LoginView() {
 }
 
 export function SignupView() {
+    const navigate = useNavigate();
     return (
 
         <div className="signupview" >
@@ -226,7 +235,7 @@ export function SignupView() {
                             </div>
 
 
-                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary submitsignup"  >Sign up</button>
+                            <button type="button"  onClick={() => {onSubmitSignup(navigate)}} className="btn btn-primary submitsignup"  >Sign up</button>
 
 
                             <div className="dropdown-divider"></div>

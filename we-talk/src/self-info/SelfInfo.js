@@ -10,7 +10,7 @@ function SelfInfo() {
     let [isOpen, setIsOpen] = useState(false);
 
     const {state} = useLocation();
-    const { username, password } = state; // Read values passed on state
+    const { username } = state; // Read values passed on state
     setActiveUser(username);
 
     function addNewContact() {
