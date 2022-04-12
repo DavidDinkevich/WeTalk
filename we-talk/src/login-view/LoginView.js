@@ -2,6 +2,7 @@ import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
 import { useLocation } from 'react-router-dom';
 import { hideMediaUploadView } from '../chat-view/ChatView';
 import './login-view.css';
+import { useNavigate } from 'react-router-dom';
 
 const chooseFile = function (textField) {
     const textFieldElement = document.getElementById(textField);
@@ -38,12 +39,12 @@ const checkUserExists = function () {
     return true;
 }
 
-const onSubmitLogin = function () {
+const onSubmitLogin = function (navigate) {
     if (checkUserExists()) {
-        const displayName = document.getElementById(`login_form_username_field`).value;
+        const username = document.getElementById(`login_form_username_field`).value;
         const password = document.getElementById('login_form_password_field').value;
-        window.location.replace('/chat');
-        console.log('the user exist');
+        //window.location.replace('/chat');
+        navigate('/chat', { state: { username:username,password:password } });
     }
 }
 
@@ -112,16 +113,17 @@ function isUserNameValid() {
 }
 
 export function LoginView() {
+    const navigate = useNavigate();
     return (
 
         <div className="login-view-container background">
             <div className="container inner-container" >
                 <div className="row justify-content-md-center" >
                     <div className="col-xl-6 col-lg-12 me-3 gy-15" >
-                        <label className= "words">
+                        <label className="words">
                             WeTalk
                         </label>
-                        <h2 className= "bottomwords" >
+                        <h2 className="bottomwords" >
                             <i>The right way to connect with friends.</i>
                         </h2>
                     </div>
@@ -153,7 +155,7 @@ export function LoginView() {
                                 </div>*/}
                             </div>
 
-                            <button type="button" onClick={onSubmitLogin} className="btn btn-primary submitlogin" >Sign in</button>
+                            <button type="button" onClick={() => {onSubmitLogin(navigate)}} className="btn btn-primary submitlogin" >Sign in</button>
                             <br />
 
                             <span id='user_not_exist_msg'></span>
@@ -177,11 +179,11 @@ export function LoginView() {
 export function SignupView() {
     return (
 
-        <div className = "signupview" >
+        <div className="signupview" >
             <div className="container">
                 <div className="row justify-content-md-center" >
                     <div className="col-xl-6 col-lg-12 me-3 gy-15">
-                        <label className = "wetalkview">
+                        <label className="wetalkview">
                             WeTalk
                         </label>
                         <h2 className='subtitle'>
@@ -193,24 +195,24 @@ export function SignupView() {
                         <div className="forms">
                             <div className="mb-3">
                                 <input type="text" className="form-control input" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
-                                    ></input>
+                                ></input>
                             </div>
                             <div id='not_valid_user_name_msg'> </div>
                             <div className="mb-3">
                                 <input type="text" className="form-control input" id="signup_form_displayName_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Display name"
-                                    ></input>
+                                ></input>
                             </div>
                             <div className="mb-3">
                                 <div className="input-group has-validation">
                                     <input type="password" className="form-control input" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
-                                        ></input>
+                                    ></input>
                                     <div className="invalid-feedback">
                                     </div>
                                 </div>
 
                                 <div className="mb-3">
                                     <input type="password" onKeyUp={checkPasswordsMatch} className="form-control password-input" id="signup_form_confirm_password" placeholder="Confirm Password"
-                                        ></input>
+                                    ></input>
                                     <span id='pswd_match_msg_id'></span>
                                 </div>
                                 <div id='not_valid_password_msg'>
