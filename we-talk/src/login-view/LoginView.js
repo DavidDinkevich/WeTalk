@@ -1,6 +1,8 @@
 import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
 import { useLocation } from 'react-router-dom';
 import { hideMediaUploadView } from '../chat-view/ChatView';
+import './login-view.css';
+import { useNavigate } from 'react-router-dom';
 
 const chooseFile = function (textField) {
     const textFieldElement = document.getElementById(textField);
@@ -37,26 +39,37 @@ const checkUserExists = function () {
     return true;
 }
 
-const onSubmitLogin = function () {
+const onSubmitLogin = function (navigate) {
     if (checkUserExists()) {
-        const displayName = document.getElementById(`login_form_username_field`).value;
-        const password = document.getElementById('login_form_password_field').value;
-        window.location.replace('/chat');
-        console.log('the user exists');
+        const username = document.getElementById(`login_form_username_field`).value;
+        navigate('/chat', { state: { username:username } });
     }
 }
 
-const onSubmitSignup = function () {
-    const displayName = document.getElementById(`signup_form_username_field`).value;
+const onSubmitSignup = function (navigate) {
+    const displayName = document.getElementById(`signup_form_displayName_field`).value;
     const password = document.getElementById('signup_form_password_field').value;
+    const imageField = document.getElementById('upload');
 
     console.log('in submit sign up');
     if (isUserNameValid()) {
         if (isPasswordValid()) {
             if (checkPasswordsMatch()) {
                 console.log(password);
-                addNewUser({ name: displayName, password: password, image: '' });
-                window.location.replace('/');
+                var fReader = new FileReader();
+                if (imageField.files.length > 0 && imageField.files[0].length > 0) {
+                    fReader.readAsDataURL(imageField.files[0]);
+        
+                    fReader.onloadend = function (event) {
+                        addNewUser({ name: displayName, password: password, image: event.target.result });
+
+                        navigate('/chat', { state: { displayname:displayName ,password:password } });
+                    }    
+                // window.location.replace('/');
+                } else {
+                    addNewUser({ name: displayName, password: password });
+                    navigate('/chat', { state: { displayname:displayName ,password:password } });
+                }
             }
         }
 
@@ -111,30 +124,26 @@ function isUserNameValid() {
 }
 
 export function LoginView() {
+    const navigate = useNavigate();
     return (
 
-        <div style={{ backgroundImage: '/main_background.png', width: '100vw', height: '100vh' }}>
-            <div className="container" style={{ marginTop: '20vh', marginBottom: '20vh', left: '50%' }}>
+        <div className="login-view-container background">
+            <div className="container inner-container" >
                 <div className="row justify-content-md-center" >
-                    <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
-                        <label style={{
-                            fontSize: '1000%', fontFamily: 'Cascadia Code',
-                            color: 'white', textShadow: '1px black'
-                        }}>
+                    <div className="col-xl-6 col-lg-12 me-3 gy-15" >
+                        <label className="words">
                             WeTalk
                         </label>
-                        <h2 style={{
-                            color: 'white', marginTop: '-6%', marginLeft: '2%'
-                        }}>
+                        <h2 className="bottomwords" >
                             <i>The right way to connect with friends.</i>
                         </h2>
                     </div>
 
-                    <div className="col dflex" >
-                        <div style={{ background: 'white', borderRadius: '20px', padding: '2%' }}>
+                    <div className="col dflex nonvalid" >
+                        <div>
                             <div className="mb-3">
                                 <div className="input-group has-validation">
-                                    <input type="text" className="form-control" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." />
+                                    <input type="text" className="form-control name" placeholder="Username" id="login_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." />
                                     <div className="invalid-feedback">
                                     </div>
                                 </div>
@@ -142,7 +151,7 @@ export function LoginView() {
 
                             <div className="mb-3">
                                 <div className="input-group has-validation">
-                                    <input type="password" className="form-control" placeholder="Password" id="login_form_password_field" aria-describedby="inputGroupPrepend" style={{ lineHeight: '3' }} required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
+                                    <input type="password" className="form-control psswrd" placeholder="Password" id="login_form_password_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." />
                                     <div className="invalid-feedback">
                                     </div>
                                 </div>
@@ -157,7 +166,7 @@ export function LoginView() {
                                 </div>*/}
                             </div>
 
-                            <button type="button" onClick={onSubmitLogin} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white', marginLeft: '0%', marginBottom: '1%', marginTop: '0%' }} >Sign in</button>
+                            <button type="button" onClick={() => {onSubmitLogin(navigate)}} className="btn btn-primary submitlogin" >Sign in</button>
                             <br />
 
                             <span id='user_not_exist_msg'></span>
@@ -179,47 +188,43 @@ export function LoginView() {
 }
 
 export function SignupView() {
+    const navigate = useNavigate();
     return (
 
-        <div style={{ backgroundImage: '/main_background.png', width: '100vw', height: '100vh' }}>
-            <div className="container" style={{ margin: '100', paddingTop: '7%', left: '50%' }}>
+        <div className="signupview" >
+            <div className="container">
                 <div className="row justify-content-md-center" >
-                    <div className="col-xl-6 col-lg-12 me-3 gy-15" style={{ paddingLeft: '0%' }}>
-                        <label style={{
-                            fontSize: '1000%', fontFamily: 'Cascadia Code',
-                            color: 'white', textShadow: '1px black'
-                        }}>
+                    <div className="col-xl-6 col-lg-12 me-3 gy-15">
+                        <label className="wetalkview">
                             WeTalk
                         </label>
-                        <h2 style={{
-                            color: 'white', marginTop: '-6%', marginLeft: '2%'
-                        }}>
+                        <h2 className='subtitle'>
                             <i>The right way to connect with friends.</i>
                         </h2>
                     </div>
 
-                    <div className="col" >
-                        <div style={{ background: 'white', borderRadius: '20px', padding: '2%' }}>
+                    <div className="col">
+                        <div className="forms">
                             <div className="mb-3">
-                                <input type="text" className="form-control" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
-                                    style={{ lineHeight: '3' }}></input>
+                                <input type="text" className="form-control input" id="signup_form_username_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Username"
+                                ></input>
                             </div>
                             <div id='not_valid_user_name_msg'> </div>
                             <div className="mb-3">
-                                <input type="text" className="form-control" id="signup_form_displayName_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Display name"
-                                    style={{ lineHeight: '3' }}></input>
+                                <input type="text" className="form-control input" id="signup_form_displayName_field" aria-describedby="inputGroupPrepend" required pattern="^([a-zA-Z0-9@*#]{1,30})$" title="name must be alphanumeric." placeholder="Display name"
+                                ></input>
                             </div>
                             <div className="mb-3">
                                 <div className="input-group has-validation">
-                                    <input type="password" className="form-control" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
-                                        style={{ lineHeight: '3' }}></input>
+                                    <input type="password" className="form-control input" id="signup_form_password_field" required pattern="^([a-zA-Z0-9@*#]{8,100})$" title="password must be alphanumeric, minimum 8 charcters." placeholder="Password"
+                                    ></input>
                                     <div className="invalid-feedback">
                                     </div>
                                 </div>
 
                                 <div className="mb-3">
-                                    <input type="password" onKeyUp={checkPasswordsMatch} className="form-control" id="signup_form_confirm_password" placeholder="Confirm Password"
-                                        style={{ lineHeight: '3', marginTop: '3%' }}></input>
+                                    <input type="password" onKeyUp={checkPasswordsMatch} className="form-control password-input" id="signup_form_confirm_password" placeholder="Confirm Password"
+                                    ></input>
                                     <span id='pswd_match_msg_id'></span>
                                 </div>
                                 <div id='not_valid_password_msg'>
@@ -229,11 +234,11 @@ export function SignupView() {
                             <div className="mb-3">
                                 {/*} <input className="form-control image form1" placeholder='Image'></input>*/}
                                 <input type="file" id="upload" accept="image/*" hidden />
-                                <label className="addPhoto btn btn-primary" id="photo" for="upload" >Add image</label>
+                                <label className="addPhoto btn btn-primary" id="photo" htmlFor="upload" >Add image</label>
                             </div>
 
 
-                            <button type="button" onClick={onSubmitSignup} className="btn btn-primary" style={{ background: '#5DC3E7', border: 'white', marginTop: '-3.5%' }} >Sign up</button>
+                            <button type="button"  onClick={() => {onSubmitSignup(navigate)}} className="btn btn-primary submitsignup"  >Sign up</button>
 
 
                             <div className="dropdown-divider"></div>

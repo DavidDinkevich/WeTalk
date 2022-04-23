@@ -87,7 +87,7 @@ export function getActiveUser() {
 }
 
 export function setActiveUser(name) {
-    let index = users.findIndex((user) => {return user.displayName === name});
+    let index = users.findIndex((user) => {return user.username === name});
     activeUser = users[index];
 }
 

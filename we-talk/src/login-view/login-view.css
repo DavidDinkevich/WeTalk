@@ -1,0 +1,93 @@
+.inner-container {
+   margin: 100;
+   padding-top: 7%;
+   left: 50%;
+}
+
+.subtitle {
+   color: white;
+   margin-top: -6%;
+   margin-left: 2%;
+}
+
+.forms {
+   background: white;
+   border-radius: 20px;
+   padding: 2%;
+}
+
+.input {
+   line-height: 3;
+}
+
+.password-input {
+   line-height: 3;
+   margin-top: 3%;
+}
+
+.background {
+   background-image: "/main_background.png";
+   width: 100vw;
+   height: 100vh;
+}
+
+.words {
+   font-size: 1000%;
+   font-Family: 'Cascadia Code';
+   color: white;
+   text-Shadow: 1px black;
+}
+
+.bottomwords {
+   color: white;
+   margin-Top: -6%;
+   margin-Left: 2%;
+}
+
+.nonvalid {
+   background: white;
+   border-Radius: 20px;
+   padding: 2%;
+}
+
+.name {
+   line-Height: 3;
+}
+
+.psswrd {
+   line-Height: 3;
+}
+
+.submitlogin {
+   background: #5DC3E7;
+   border: white;
+   margin-Left: 0%;
+   margin-Bottom: 1%;
+   margin-Top: 0%;
+}
+
+.submitsignup {
+   background: #5DC3E7;
+   border: white;
+   margin-Top: -3.5%;
+}
+
+.signupview {
+   background-Image: "/main_background.png";
+   width: 100vw;
+   height: 100vh;
+}
+
+.container {
+   margin: 100;
+   padding-Top: 7%;
+   left: 50%;
+}
+
+.wetalkview {
+   font-Size: 1000%;
+   font-Family: 'Cascadia Code';
+   color: white;
+   text-Shadow: 1px black;
+
+}

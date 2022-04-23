@@ -1,13 +1,17 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { getActiveUser, getContactByName } from "../DataBase";
+import { useLocation } from 'react-router-dom';
+import { getActiveUser, getContactByName, setActiveUser } from "../DataBase";
 import { getUserByName } from "../DataBase";
 import './self-info.css';
 
 function SelfInfo() {
-
     let [isOpen, setIsOpen] = useState(false);
+
+    const {state} = useLocation();
+    const { username } = state; // Read values passed on state
+    setActiveUser(username);
 
     function addNewContact() {
         let input = document.getElementById('inputBox');
