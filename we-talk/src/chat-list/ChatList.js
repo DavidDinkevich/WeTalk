@@ -48,7 +48,8 @@ function ChatList({ activeContact, setActiveContact }) {
             return;
         let oldContactButton = document.getElementById(`contact_button_${activeContact.name}`);
         let newContactButton = document.getElementById(`contact_button_${newContact.name}`);
-        oldContactButton.style.background = 'white';
+        if (oldContactButton != null)
+            oldContactButton.style.background = 'white';
         newContactButton.style.background = '#DDDDDD';
         
         setActiveContact(newContact);
