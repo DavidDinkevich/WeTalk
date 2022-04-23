@@ -12,6 +12,7 @@ You can either create a new user or log in to a current one (listed below). Eith
 <b>Current Users:</b>
 <ul>
   <li>
+    <i>** This is the main user, and it already has chats by default **</i> <br>
     <b>Username:</b> Shachar100<br>
     <b>Password:</b> 12345678sh
   </li>
