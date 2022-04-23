@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './chat-view.css'
 import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
@@ -13,6 +13,12 @@ export const hideMediaUploadView = function () {
 }
 
 function ChatView({ activeContact }) {
+    useEffect(() => {
+            // Scroll to bottom
+            scrollDown();
+        
+    });
+
     const [recordAudioModalIsOpen, setRecordAudioModalIsOpen] = useState(false);
     let [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
     // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
@@ -46,8 +52,6 @@ function ChatView({ activeContact }) {
         if (text.length > 0) {
             messageField.value = ''; // Clear box
             sendMessage({ message: text });
-            // Scroll to bottom
-            scrollDown();
         }
     }
 
