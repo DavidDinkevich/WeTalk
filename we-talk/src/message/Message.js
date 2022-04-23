@@ -51,13 +51,7 @@ function Message({ source, author, message, time, messageID }) {
                             <span className="posttime"> {' ' + time}</span>
                         </span>
                     </div>
-                    <img
-                        className="user-img"
-                        id="user-0"
-                        // src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro"
-                        src={senderImage}
-                        alt='???'
-                    />
+                    <div className="thumb chat-info-image" style={{backgroundImage: `url(${senderImage})`}} />
                 </div>
             </article>
         );
