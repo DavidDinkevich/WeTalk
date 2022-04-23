@@ -189,6 +189,19 @@ export function LoginView() {
 
 export function SignupView() {
     const navigate = useNavigate();
+
+    const showProfilePhoto = function() {
+        let inputField = document.getElementById('upload');
+        if (inputField.files.length > 0) {
+            var fReader = new FileReader();
+            fReader.readAsDataURL(inputField.files[0]);            
+            fReader.onloadend = function (event) {
+                let profilePhoto = document.getElementById('profile-photo');
+                profilePhoto.src = event.target.result;
+            }
+        }
+    }
+
     return (
 
         <div className="signupview" >
@@ -233,8 +246,9 @@ export function SignupView() {
 
                             <div className="mb-3">
                                 {/*} <input className="form-control image form1" placeholder='Image'></input>*/}
-                                <input type="file" id="upload" accept="image/*" hidden />
-                                <label className="addPhoto btn btn-primary" id="photo" htmlFor="upload" >Add image</label>
+                                <input type="file" id="upload" accept="image/*" onChange={showProfilePhoto} hidden />
+                                <label className="addPhoto btn btn-primary" id="photo" htmlFor="upload" style={{width:'200px'}}>Add profile photo</label>
+                                <img id='profile-photo' src="anonymous_profile.webp" style={{marginLeft: "30px", width:'40px', height:'40px'}}></img>
                             </div>
 
 
