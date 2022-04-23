@@ -51,13 +51,12 @@ const onSubmitSignup = function (navigate) {
     const password = document.getElementById('signup_form_password_field').value;
     const imageField = document.getElementById('upload');
 
-    console.log('in submit sign up');
     if (isUserNameValid()) {
         if (isPasswordValid()) {
             if (checkPasswordsMatch()) {
                 console.log(password);
                 var fReader = new FileReader();
-                if (imageField.files.length > 0 && imageField.files[0].length > 0) {
+                if (imageField.files.length > 0) {
                     fReader.readAsDataURL(imageField.files[0]);
         
                     fReader.onloadend = function (event) {
