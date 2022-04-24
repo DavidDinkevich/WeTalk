@@ -58,7 +58,6 @@ const onSubmitSignup = function (navigate) {
         } else {
             addNewUser({ username: username, displayName: displayName, password: password, image: 'anonymous_profile.webp' });
             setActiveUser(username);
-            console.log("here")
             navigate('/chat', { state: { displayname: displayName } });
         }
     }

@@ -93,7 +93,6 @@ export function setActiveUser(name) {
 
 export function addNewUser({username, displayName, password, image}) {
     users.push({username: username, displayName: displayName, password, image, contactList:[]});
-    console.log(users);
 }
 
 export function getUserByName(name) {
