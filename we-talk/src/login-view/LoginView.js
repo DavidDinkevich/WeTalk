@@ -1,13 +1,6 @@
 import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
-import { useLocation } from 'react-router-dom';
-import { hideMediaUploadView } from '../chat-view/ChatView';
 import './login-view.css';
 import { useNavigate } from 'react-router-dom';
-
-const chooseFile = function (textField) {
-    const textFieldElement = document.getElementById(textField);
-    textFieldElement.click();
-}
 
 const checkPasswordsMatch = function () {
     let passwordFieldID = `signup_form_password_field`;
@@ -27,13 +20,11 @@ const checkPasswordsMatch = function () {
 const checkUserExists = function () {
     const userNameField = document.getElementById('login_form_username_field');
     const passwordField = document.getElementById('login_form_password_field');
-    console.log(userNameField.value);
-    console.log(passwordField.value);
     let user = getUserByName(userNameField.value);
 
     if (user == null || user.password != passwordField.value) {
         document.getElementById('user_not_exist_msg').style.color = 'red';
-        document.getElementById('user_not_exist_msg').innerHTML = "User doesn't exist - please sign up before!"
+        document.getElementById('user_not_exist_msg').innerHTML = "User doesn't exist, please sign up first"
         return false;
     }
     return true;
@@ -42,36 +33,37 @@ const checkUserExists = function () {
 const onSubmitLogin = function (navigate) {
     if (checkUserExists()) {
         const username = document.getElementById(`login_form_username_field`).value;
+        setActiveUser(username);
         navigate('/chat', { state: { username:username } });
     }
 }
 
 const onSubmitSignup = function (navigate) {
+    const username = document.getElementById(`signup_form_username_field`).value;
     const displayName = document.getElementById(`signup_form_displayName_field`).value;
     const password = document.getElementById('signup_form_password_field').value;
     const imageField = document.getElementById('upload');
 
-    if (isUserNameValid()) {
-        if (isPasswordValid()) {
-            if (checkPasswordsMatch()) {
-                console.log(password);
-                var fReader = new FileReader();
-                if (imageField.files.length > 0) {
-                    fReader.readAsDataURL(imageField.files[0]);
-        
-                    fReader.onloadend = function (event) {
-                        addNewUser({ name: displayName, password: password, image: event.target.result });
+    if (isUserNameValid() && isPasswordValid() && checkPasswordsMatch() && getUserByName(username) === undefined) {
+        var fReader = new FileReader();
+        if (imageField.files.length > 0) {
+            fReader.readAsDataURL(imageField.files[0]);
 
-                        navigate('/chat', { state: { displayname:displayName ,password:password } });
-                    }    
-                // window.location.replace('/');
-                } else {
-                    addNewUser({ name: displayName, password: password });
-                    navigate('/chat', { state: { displayname:displayName ,password:password } });
-                }
-            }
+            fReader.onloadend = function (event) {
+                addNewUser({ username: username, displayName: displayName, password: password, image: event.target.result });
+                setActiveUser(username);
+                navigate('/chat', { state: { displayname: displayName } });
+            }    
+        // window.location.replace('/');
+        } else {
+            addNewUser({ username: username, displayName: displayName, password: password, image: 'anonymous_profile.webp' });
+            setActiveUser(username);
+            console.log("here")
+            navigate('/chat', { state: { displayname: displayName } });
         }
-
+    }
+    else if (getUserByName(username) !== undefined) {
+        alert("Username is already taken, please choose another");
     }
 
 }
@@ -104,7 +96,7 @@ function isPasswordValid() {
 
 function isUserNameValid() {
     var displayName = document.getElementById(`signup_form_username_field`).value;
-    if (displayName == '') {
+    if (displayName === '') {
         document.getElementById('not_valid_user_name_msg').style.color = 'red';
         document.getElementById('not_valid_user_name_msg').innerHTML = "User name can't be empty"
         return false;

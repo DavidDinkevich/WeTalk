@@ -9,8 +9,8 @@ export const users = [
         contactList: [
             {
                 name: 'Aviya', image: '/aviya_profile.png', messagesList: [
-                    { source: 'remote', author: 'אביה', message: 'היי שחר!', image: '', video: '', audio: '', time: '11:05' },
-                    { source: 'remote', author: 'אביה', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 2
+                    { source: 'remote', author: 'Aviya', message: 'היי שחר!', image: '', video: '', audio: '', time: '11:05' },
+                    { source: 'remote', author: 'Aviya', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 2
             },
             {
                 name: 'Shir', image: '/photo-Shir.jpg', messagesList: [
@@ -91,9 +91,8 @@ export function setActiveUser(name) {
     activeUser = users[index];
 }
 
-export function addNewUser({name, password, image}) {
-    users.push({displayName: name, password, image, contactList:[]});
-   
+export function addNewUser({username, displayName, password, image}) {
+    users.push({username: username, displayName: displayName, password, image, contactList:[]});
     console.log(users);
 }
 

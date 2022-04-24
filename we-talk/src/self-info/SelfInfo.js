@@ -1,21 +1,16 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { useLocation } from 'react-router-dom';
-import { getActiveUser, getContactByName, setActiveUser } from "../DataBase";
+import { getActiveUser, getContactByName } from "../DataBase";
 import { getUserByName } from "../DataBase";
 import './self-info.css';
 
 function SelfInfo() {
     let [isOpen, setIsOpen] = useState(false);
 
-    const {state} = useLocation();
-    const { username } = state; // Read values passed on state
-    setActiveUser(username);
 
     function addNewContact() {
-        let input = document.getElementById('inputBox');
-        input = input.value;
+        let input = document.getElementById('inputBox').value;
         if (input !== '') {
             let contactInDataBase = getUserByName(input);
             if (contactInDataBase != null && (getContactByName(input) == null)) {
@@ -34,9 +29,11 @@ function SelfInfo() {
         setIsOpen(false);
     }
 
+    let backImage = getActiveUser().image.length > 0 ? `url(${getActiveUser().image})` : 'anonymous_profile.webp';
+
     return (
         <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
-            <div className="thumb" style={{backgroundImage: `url(${getActiveUser().image})`}}></div>
+            <div className="thumb" style={{backgroundImage: backImage}}></div>
 
             <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().displayName}</div>
 
