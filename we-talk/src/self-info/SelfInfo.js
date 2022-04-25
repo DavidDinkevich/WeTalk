@@ -1,7 +1,7 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { getActiveUser, getContactByName } from "../DataBase";
+import { getActiveUser, getContactByName, users } from "../DataBase";
 import { getUserByName } from "../DataBase";
 import './self-info.css';
 
@@ -13,7 +13,7 @@ function SelfInfo() {
         let input = document.getElementById('inputBox').value;
         if (input !== '') {
             let contactInDataBase = getUserByName(input);
-            if (contactInDataBase != null && (getContactByName(input) == null)) {
+            if (contactInDataBase != null && (getContactByName(input) == null) && (getContactByName(contactInDataBase.displayName) === undefined)) {
                 let newContact = { name: contactInDataBase.displayName, image: contactInDataBase.image, messagesList: [], time: '' };
                 addContact(newContact);
                 setIsOpen(false);
