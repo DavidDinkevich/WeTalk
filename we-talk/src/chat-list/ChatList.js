@@ -39,8 +39,13 @@ function ChatList({ activeContact, setActiveContact }) {
     refreshUIChatList = () => {
         // sortContactsByTime();
         // Force refresh of UIChatList
-        if (getActiveUser().contactList.length > 0 && UIChatList.length > 0) {
-            displayActiveContact(UIChatList[0]);
+        if (UIChatList.length > 0) {
+            for (var i in UIChatList) {
+                if (UIChatList[i].messagesList.length > 0) {
+                    displayActiveContact(UIChatList[i]);
+                    break;
+                }
+            }
         }
         sortContactsByTime();
 
