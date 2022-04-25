@@ -44,12 +44,13 @@ function ChatList({ activeContact, setActiveContact }) {
     }
 
     function displayActiveContact(newContact, activeContact, setActiveContact) {
-        if (activeContact === newContact)
-            return;
-        let oldContactButton = document.getElementById(`contact_button_${activeContact.name}`);
+        for (let i in getActiveUser().contactList) {
+            let name = getActiveUser().contactList[i].name;
+            let oldContactButton = document.getElementById(`contact_button_${name}`);
+            if (oldContactButton != null)
+                oldContactButton.style.background = 'white';
+        }
         let newContactButton = document.getElementById(`contact_button_${newContact.name}`);
-        if (oldContactButton != null)
-            oldContactButton.style.background = 'white';
         newContactButton.style.background = '#DDDDDD';
         
         setActiveContact(newContact);
