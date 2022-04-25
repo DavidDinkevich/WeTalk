@@ -36,16 +36,19 @@ function ChatList({ activeContact, setActiveContact }) {
     refreshUIChatList = () => {
         // sortContactsByTime();
         // Force refresh of UIChatList
+        if (getActiveUser().contactList.length > 0 && UIChatList.length > 0) {
+            displayActiveContact(UIChatList[0]);
+        }
+        sortContactsByTime();
+
         setUIChatListHandle(UIChatList.concat([]));
-        if (getActiveUser().contactList.length > 0 && UIChatList.length > 0)
-            displayActiveContact(getActiveUser().contactList[0], null, setActiveContact);
     }
     setUIChatList = (value) => {
         // sortContactsByTime();
         setUIChatListHandle(value); 
     }
 
-    function displayActiveContact(newContact, activeContact, setActiveContact) {
+    function displayActiveContact(newContact) {
         for (let i in getActiveUser().contactList) {
             let name = getActiveUser().contactList[i].name;
             let oldContactButton = document.getElementById(`contact_button_${name}`);
@@ -54,9 +57,8 @@ function ChatList({ activeContact, setActiveContact }) {
         }
         let newContactButton = document.getElementById(`contact_button_${newContact.name}`);
         if (newContactButton != null)
-            newContactButton.style.background = '#DDDDDD';
-        
-        setActiveContact(newContact);
+            newContactButton.style.background = '#DDDDDD';      
+        zeroUnReadMessages(newContact);
     }
 
 
@@ -66,15 +68,16 @@ function ChatList({ activeContact, setActiveContact }) {
         refreshUIChatList();
     };
 
-    sortContactsByTime();
+    // sortContactsByTime();
+
 
     let chatInfos = UIChatList.map((contact, key) => {
         return (
             <button id={`contact_button_${contact.name}`} key={key} className='button chat-info-button-container'
         
             onClick={() => {
-                displayActiveContact(contact, activeContact, setActiveContact);
-                zeroUnReadMessages(contact);
+                setActiveContact(contact);
+                displayActiveContact(contact);
                 showChatView();
             }
             } >
