@@ -4,7 +4,7 @@ WeTalk is a flexible and lightweight messaging platform. Complete with a web cli
 <b>Tools:</b>
 Server             | Web client | Android App | Windows App
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-|  | <ul><li>ReactJS</li><li>NodeJS</li><li>HTML/CSS</li><li>react-router, react-bootstrap</li></ul> |  | 
+|  | <ul><li>ReactJS</li><li>NodeJS</li><li>HTML/CSS</li><li>React-router, React-bootstrap</li></ul> |  | 
 
 # Getting Started
 You can either create a new user or log in to a current one (listed below). Either way, once you're in you can message the other users.
