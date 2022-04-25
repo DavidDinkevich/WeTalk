@@ -29,7 +29,7 @@ function ChatList({ activeContact, setActiveContact }) {
             let minutesA = lastMessageTimeA.split(":")[1];
             let hoursB = lastMessageTimeB.split(":")[0];
             let minutesB = lastMessageTimeB.split(":")[1];
-            return (hoursB - hoursA) * 60 + (minutesB- minutesA);
+            return (hoursB - hoursA) * 60 + (minutesB - minutesA);
         });
     }
 
@@ -37,6 +37,8 @@ function ChatList({ activeContact, setActiveContact }) {
         // sortContactsByTime();
         // Force refresh of UIChatList
         setUIChatListHandle(UIChatList.concat([]));
+        if (getActiveUser().contactList.length > 0 && UIChatList.length > 0)
+            displayActiveContact(getActiveUser().contactList[0], null, setActiveContact);
     }
     setUIChatList = (value) => {
         // sortContactsByTime();
@@ -51,7 +53,8 @@ function ChatList({ activeContact, setActiveContact }) {
                 oldContactButton.style.background = 'white';
         }
         let newContactButton = document.getElementById(`contact_button_${newContact.name}`);
-        newContactButton.style.background = '#DDDDDD';
+        if (newContactButton != null)
+            newContactButton.style.background = '#DDDDDD';
         
         setActiveContact(newContact);
     }
