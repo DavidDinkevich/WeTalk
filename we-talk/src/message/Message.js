@@ -31,7 +31,7 @@ function Message({ source, author, message, time, messageID }) {
                             </p>
                         </div> */}
                         <span className="timestamp">
-                            <span className="posttime">{time}</span> •
+                            <span className="posttime">{time.substring(0, 5)}</span> •
                             <span className="displayName">{' ' + author}</span>
                         </span>
 
@@ -48,7 +48,7 @@ function Message({ source, author, message, time, messageID }) {
 
                         <span className="timestamp">
                             <span className="displayName">{author}</span> •
-                            <span className="posttime"> {' ' + time}</span>
+                            <span className="posttime"> {' ' + time.substring(0, 5)}</span>
                         </span>
                     </div>
                     <div className="thumb chat-info-image" style={{backgroundImage: `url(${senderImage})`}} />

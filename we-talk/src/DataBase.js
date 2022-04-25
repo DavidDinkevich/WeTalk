@@ -9,28 +9,28 @@ export const users = [
         contactList: [
             {
                 name: 'Aviya', image: '/aviya_profile.png', messagesList: [
-                    { source: 'remote', author: 'Aviya', message: 'היי שחר!', image: '', video: '', audio: '', time: '11:05' },
-                    { source: 'remote', author: 'Aviya', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05' }], unread: 2
+                    { source: 'remote', author: 'Aviya', message: 'היי שחר!', image: '', video: '', audio: '', time: '11:05:23' },
+                    { source: 'remote', author: 'Aviya', message: 'מה קורה?', image: '', video: '', audio: '', time: '11:05:31' }], unread: 2
             },
             {
                 name: 'Shir', image: '/photo-Shir.jpg', messagesList: [
-                    { source: 'remote', author: 'Shir', message: '', image: '/bobsfog.jpg', video: '', audio: '', time: '09:33' },
+                    { source: 'remote', author: 'Shir', message: '', image: '/bobsfog.jpg', video: '', audio: '', time: '09:33:55' },
                 ], unread: 1
             },
             {
                 name: 'David', image: '/david_profile.png', messagesList: [
-                    { source: 'remote', author: 'David', message: '', image: '', video: '/myVideo.mp4', audio: '', time: '12:30' },
+                    { source: 'remote', author: 'David', message: '', image: '', video: '/myVideo.mp4', audio: '', time: '12:30:24' },
                 ], unread: 1
             },
             
             {
                 name: 'Noa', image: '/photo-noa.jpg', messagesList: [
-                    { source: 'remote', author: 'Noa', message: '', image: '', video: '', audio: 'myRecord.ogg', time: '10:45' },
+                    { source: 'remote', author: 'Noa', message: '', image: '', video: '', audio: 'myRecord.ogg', time: '10:45:54' },
                 ], unread: 1
             },
             {
                 name: 'Lior', image: '/photo-lior.webp', messagesList: [
-                    { source: 'remote', author: 'Lior', message: "What's up?", image: '', video: '', audio: '', time: '11:31' },
+                    { source: 'remote', author: 'Lior', message: "What's up?", image: '', video: '', audio: '', time: '11:31:59' },
                 ], unread: 1
             }
 

@@ -10,7 +10,7 @@ function ChatInfo({ contact }) {
     let contactImage = getContactByName(contact.name).image;
     if (messages.length > 0) {
         let lastMessage = messages[messages.length - 1];
-        time = lastMessage.time;
+        time = lastMessage.time.substring(0, 5);
         if (lastMessage.message.length > 0) {
             lastMessageText = messages[messages.length - 1].message;
             if (lastMessageText.length > maxMessageLength)

@@ -30,8 +30,9 @@ function ChatView({ activeContact }) {
 
     const sendMessage = function ({ message = '', image = '', video = '', audio = '' }) {
         // Get date for message
+        // console.log(String(new Date()).split(" "))
         let date = String(new Date()).split(" ")[4]
-        date = date.substring(0, date.lastIndexOf(":"));
+        // date = date.substring(0, date.lastIndexOf(":"));
 
         let activeUserName = getActiveUser().displayName;
 
