@@ -139,7 +139,7 @@ body {
     font-size: 12pt;
     line-height: 15pt;
     color: black;
-    
+    word-break: break-word;
     margin: 0 0 10px 0;
 }
 .msg:first-of-type {
