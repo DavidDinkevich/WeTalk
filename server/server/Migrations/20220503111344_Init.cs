@@ -17,7 +17,7 @@ namespace server.Migrations
                     RatingsCount = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Time = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    //Time = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

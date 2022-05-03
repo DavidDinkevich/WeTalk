@@ -13,7 +13,7 @@ namespace server.Models {
         public string Name { get; set; }
         [Required]
         public string Message { get; set; }
-        public string Time { get; set; }
+        // public string Time { get; set; }
 
     }
 }
