@@ -17,17 +17,47 @@ namespace server.Controllers
     {
         private readonly serverContext _context;
 
+
         public UsersController(serverContext context)
         {
             _context = context;
+
         }
 
+        
+
+        /*
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
             return await _context.User.ToListAsync();
         }
+        */
+        [HttpGet]
+        [Route("contacts")]
+        public async Task<ActionResult<ICollection<User>>> GetContacts() {
+            //var user = await _context.User.FindAsync(0);
+            var user = _context.GetCurrentUser();
+
+            if (user == null) {
+                return NotFound();
+            }
+            var contacts = user.Contacts;
+            return Ok(contacts);
+        }
+
+        [HttpGet]
+        [Route("contacts/{id}")]
+        public async Task<ActionResult<User>> GetContactByID(int id) {
+            var user = _context.GetCurrentUser();
+            User contact = user.Contacts.FirstOrDefault(user => user.Id == id);
+            if (contact == null) {
+                return NotFound();
+            }
+            return contact;
+        }
+
 
         // GET: api/Users/5
         [HttpGet("{id}")]

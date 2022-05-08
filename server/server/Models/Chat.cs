@@ -1,13 +1,14 @@
-﻿namespace server.Models {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace server.Models {
     public class Chat {
+        [Key]
         public int Id { get; set; }
-        public User User1 { get; set; }
-        public User User2 { get; set; }
+        public int User1 { get; set; }
+        public int User2 { get; set; }
         public ICollection<Message> Messages { get; set; }
 
-        public Chat(User u1, User u2) {
-            User1 = u1;
-            User2 = u2;
+        public Chat() {
             Messages = new List<Message>();
         }
     }
