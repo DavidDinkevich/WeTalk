@@ -1,13 +1,24 @@
 ﻿@model IEnumerable<server.Models.Rating>
+<link rel="stylesheet" href="~/css/Index.css">
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@section head {
+    <style type="text/css">
+    body {
+        background-image: url('Resources/main_background_4.jpg');
+        background-size: cover;
+        color: ActiveBorder;
+    }
+    </style>
+}
+
+<h1 class="index" >Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="createNew" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -21,7 +32,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Message)
             </th>
+
             <th></th>
+
         </tr>
     </thead>
     <tbody>
@@ -37,9 +50,9 @@
                 @Html.DisplayFor(modelItem => item.Message)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="Details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="Delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

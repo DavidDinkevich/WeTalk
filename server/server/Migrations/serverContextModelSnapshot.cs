@@ -40,10 +40,6 @@ namespace server.Migrations
                     b.Property<int>("RatingsCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Rating");

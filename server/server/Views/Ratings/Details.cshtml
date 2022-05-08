@@ -1,13 +1,14 @@
 ﻿@model server.Models.Rating
+<link rel="stylesheet" href="~/css/Details.css">
+
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="details">Details</h1>
 
 <div>
-    <h4>Rating</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -30,7 +31,7 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div >
+    <a class="edit" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a class="back" asp-action="Index">Back to List</a>
 </div>

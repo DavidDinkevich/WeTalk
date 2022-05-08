@@ -1,0 +1,46 @@
+﻿body {
+    background-image: url('main_background_4.jpg');
+    background-size: cover;
+    color: ActiveBorder;
+    margin: 0 auto;
+}
+
+.delete {
+    text-shadow: 0.5px 0.5px white;
+}
+
+.deleteButton {
+    background: #5DC3E7;
+    color: aliceblue;
+    margin-left: -0.8%;
+    border: white;
+    padding: 0.5%;
+    border-Radius: 10%;
+}
+
+.rating {
+    color: white;
+    border-color: white;
+    
+}
+
+.row {
+    color: black;
+    background-color: white;
+    opacity: 80%;
+    border: white;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+}
+
+.back {
+    background: #5DC3E7;
+    color: aliceblue;
+    margin-left: 0%;
+    border: white;
+    padding: 0.5%;
+    border-Radius: 10%;
+}
+
