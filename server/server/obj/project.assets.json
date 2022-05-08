@@ -9652,19 +9652,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\shach\\.nuget\\packages\\": {}
+    "C:\\Users\\david\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj",
+      "projectUniqueName": "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj",
-      "packagesPath": "C:\\Users\\shach\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\obj\\",
+      "projectPath": "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\server.csproj",
+      "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\shach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

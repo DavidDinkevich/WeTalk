@@ -13,8 +13,21 @@ namespace server.Data
         public serverContext (DbContextOptions<serverContext> options)
             : base(options)
         {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder
+                .Entity<User>(
+                    eb => {
+                        eb.HasNoKey();
+                    });
         }
 
         public DbSet<server.Models.Rating> Rating { get; set; }
+
+        public DbSet<server.Models.Message> Message { get; set; }
+
+        public DbSet<server.Models.User> User { get; set; }
     }
 }
