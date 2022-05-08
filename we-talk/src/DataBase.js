@@ -1,5 +1,16 @@
 
 
+
+export const login = async function(username, password) {
+    await fetch("https://localhost:7013/api/Users/contacts")
+        .then(response => response.json())
+        .then(data => console.log(data));
+}
+
+
+
+
+
 export const users = [
     {
         username: 'Shachar100',

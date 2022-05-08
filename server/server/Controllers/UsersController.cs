@@ -58,11 +58,10 @@ namespace server.Controllers
             return contact;
         }
 
-
+        /*
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
+        public async Task<ActionResult<User>> GetUser(int id) {
             var user = await _context.User.FindAsync(id);
 
             if (user == null)
@@ -135,5 +134,6 @@ namespace server.Controllers
         {
             return _context.User.Any(e => e.Id == id);
         }
+        */
     }
 }

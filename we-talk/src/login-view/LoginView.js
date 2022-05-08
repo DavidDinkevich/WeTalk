@@ -1,4 +1,4 @@
-import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
+import { getUserByName, addNewUser, setActiveUser, login } from '../DataBase';
 import './login-view.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,8 +31,10 @@ const checkUserExists = function () {
 }
 
 const onSubmitLogin = function (navigate) {
+    const username = document.getElementById(`login_form_username_field`).value;
+    const password = document.getElementById(`login_form_password_field`).value;
+    login(username, password);
     if (checkUserExists()) {
-        const username = document.getElementById(`login_form_username_field`).value;
         setActiveUser(username);
         navigate('/chat', { state: { username:username } });
     }
