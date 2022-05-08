@@ -9,35 +9,37 @@ using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
 
-namespace server.Controllers
-{
-    public class RatingsController : Controller
-    {
+namespace server.Controllers {
+    public class RatingsController : Controller {
         private readonly serverContext _context;
 
-        public RatingsController(serverContext context)
-        {
+        public RatingsController(serverContext context) {
             _context = context;
         }
 
         // GET: Ratings
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             return View(await _context.Rating.ToListAsync());
         }
 
+        public async Task<IActionResult> Search(string query) {
+            if (query == null)
+                return View(await _context.Rating.ToListAsync());
+            var q = _context.Rating.Where(data => data.Message.Contains(query) ||
+                                          data.Name.Contains(query) ||
+                                          data.RatingsCount.ToString().Contains(query));
+            return View(await q.ToListAsync());
+        }
+
         // GET: Ratings/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var rating = await _context.Rating
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (rating == null)
-            {
+            if (rating == null) {
                 return NotFound();
             }
 
@@ -45,8 +47,7 @@ namespace server.Controllers
         }
 
         // GET: Ratings/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             return View();
         }
 
@@ -55,29 +56,24 @@ namespace server.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RatingsCount,Name,Message,Time")] Rating rating)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("Id,RatingsCount,Name,Message,Time")] Rating rating) {
+            if (ModelState.IsValid) {
                 _context.Add(rating);
-//                rating.setTime()
+                //                rating.setTime()
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             return View(rating);
         }
 
         // GET: Ratings/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var rating = await _context.Rating.FindAsync(id);
-            if (rating == null)
-            {
+            if (rating == null) {
                 return NotFound();
             }
             return View(rating);
@@ -88,48 +84,38 @@ namespace server.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RatingsCount,Name,Message")] Rating rating)
-        {
-            if (id != rating.Id)
-            {
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RatingsCount,Name,Message")] Rating rating) {
+            if (id != rating.Id) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(rating);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RatingExists(rating.Id))
-                    {
+                catch (DbUpdateConcurrencyException) {
+                    if (!RatingExists(rating.Id)) {
                         return NotFound();
                     }
-                    else
-                    {
+                    else {
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             return View(rating);
         }
 
         // GET: Ratings/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var rating = await _context.Rating
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (rating == null)
-            {
+            if (rating == null) {
                 return NotFound();
             }
 
@@ -139,16 +125,14 @@ namespace server.Controllers
         // POST: Ratings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             var rating = await _context.Rating.FindAsync(id);
             _context.Rating.Remove(rating);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Search));
         }
 
-        private bool RatingExists(int id)
-        {
+        private bool RatingExists(int id) {
             return _context.Rating.Any(e => e.Id == id);
         }
     }

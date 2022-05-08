@@ -9652,19 +9652,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aviya\\.nuget\\packages\\": {}
+    "C:\\Users\\shach\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\server.csproj",
+      "projectUniqueName": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\server.csproj",
-      "packagesPath": "C:\\Users\\aviya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\obj\\",
+      "projectPath": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj",
+      "packagesPath": "C:\\Users\\shach\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\aviya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\shach\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9727,7 +9727,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
