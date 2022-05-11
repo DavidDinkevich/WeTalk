@@ -4,7 +4,7 @@ import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
 import RecordAudioModal from './RecordAudioModal';
 import { refreshUIChatList } from '../chat-list/ChatList';
-import { createMessageID, emptyMessageJSON, getActiveUser, getMessages, updateMessages } from '../DataBase'
+import { createMessageID, emptyMessageJSON, getActiveUser, getMessages, postMessageToServer, updateMessages } from '../DataBase'
 
 
 export const hideMediaUploadView = function () {
@@ -19,18 +19,17 @@ function ChatView({ activeContact }) {
     useEffect(scrollDown);
     useEffect(() => updateMessages(activeContact.id), [1]);
     
-    console.log("We are drawing");
     const [recordAudioModalIsOpen, setRecordAudioModalIsOpen] = useState(false);
     let [UIMessageList, setUIMessagesList] = useState(getMessages());
-    refreshMessagesList = setUIMessagesList;
+    refreshMessagesList = () => setUIMessagesList(UIMessageList.concat([]));
     // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
     UIMessageList = getMessages();
 
     const uiList = UIMessageList.map((message, key) => {
-        console.log(message);
-        console.log(message.recipient, activeContact.name);
+        // console.log(message);
+        // console.log(message.recipient, activeContact.name);
         let source = message.recipient !== activeContact.name ? "remote" : "self";
-        console.log(source);
+        // console.log(source);
         return <Message {...message} source={source} messageID={message.id} key={key} />;
     });
 
@@ -45,11 +44,15 @@ function ChatView({ activeContact }) {
         let newMessage = Object.assign(
             emptyMessageJSON(),
             { source: 'self', author: activeUserName, time: date },
-            { message, image, video, audio }
+            { messageText: message, image, video, audio }
         );
 
-        setUIMessagesList(UIMessageList.concat([newMessage]));
+        console.log({from: activeUserName, to: activeContact.id, content: newMessage.messageText});
+        postMessageToServer({from: activeUserName, to: activeContact.id, content: newMessage});
+        
         refreshUIChatList();
+        refreshMessagesList();
+        setUIMessagesList(UIMessageList.concat([newMessage]));
     }
 
     const sendMessageFromInputBox = function () {

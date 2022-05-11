@@ -43,7 +43,12 @@ namespace server.Controllers
             return Ok(message);
         }
 
-        
+        [HttpPost]
+        [Route("transfer")]
+        public async Task<ActionResult> AddMessage(MsgJson msgJson) {
+            return _context.AddMessage(msgJson) ? new EmptyResult() : BadRequest();
+        }
+
         /*
         // GET: api/Chats
         [HttpGet]

@@ -1,17 +1,6 @@
 import { refreshUIChatList } from "./chat-list/ChatList";
 import { refreshMessagesList } from "./chat-view/ChatView";
 
-let doQuery = true;
-
-export const runQuery = function(query) {
-    if (doQuery) {
-        query();
-        doQuery = false;
-        console.log("false");
-    } else
-        doQuery = true;
-        console.log("true");
-}
 
 export const login = async function(username, password) {
     // await fetch("https://localhost:7013/api/Users/contacts")
@@ -25,30 +14,37 @@ export const updateUserContacts = async function() {
         .then(data => {
             // contactList = data;
             context.currentUser.contacts = data;
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             // runQuery( refreshUIChatList);
             refreshUIChatList();
-
             // setUIChatListHandle(contactList.concat([]));    
         });
 }
 
 export const updateMessages = async function(contactID) {
-    console.log("Fetching, woof woof");
     await fetch(`https://localhost:7013/api/Chats/contacts/${contactID}/messages`)
             .then(response => response.json())
             .then(data => {
                 context.messages = data;
                 refreshMessagesList();
-                console.log(context.messages);
             }
     );
 }
 
 
+export const postMessageToServer = async function({from, to, content}) {  
+    console.log("sending: " + JSON.stringify({from, to, content}))
+    await fetch('https://localhost:7013/api/Chats/transfer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({from, to, content: content.messageText})
+    });
+}
+
+
 const context = {
     currentUser: {
-        id: '',
+        id: 'David100',
         name: '',
         password: '',
         image: '',
@@ -114,3 +110,4 @@ export function getAccountNameFromMsgID(messageID) {
 export function getMessageIndexFromMsgID(messageID) {
     return messageID.split('-')[1];
 }
+

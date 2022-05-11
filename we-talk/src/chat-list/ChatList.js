@@ -42,6 +42,7 @@ function ChatList({ setActiveContact }) {
     refreshUIChatList = () => {
         // sortContactsByTime();
         // Force refresh of UIChatList
+        //--------------------------------------------
         if (UIChatList.length > 0) {
             for (var i in UIChatList) {
                 if (UIChatList[i].lastMessage != null) {
@@ -87,8 +88,11 @@ function ChatList({ setActiveContact }) {
             <button id={`contact_button_${contact.name}`} key={key} className='button chat-info-button-container'
         
             onClick={() => {
+                
                 setActiveContact(contact);
                 displayActiveContact(contact);
+                updateUserContacts();
+                updateMessages(contact.id)
                 showChatView();
             }
             } >

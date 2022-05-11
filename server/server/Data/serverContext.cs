@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using server.Models;
@@ -31,6 +32,10 @@ namespace server.Data
                     new Message("Shachar", "Aviya") { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=DateTime.Now.ToString() },
                     new Message("Shachar", "Aviya") { Id=1, MessageText="sdfsdf", Time=DateTime.Now.ToString() }
                 }
+            },
+            new Chat() {
+                Id=1, User1="Aviya100", User2="David100",
+                Messages = new List<Message> {}
             }
         };
 
@@ -39,10 +44,10 @@ namespace server.Data
             return usersDB[currUserID];
         }
 
-        public Chat getChat(User u1, User u2) {
+        public Chat getChat(string u1Id, string u2Id) {
             Chat chat = chatDB.FirstOrDefault(
-                        chat => (chat.User1 == u1.Id && chat.User2 == u2.Id)
-                                || chat.User1 == u2.Id && chat.User2 == u1.Id);
+                        c => (c.User1 == u1Id && c.User2 == u2Id)
+                                || c.User1 == u2Id && c.User2 == u1Id);
             return chat;
         }
 
@@ -52,14 +57,14 @@ namespace server.Data
                 user => user.Id == contactID);
             if (other == null)
                 return null;
-            Chat chat = getChat(current, other);
+            Chat chat = getChat(current.Id, other.Id);
             if (chat == null)
                 return null;
             return chat.Messages;
         }
 
         public void UpdateLastInfo(User u1, User u2) {
-            Chat chat = getChat(u1, u2);
+            Chat chat = getChat(u1.Id, u2.Id);
             if (chat == null || chat.Messages.Count() == 0) {
                 u1.LastMessage = u2.LastMessage = null;
             } else {
@@ -67,6 +72,18 @@ namespace server.Data
             }
         }
 
+        public bool AddMessage(MsgJson msg) {
+            Chat chat = getChat(msg.From, msg.To);
+            if (chat != null) {
+                Message newMessage = new Message(msg.From, msg.To) {
+                    Id = chat.Messages.Count(),
+                    MessageText = msg.Content
+                };
+                chat.Messages.Add(newMessage);
+                return true;
+            }
+            return false;
+        }
 
         public serverContext (DbContextOptions<serverContext> options)
             : base(options)
