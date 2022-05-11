@@ -4,18 +4,18 @@
 namespace server.Models {
     public class User {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public string Username { get; set; }
-        public string DisplayName { get; set; }
+        public string Name { get; set; }
         public string Password { get; set; }
         
-        public ICollection<User> Contacts { get; set; }
+        public IList<User> Contacts { get; set; }
         public string Server { get; set; }
-        public int LastMessage { get; set; }
+        public Message LastMessage { get; set; }
         public string LastDate { get; set; }
-
+        public string Image { get; set; }
         public User() {
+            Image = "";
             Contacts = new List<User>();
         }
 

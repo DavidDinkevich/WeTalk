@@ -24,7 +24,7 @@ namespace server.Controllers
 
         [HttpGet]
         [Route("contacts/{id}/messages")]
-        public async Task<ActionResult<ICollection<Message>>> GetMessagesWithContact(int id) {
+        public async Task<ActionResult<IList<Message>>> GetMessagesWithContact(string id) {
             var messages = _context.GetMessagesWithContact(id);
             if (messages == null)
                 return NotFound();
@@ -33,7 +33,7 @@ namespace server.Controllers
 
         [HttpGet]
         [Route("contacts/{id1}/messages/{id2}")]
-        public async Task<ActionResult<Message>> GetMessageWithContact(int id1, int id2) {
+        public async Task<ActionResult<Message>> GetMessageWithContact(string id1, int id2) {
             var messages = _context.GetMessagesWithContact(id1);
             if (messages == null)
                 return NotFound();

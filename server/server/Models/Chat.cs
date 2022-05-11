@@ -4,9 +4,9 @@ namespace server.Models {
     public class Chat {
         [Key]
         public int Id { get; set; }
-        public int User1 { get; set; }
-        public int User2 { get; set; }
-        public ICollection<Message> Messages { get; set; }
+        public string User1 { get; set; }
+        public string User2 { get; set; }
+        public IList<Message> Messages { get; set; }
 
         public Chat() {
             Messages = new List<Message>();

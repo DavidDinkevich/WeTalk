@@ -10,7 +10,7 @@ function LeftScreen({ selfInfo, activeContact, setActiveContact}) {
         <div className='left-screen'>
             <SelfInfo name={selfInfo} />
             <ChatSearch />
-            <ChatList activeContact={activeContact} setActiveContact={setActiveContact} />
+            <ChatList setActiveContact={setActiveContact} />
         </div>
     );
 }

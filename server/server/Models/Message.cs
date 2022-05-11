@@ -5,6 +5,13 @@
         public string Recipient { get; set; }
         public string MessageText { get; set; }
         public string Time { get; set; }
+
+        public Message() {
+            Sender = "";
+            Recipient = "";
+            MessageText = "";
+            Time = "";
+        }
         
     }
 }

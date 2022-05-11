@@ -44,17 +44,22 @@ namespace server.Controllers
                 return NotFound();
             }
             var contacts = user.Contacts;
+            for (var i = 0; i < contacts.Count; i++) {
+                var contact = contacts[i];
+                _context.UpdateLastInfo(user, contact);
+            }
             return Ok(contacts);
         }
 
         [HttpGet]
         [Route("contacts/{id}")]
-        public async Task<ActionResult<User>> GetContactByID(int id) {
+        public async Task<ActionResult<User>> GetContactByID(string id) {
             var user = _context.GetCurrentUser();
             User contact = user.Contacts.FirstOrDefault(user => user.Id == id);
             if (contact == null) {
                 return NotFound();
             }
+            _context.UpdateLastInfo(user, contact);
             return contact;
         }
 

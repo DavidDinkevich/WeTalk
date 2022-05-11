@@ -12,24 +12,24 @@ namespace server.Data
     {
 
         private static List<User> usersDB = new List<User>() {
-            new User() { Id=0, Username="Shachar" },
-            new User() { Id=1, Username="David" },
-            new User() { Id=2, Username="Aviya" }
+            new User() { Id="Shachar100", Name="Shachar" },
+            new User() { Id="David100", Name="David" },
+            new User() { Id="Aviya100", Name="Aviya" }
         };
 
         private static List<Chat> chatDB = new List<Chat> {
             new Chat() { 
-                Id=0, User1=0, User2=1,
+                Id=0, User1="Shachar100", User2="David100",
                 Messages = new List<Message> {
-                    new Message() { Id=0, MessageText="Ma kore!?" },
-                    new Message() { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם" }
+                    new Message() { Id=0, MessageText="Ma kore!?", Time=DateTime.Now.ToString() },
+                    new Message() { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=DateTime.Now.ToString() }
                 }
             },
             new Chat() { 
-                Id=1, User1=0, User2=2,
+                Id=1, User1="Shachar100", User2="Aviya100",
                 Messages = new List<Message> {
-                    new Message() { Id=0, MessageText="I'm so excited for Maroon 5!!" },
-                    new Message() { Id=1, MessageText="sdfsdf" }
+                    new Message() { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=DateTime.Now.ToString() },
+                    new Message() { Id=1, MessageText="sdfsdf", Time=DateTime.Now.ToString() }
                 }
             }
         };
@@ -39,25 +39,39 @@ namespace server.Data
             return usersDB[currUserID];
         }
 
-        public ICollection<Message> GetMessagesWithContact(int contactID) {
+        public Chat getChat(User u1, User u2) {
+            Chat chat = chatDB.FirstOrDefault(
+                        chat => (chat.User1 == u1.Id && chat.User2 == u2.Id)
+                                || chat.User1 == u2.Id && chat.User2 == u1.Id);
+            return chat;
+        }
+
+        public IList<Message> GetMessagesWithContact(string contactID) {
             User current = GetCurrentUser();
             User other = current.Contacts.FirstOrDefault(
                 user => user.Id == contactID);
             if (other == null)
                 return null;
-            Chat chat = chatDB.FirstOrDefault(
-                chat => (  chat.User1 == current.Id && chat.User2 == contactID)
-                        || chat.User1 == contactID && chat.User2 == current.Id);
+            Chat chat = getChat(current, other);
             if (chat == null)
                 return null;
             return chat.Messages;
+        }
+
+        public void UpdateLastInfo(User u1, User u2) {
+            Chat chat = getChat(u1, u2);
+            if (chat == null || chat.Messages.Count() == 0) {
+                u1.LastMessage = u2.LastMessage = null;
+            } else {
+                u1.LastMessage = u2.LastMessage = chat.Messages[chat.Messages.Count() - 1];
+            }
         }
 
 
         public serverContext (DbContextOptions<serverContext> options)
             : base(options)
         {
-            usersDB[1].Contacts = new List<User>() { usersDB[0] };
+            usersDB[1].Contacts = new List<User>() { usersDB[0], usersDB[2] };
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
