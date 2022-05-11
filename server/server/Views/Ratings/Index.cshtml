@@ -3,6 +3,23 @@
 
 @{
     ViewData["Title"] = "Index";
+    float sum = 0;
+    float num_elements = 0;
+    float average = 0;
+    foreach (var item in Model)
+    {
+        sum += item.RatingsCount;
+        num_elements += 1;
+    }
+    if (num_elements == 0)
+    {
+        average = 0;
+    }
+    else
+    {
+    average = sum / num_elements;
+    }
+    
 }
 
 @section head {
@@ -15,11 +32,15 @@
     </style>
 }
 
-<h1 class="index" >Index</h1>
+<h1 class="rating" >Rating</h1>
+<h2 class="average"> The average rating is : @average</h2>
 
 <p>
     <a class="createNew" asp-action="Create">Create New</a>
 </p>
+
+
+
 <table class="table">
     <thead>
         <tr>
@@ -32,7 +53,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Message)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
             <th></th>
 
         </tr>
@@ -49,6 +72,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Message)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+
+            
             <td>
                 <a class="Edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a class="Details" asp-action="Details" asp-route-id="@item.Id">Details</a> |

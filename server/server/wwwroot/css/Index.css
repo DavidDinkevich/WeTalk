@@ -9,7 +9,11 @@
     padding-left: 8px;
 }
 
-.index {
+.rating {
     text-shadow: 0.4px 0.4px white;
     padding-left: 1px;
+}
+
+.average {
+    text-shadow: 0.6px 0.6px black;
 }

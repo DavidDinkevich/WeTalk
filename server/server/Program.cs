@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿# nullable disable
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using server.Data;
+using server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<serverContext>(options =>
@@ -8,6 +11,8 @@ builder.Services.AddDbContext<serverContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 var app = builder.Build();
 
@@ -30,3 +35,4 @@ app.MapControllerRoute(
     pattern: "{controller=Ratings}/{action=Index}/{id?}");
 
 app.Run();
+
