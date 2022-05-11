@@ -6,9 +6,9 @@
         public string MessageText { get; set; }
         public string Time { get; set; }
 
-        public Message() {
-            Sender = "";
-            Recipient = "";
+        public Message(string sender, string recipient) {
+            Sender = sender;
+            Recipient = recipient;
             MessageText = "";
             Time = "";
         }

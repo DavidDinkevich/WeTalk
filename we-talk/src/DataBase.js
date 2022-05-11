@@ -1,4 +1,5 @@
 import { refreshUIChatList } from "./chat-list/ChatList";
+import { refreshMessagesList } from "./chat-view/ChatView";
 
 let doQuery = true;
 
@@ -18,12 +19,10 @@ export const login = async function(username, password) {
     //     .then(data => console.log(data));
 }
 
-
 export const updateUserContacts = async function() {
-    let contactListPromise = await fetch("https://localhost:7013/api/Users/contacts")
+    await fetch("https://localhost:7013/api/Users/contacts")
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             // contactList = data;
             context.currentUser.contacts = data;
             console.log(JSON.stringify(data));
@@ -35,12 +34,17 @@ export const updateUserContacts = async function() {
 }
 
 export const updateMessages = async function(contactID) {
-    let promise = await fetch(`https://localhsot:7013/api/Chats/contacts/${contactID}/messages`)
-                    .then(response => response.json());
-    promise.then(data => {
-        context.messages = data;
-    });
+    console.log("Fetching, woof woof");
+    await fetch(`https://localhost:7013/api/Chats/contacts/${contactID}/messages`)
+            .then(response => response.json())
+            .then(data => {
+                context.messages = data;
+                refreshMessagesList();
+                console.log(context.messages);
+            }
+    );
 }
+
 
 const context = {
     currentUser: {
@@ -61,6 +65,15 @@ export function getActiveUser() {
     return context.currentUser;
 }
 
+export function getMessages() {
+    return context.messages;
+}
+
+export function getMessageByID(messageID) {
+    return context.messages.find((msg) => msg.id === messageID);
+}
+
+//---------------------------------
 
 export function setActiveUser(name) {
     // let index = users.findIndex((user) => {return user.username === name});

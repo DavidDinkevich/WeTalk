@@ -21,15 +21,15 @@ namespace server.Data
             new Chat() { 
                 Id=0, User1="Shachar100", User2="David100",
                 Messages = new List<Message> {
-                    new Message() { Id=0, MessageText="Ma kore!?", Time=DateTime.Now.ToString() },
-                    new Message() { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=DateTime.Now.ToString() }
+                    new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=DateTime.Now.ToString() },
+                    new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=DateTime.Now.ToString() }
                 }
             },
             new Chat() { 
                 Id=1, User1="Shachar100", User2="Aviya100",
                 Messages = new List<Message> {
-                    new Message() { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=DateTime.Now.ToString() },
-                    new Message() { Id=1, MessageText="sdfsdf", Time=DateTime.Now.ToString() }
+                    new Message("Shachar", "Aviya") { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=DateTime.Now.ToString() },
+                    new Message("Shachar", "Aviya") { Id=1, MessageText="sdfsdf", Time=DateTime.Now.ToString() }
                 }
             }
         };

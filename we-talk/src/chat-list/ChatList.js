@@ -14,9 +14,7 @@ function zeroUnReadMessages(contact) {
 }
 
 function ChatList({ setActiveContact }) {
-    useEffect(() => {
-        updateUserContacts();
-    }, [1]);
+    useEffect(updateUserContacts, [1]);
 
     let contactList = getActiveUser().contacts;
     let [UIChatList, setUIChatListHandle] = useState(contactList);

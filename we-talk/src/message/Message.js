@@ -1,30 +1,21 @@
 
 import './message.css'
-import { getActiveUser, getContactByName } from '../DataBase'
-import { getAccountNameFromMsgID, getMessageIndexFromMsgID } from '../DataBase';
+import { getActiveUser } from '../DataBase'
+import { getMessageByID } from '../DataBase';
 
-function Message({ source, author, message, time, messageID }) {
+function Message({ source, id, sender, time }) {
     // const messageSide = source === 'self' ? 'msg-self' : 'msg-remote';
     let senderImage = getActiveUser().image;
-    let recipientName = getAccountNameFromMsgID(messageID);
-    let recipientImage = getContactByName(recipientName).image;
+    let recipientImage = '';
 
     if (source === 'remote') {
         return (
             <article className="msg-container msg-remote">
                 <div className="msg-box">
-                    {/* <img
-                        className="user-img"
-                        id="user-0"
-                        // src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro"
-                        src={recipientImage}
-                        alt='???'
-                    /> */}
                     <div className="thumb chat-info-image" style={{backgroundImage: `url(${recipientImage})`}} />
 
-
-                    <div id={messageID} className="flr">
-                        <RenderMessageContent messageID={messageID} />
+                    <div id={id} className="flr">
+                        <RenderMessageContent messageID={id} />
                         {/* <div className="messages">
                             <p className="msg" id="msg-0" >
                                 {message}
@@ -32,7 +23,7 @@ function Message({ source, author, message, time, messageID }) {
                         </div> */}
                         <span className="timestamp">
                             <span className="posttime">{time.substring(0, 5)}</span> •
-                            <span className="displayName">{' ' + author}</span>
+                            <span className="displayName">{' ' + sender}</span>
                         </span>
 
                     </div>
@@ -43,11 +34,11 @@ function Message({ source, author, message, time, messageID }) {
         return (
             <article className="msg-container msg-self">
                 <div className="msg-box">
-                    <div id={messageID} className="flr">
-                        <RenderMessageContent messageID={messageID} />
+                    <div id={id} className="flr">
+                        <RenderMessageContent messageID={id} />
 
                         <span className="timestamp">
-                            <span className="displayName">{author}</span> •
+                            <span className="displayName">{sender}</span> •
                             <span className="posttime"> {' ' + time.substring(0, 5)}</span>
                         </span>
                     </div>
@@ -59,12 +50,16 @@ function Message({ source, author, message, time, messageID }) {
 }
 
 function RenderMessageContent({ messageID }) {
-    let accountName = getAccountNameFromMsgID(messageID);
-    let messageNumber = getMessageIndexFromMsgID(messageID);
-    let text = getContactByName(accountName).messagesList[messageNumber].message;
-    let imgPath = getContactByName(accountName).messagesList[messageNumber].image
-    let videoPath = getContactByName(accountName).messagesList[messageNumber].video
-    let audioPath = getContactByName(accountName).messagesList[messageNumber].audio
+    // let accountName = getAccountNameFromMsgID(messageID);
+    // let messageNumber = getMessageIndexFromMsgID(messageID);
+    // let text = getContactByName(accountName).messagesList[messageNumber].message;
+    let text = getMessageByID(messageID).messageText;
+    // let imgPath = getContactByName(accountName).messagesList[messageNumber].image
+    // let videoPath = getContactByName(accountName).messagesList[messageNumber].video
+    // let audioPath = getContactByName(accountName).messagesList[messageNumber].audio
+    let imgPath = '';
+    let videoPath = '';
+    let audioPath = '';
 
     if (text.length > 0) {
         return (

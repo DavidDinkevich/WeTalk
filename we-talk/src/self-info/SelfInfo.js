@@ -35,7 +35,7 @@ function SelfInfo() {
         <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
             <div className="thumb" style={{backgroundImage: backImage}}></div>
 
-            <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().displayName}</div>
+            <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().name}</div>
 
             <button className='button adding-contact-button' onClick={() => {
                 setIsOpen(true);

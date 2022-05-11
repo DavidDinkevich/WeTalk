@@ -1,16 +1,7 @@
-import { getActiveUser, getContactByName, getMessages } from "../DataBase";
 import './chat-info.css'
 
 function ChatInfo({ contact }) {
-    // Message list
-    // let messages = getMessages(contact.id);
-    // Contact Image
-    
-    // Last message
-    
-    
-    const maxMessageLength = 25;
-    
+    const maxMessageLength = 25;    
     // let messages = contact.messagesList;
     let lastMessageText = ''
     let time = ''

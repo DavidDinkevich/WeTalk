@@ -15,14 +15,7 @@ namespace server.Controllers {
     public class MessagesController : ControllerBase {
         private readonly serverContext _context;
 
-        public static List<Message> messages = new List<Message>();
-
         public MessagesController(serverContext context) {
-            messages.Add(new Message { MessageText = "sdasd" });
-            messages.Add(new Message { MessageText = "a" });
-            messages.Add(new Message { MessageText = "b" });
-            messages.Add(new Message { MessageText = "c" });
-            messages.Add(new Message { MessageText = "d" });
             _context = context;
         }
 
