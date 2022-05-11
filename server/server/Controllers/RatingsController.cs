@@ -31,14 +31,19 @@ namespace server.Controllers
             return View(await _service.GetRatings());
         }
 
+
+        [HttpGet]
         public async Task<IActionResult> Search(string query)
         {
+
+            //var q = _service.GetRatings().Where(rating => rating.RatingsCount.Contains(query));
             if (string.IsNullOrEmpty(query))
             {
-                return PartialView(await _service.GetRatings());
+                return View(await _service.GetRatings());
             }
             var q = _service.Search(query);
-            return PartialView(await q.ToListAsync());
+            // return View(await q.ToListAsync());
+            return Json(await q.ToListAsync());
         }
 
         // GET: Ratings/Details/5
@@ -77,7 +82,7 @@ namespace server.Controllers
                 rating.Time = DateTime.Now;
                 await _service.Add(rating);
                // await _service.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             return View(rating);
         }
@@ -133,7 +138,7 @@ namespace server.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             return View(rating);
         }
@@ -165,7 +170,7 @@ namespace server.Controllers
             var rating = ratings.Find(m => m.Id == id);
             await _service.Delete(id);
             //_context.Rating.Remove(rating);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Search));
         }
 
         private async Task<bool> RatingExists(int id)

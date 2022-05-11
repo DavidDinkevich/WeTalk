@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wkIhj74LYZgztOcklI37ihIv0xCitOWuNSbohjkc2SQ=",
+  "Hash": "2s2MFD4LeyT9eTLEeuAIzkSKAkNNeZ1TLedHikjHhYk=",
   "Source": "server",
   "BasePath": "_content/server",
   "Mode": "Default",
@@ -136,6 +136,23 @@
       "OriginalItemSpec": "wwwroot\\css\\Index.css"
     },
     {
+      "Identity": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\wwwroot\\css\\Search.css",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\wwwroot\\",
+      "BasePath": "_content/server",
+      "RelativePath": "css/Search.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Search.css"
+    },
+    {
       "Identity": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\wwwroot\\css\\site.css",
       "SourceId": "server",
       "SourceType": "Discovered",
@@ -168,6 +185,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\wwwroot\\js\\Search.js",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\wwwroot\\",
+      "BasePath": "_content/server",
+      "RelativePath": "js/Search.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Search.js"
     },
     {
       "Identity": "C:\\Users\\aviya\\git repos\\WeTalk\\server\\server\\wwwroot\\js\\site.js",

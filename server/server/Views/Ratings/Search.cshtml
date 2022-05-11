@@ -1,0 +1,98 @@
+﻿@model IEnumerable<server.Models.Rating>
+<link rel="stylesheet" href="~/css/Search.css">
+
+@{
+    ViewData["Title"] = "Search";
+    float sum = 0;
+    float num_elements = 0;
+    float average = 0;
+    foreach (var item in Model)
+    {
+        sum += item.RatingsCount;
+        num_elements += 1;
+    }
+    if (num_elements == 0)
+    {
+        average = 0;
+    }
+    else
+    {
+    average = sum / num_elements;
+    }
+    
+}
+
+@section head {
+    <style type="text/css">
+    body {
+        background-image: url('Resources/main_background_4.jpg');
+        background-size: cover;
+        color: ActiveBorder;
+    }
+    </style>
+}
+
+<h1 class="rating" >Rating</h1>
+<h2 class="average"> The average rating is : @average</h2>
+
+<p>
+    <a class="createNew" asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Search">
+    <input name="query" id="search" />
+    <input type="submit" value="Search" />
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RatingsCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatingsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+
+            
+            <td>
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="Details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="Delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="~/js/Search.js">
+    
+</script>
+}
