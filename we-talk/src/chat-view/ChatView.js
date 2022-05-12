@@ -28,8 +28,9 @@ function ChatView({ activeContact }) {
     const uiList = UIMessageList.map((message, key) => {
         // console.log(message);
         // console.log(message.recipient, activeContact.name);
-        let source = message.recipient !== activeContact.name ? "remote" : "self";
-        // console.log(source);
+        let source =   message.sender !== getActiveUser().name 
+                    && message.sender !== getActiveUser().id ? "remote" : "self";
+        console.log(source);
         return <Message {...message} source={source} messageID={message.id} key={key} />;
     });
 
@@ -43,12 +44,17 @@ function ChatView({ activeContact }) {
 
         let newMessage = Object.assign(
             emptyMessageJSON(),
-            { source: 'self', author: activeUserName, time: date },
-            { messageText: message, image, video, audio }
+            { Sender: getActiveUser().name, Recipient: activeContact.name, Time: date },
+            { MessageText: message, image, video, audio }
         );
 
-        console.log({from: activeUserName, to: activeContact.id, content: newMessage.messageText});
-        postMessageToServer({from: activeUserName, to: activeContact.id, content: newMessage});
+        // console.log({from: activeUserName, to: activeContact.id, content: newMessage.messageText});
+        postMessageToServer(
+            {
+                from: activeUserName, to: activeContact.id, 
+                // content: JSON.stringify(newMessage)
+                content: newMessage.MessageText
+            });
         
         refreshUIChatList();
         refreshMessagesList();

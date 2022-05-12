@@ -11,7 +11,7 @@ function ChatInfo({ contact }) {
     if (lastMessage !== undefined && lastMessage != null) {
         lastMessageText = contact.lastMessage.messageText;
         // let lastMessage = messages[messages.length - 1];
-        time = lastMessage.time.substring(10, 15);
+        time = lastMessage.time.substring(0, 5);
         if (lastMessage.messageText.length > 0) {
             lastMessageText = lastMessage.messageText;
             if (lastMessageText.length > maxMessageLength)

@@ -22,15 +22,15 @@ namespace server.Data
             new Chat() { 
                 Id=0, User1="Shachar100", User2="David100",
                 Messages = new List<Message> {
-                    new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=DateTime.Now.ToString() },
-                    new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=DateTime.Now.ToString() }
+                    new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=GetTime()},
+                    new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=GetTime() }
                 }
             },
             new Chat() { 
                 Id=1, User1="Shachar100", User2="Aviya100",
                 Messages = new List<Message> {
-                    new Message("Shachar", "Aviya") { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=DateTime.Now.ToString() },
-                    new Message("Shachar", "Aviya") { Id=1, MessageText="sdfsdf", Time=DateTime.Now.ToString() }
+                    new Message("Shachar", "Aviya") { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=GetTime() },
+                    new Message("Shachar", "Aviya") { Id=1, MessageText="sdfsdf", Time=GetTime() }
                 }
             },
             new Chat() {
@@ -38,6 +38,10 @@ namespace server.Data
                 Messages = new List<Message> {}
             }
         };
+
+        public static string GetTime() {
+            return DateTime.Now.ToShortTimeString() + ":" + DateTime.Now.Second.ToString();
+        }
 
         public User GetCurrentUser() {
             int currUserID = 1;
@@ -49,6 +53,10 @@ namespace server.Data
                         c => (c.User1 == u1Id && c.User2 == u2Id)
                                 || c.User1 == u2Id && c.User2 == u1Id);
             return chat;
+        }
+
+        public User getUserByID(string id) {
+            return usersDB.FirstOrDefault((u) => u.Id == id);
         }
 
         public IList<Message> GetMessagesWithContact(string contactID) {
@@ -72,15 +80,19 @@ namespace server.Data
             }
         }
 
-        public bool AddMessage(MsgJson msg) {
-            Chat chat = getChat(msg.From, msg.To);
+        public bool AddMessage(Message msg) {
+            Chat chat = getChat(msg.Sender, msg.Recipient);
             if (chat != null) {
-                Message newMessage = new Message(msg.From, msg.To) {
-                    Id = chat.Messages.Count(),
-                    MessageText = msg.Content
-                };
-                chat.Messages.Add(newMessage);
-                return true;
+                msg.Id = chat.Messages.Count();
+                User sender = getUserByID(msg.Sender);
+                User recipient = getUserByID(msg.Recipient);
+                if (sender != null && recipient != null) {
+                    msg.Sender = sender.Name;
+                    msg.Recipient = recipient.Name;
+                    chat.Messages.Add(msg);
+                    // saveChanges();
+                    return true;
+                }
             }
             return false;
         }

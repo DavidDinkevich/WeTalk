@@ -37,7 +37,7 @@ export const postMessageToServer = async function({from, to, content}) {
     await fetch('https://localhost:7013/api/Chats/transfer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({from, to, content: content.messageText})
+        body: JSON.stringify({from, to, content})
     });
 }
 
@@ -45,7 +45,7 @@ export const postMessageToServer = async function({from, to, content}) {
 const context = {
     currentUser: {
         id: 'David100',
-        name: '',
+        name: 'David',
         password: '',
         image: '',
         contacts: []

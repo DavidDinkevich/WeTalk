@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
+using System.Text.Json;
 
 namespace server.Controllers
 {
@@ -46,7 +47,22 @@ namespace server.Controllers
         [HttpPost]
         [Route("transfer")]
         public async Task<ActionResult> AddMessage(MsgJson msgJson) {
-            return _context.AddMessage(msgJson) ? new EmptyResult() : BadRequest();
+            if (msgJson == null)
+                return BadRequest();
+            Message msg;
+            try {
+                msg = JsonSerializer.Deserialize<Message>(msgJson.Content);
+                msg.Sender = msgJson.From;
+                msg.Recipient = msgJson.To;
+            }
+            catch (Exception ex) {
+                // Foreign client
+                msg = new Message(msgJson.From, msgJson.To) {
+                    MessageText = msgJson.Content,
+                    Time = serverContext.GetTime()
+                };
+            }
+            return _context.AddMessage(msg) ? new EmptyResult() : BadRequest();
         }
 
         /*

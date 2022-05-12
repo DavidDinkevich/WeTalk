@@ -21,13 +21,14 @@ function ChatList({ setActiveContact }) {
     UIChatList = contactList;
 
     const sortContactsByTime = function() {
+        console.log(UIChatList)
         UIChatList.sort((a, b) => {
             if (a.lastMessage == null)
                 return -1;
             if (b.lastMessage == null)
                 return 1;
-            let lastMessageTimeA = a.messagesList[a.messagesList.length - 1].time;
-            let lastMessageTimeB = b.messagesList[b.messagesList.length - 1].time;
+            let lastMessageTimeA = a.lastMessage.time;
+            let lastMessageTimeB = b.lastMessage.time;
             let hoursA = lastMessageTimeA.split(":")[0];
             let minutesA = lastMessageTimeA.split(":")[1];
             let secondsA = lastMessageTimeA.split(":")[2];
@@ -45,7 +46,7 @@ function ChatList({ setActiveContact }) {
         //--------------------------------------------
         if (UIChatList.length > 0) {
             for (var i in UIChatList) {
-                if (UIChatList[i].lastMessage != null) {
+                if (UIChatList[i].lastMessage != null && UIChatList[i].lastMessage.length > 0) {
                     displayActiveContact(UIChatList[i]);
                     break;
                 }
@@ -80,7 +81,7 @@ function ChatList({ setActiveContact }) {
         refreshUIChatList();
     };
 
-    // sortContactsByTime();
+    sortContactsByTime();
 
 
     let chatInfos = UIChatList.map((contact, key) => {
