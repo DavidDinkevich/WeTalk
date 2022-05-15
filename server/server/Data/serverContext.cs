@@ -12,10 +12,10 @@ namespace server.Data
     public class serverContext : DbContext {
 
         private static List<User> usersDB = new List<User>() {
-            new User() { Id="Shachar100", Name="Shachar" },
-            new User() { Id="David100", Name="David" },
-            new User() { Id="Aviya100", Name="Aviya" },
-            new User() { Id="NoaEitan100", Name="Noa" }
+            new User() { Id="Shachar100", Name="Shachar" , Server="localhost:7013"},
+            new User() { Id="David100", Name="David", Server="localhost:7013" },
+            new User() { Id="Aviya100", Name="Aviya" ,Server="localhost:7013"},
+            new User() { Id="NoaEitan100", Name="Noa" ,Server="localhost:7013"}
         };
 
         private static List<Chat> chatDB = new List<Chat> {
@@ -68,23 +68,31 @@ namespace server.Data
             int currUserID = 1;
             return usersDB[currUserID];
         }
+
+        public void AddUser(User u) {
+            usersDB.Add(u);
+        }
         
-        public bool ConnectUsers(string u1ID, string u2ID) {
-            //if (u1ID == u2ID)
-            //    return false;
+        public bool AddContact(string u1ID, string u2ID) {
+            if (u1ID == u2ID)
+                return false;
             var u1 = GetUserByID(u1ID);
             var u2 = GetUserByID(u2ID);
             if (u1 == null || u2 == null)
                 return false;
+            // Already a contact
+            var find = u1.Contacts.FirstOrDefault((c) => c.Id == u2ID);
+            if (find != null)
+                return true;
             u1.Contacts.Add(makeContactFromUser(u2));
-            u2.Contacts.Add(makeContactFromUser(u1));
+//            u2.Contacts.Add(makeContactFromUser(u1));
             chatDB.Add(new Chat() {
                 Id = chatDB.Count,
                 User1 = u1.Id,
                 User2 = u2.Id
             });
-            return true;
 
+            return true;
         }
 
         public Chat getChat(string u1Id, string u2Id) {

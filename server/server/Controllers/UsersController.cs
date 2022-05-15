@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
-
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace server.Controllers
 {
@@ -17,6 +19,8 @@ namespace server.Controllers
     public class UsersController : ControllerBase
     {
         private readonly serverContext _context;
+        private static readonly HttpClient client = new HttpClient();
+
 
 
         public UsersController(serverContext context)
@@ -63,9 +67,25 @@ namespace server.Controllers
         public async Task<ActionResult> AddContact(Contact inp) {
             //var user = await _context.User.FindAsync(0);
             var user = _context.GetCurrentUser();
-            if (_context.ConnectUsers(user.Id, inp.Id))
-                return Ok();
-            return NotFound();
+            // Add to us
+            if (!_context.AddContact(user.Id, inp.Id))
+                return NotFound();
+
+            Console.WriteLine(string.Format("https://{0}/api/Users/invitations", inp.Server));
+            // SEND INVITATION TO OTHER SERVER
+            JObject oJsonObject = new JObject();
+
+            oJsonObject.Add("from", user.Id);
+            oJsonObject.Add("to", inp.Id);
+            oJsonObject.Add("server", inp.Server);
+
+            var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(
+                string.Format("https://{0}/api/Users/invitations", inp.Server),
+                content);
+            //var responseString = await response.Content.ReadAsStringAsync();
+
+            return Ok();
         }
 
 
@@ -120,7 +140,29 @@ namespace server.Controllers
             Console.WriteLine("we ACTUALLY got here!!!!");
             HttpContext.Session.SetString("username", "shachar");
             Console.WriteLine(HttpContext.Session.GetString("username"));
-            HttpContext.Session.CommitAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("invitations")]
+        public async Task<IActionResult> Invitation(Invitation invo) {
+            Console.WriteLine("We got");
+            //Console.WriteLine(invo.ToString());
+            User to = _context.GetUserByID(invo.To);
+            User from = _context.GetUserByID(invo.From);
+            // User not here
+            if (to == null)
+                return NotFound();
+            if (from == null) {
+                from = new User() {
+                    Id = invo.From,
+                    Name = invo.From,
+                    Server = invo.Server
+                };
+                _context.AddUser(from);
+            }
+            // Add as contact
+            _context.AddContact(invo.To, invo.From);
             return Ok();
         }
 
