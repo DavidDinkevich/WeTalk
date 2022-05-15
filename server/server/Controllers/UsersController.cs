@@ -111,6 +111,14 @@ namespace server.Controllers
         }
 
         [HttpPut]
+        [Route("contacts/{id}/messages/{id2}")]
+        public async Task<ActionResult> PutMessage(string id, int id2, Content content) {
+            if (!_context.SetMessage(id, id2, content.MessageText))
+                return BadRequest();
+            return Ok();
+        }
+
+        [HttpPut]
         [Route("contacts/{id}")]
         public async Task<ActionResult> PutContact(string id, NameAndServer contact) {
             if (!_context.SetContact(id, contact))

@@ -164,6 +164,17 @@ namespace server.Data
             return chat.Messages[chat.Messages.Count - 1];
         }
 
+        public bool SetMessage(string contactId, int msgId, string content) {
+            Chat chat = getChat(GetCurrentUser().Id, contactId);
+            if (chat == null)
+                return false;
+            Message msg = chat.Messages.FirstOrDefault(m => m.Id == msgId);
+            if (msg == null)
+                return false;
+            msg.MessageText = content;
+            return true;
+        }
+
         public bool AddMessage(Message msg) {
             Chat chat = getChat(msg.Sender, msg.Recipient);
             if (chat != null) {
