@@ -40,27 +40,17 @@ export const postContactToServer = async function({id, name, server}) {
     await fetch('https://localhost:7013/api/Users/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({id: id, name: name, server: server})
+        body: JSON.stringify({id, name, server})
     });
     return true;
 }
 
-export const postMessageToServer = async function({content, to}) {
-    console.log("WHY AREN'T YOU WORKINGGGGGG " + to)
+export const postMessageToServer = async function({content, from, to}) {
     // console.log(JSON.stringify({content: Messagecontent}));
     await fetch('https://localhost:7013/api/Chats/contacts/'+to+'/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({content: content})
-    });
-    return true;
-}
-
-export const putContactToServer = async function({contactID}) {
-    await fetch('https://localhost:7013/api/Users/contacts/'+contactID, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({name: "yobro", server: "NA"})
+        body: JSON.stringify({content, from, to})
     });
     return true;
 }

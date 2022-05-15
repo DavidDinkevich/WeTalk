@@ -108,6 +108,23 @@ namespace server.Data
             return c;
         }
 
+        public bool RemoveContact(string contactId) {
+            var contact = GetContact(contactId);
+            return GetCurrentUser().Contacts.Remove(contact);
+        }
+
+        public bool RemoveMessage(string contactId, int messageId) {
+            User curr = GetCurrentUser();
+            Chat c = getChat(curr.Id, contactId);
+            if (c == null)
+                return false;
+            Message msg = c.Messages.FirstOrDefault((m) => m.Id == messageId);
+            if (msg == null)
+                return false;
+            c.Messages.Remove(msg);
+            return true; ;
+        }
+
         public User GetUserByID(string id) {
             return usersDB.FirstOrDefault((u) => u.Id == id);
         }
@@ -139,6 +156,14 @@ namespace server.Data
             }
         }
 
+        public Message GetLastMessageWithContact(string contactId) {
+            User curr = GetCurrentUser();
+            Chat chat = getChat(curr.Id, contactId);
+            if (chat == null || chat.Messages.Count == 0)
+                return null;
+            return chat.Messages[chat.Messages.Count - 1];
+        }
+
         public bool AddMessage(Message msg) {
             Chat chat = getChat(msg.Sender, msg.Recipient);
             if (chat != null) {
@@ -154,6 +179,15 @@ namespace server.Data
                 }
             }
             return false;
+        }
+
+        public bool SetContact(string id, NameAndServer contact) {
+            Contact cont = GetCurrentUser().Contacts.FirstOrDefault(c => c.Id == id);
+            if (cont == null)
+                return false;
+            cont.Name = contact.Name;
+            cont.Server = contact.Server;
+            return true;
         }
 
         public serverContext (DbContextOptions<serverContext> options)

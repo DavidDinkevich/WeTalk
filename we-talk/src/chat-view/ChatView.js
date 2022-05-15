@@ -50,8 +50,8 @@ function ChatView({ activeContact }) {
         postMessageToServer(
             {
                 to: activeContact.id, 
-                // content: JSON.stringify(newMessage)
-                content: newMessage.MessageText
+                content: JSON.stringify(newMessage)
+                // content: newMessage.MessageText
             });
         
         refreshUIChatList();

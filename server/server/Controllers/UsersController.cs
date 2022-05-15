@@ -56,8 +56,14 @@ namespace server.Controllers
             var userContacts = new List<User>();
             for (var i = 0; i < contacts.Count; i++) {
                 var contact = contacts[i];
-                _context.UpdateLastInfo(user.Id, contact.Id);
-                userContacts.Add(_context.GetUserByID(contact.Id));
+//                string lastMessage = _context.
+                User u = new User() {
+                    Id = contact.Id,
+                    Name = contact.Name,
+                    Server = contact.Server,
+                    LastMessage = _context.GetLastMessageWithContact(contact.Id),
+                };
+                userContacts.Add(u);
             }
             return Ok(userContacts);
         }
@@ -87,6 +93,31 @@ namespace server.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        [Route("contacts/{id}")]
+        public async Task<ActionResult> DeleteContact(string id) {
+            //var user = await _context.User.FindAsync(0);
+            if (!_context.RemoveContact(id))
+                return BadRequest();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("contacts/{id}/messages/{id2}")]
+        public async Task<ActionResult> DeleteMessage(string id, int id2) {
+            if (!_context.RemoveMessage(id, id2))
+                return BadRequest();
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("contacts/{id}")]
+        public async Task<ActionResult> PutContact(string id, NameAndServer contact) {
+            if (!_context.SetContact(id, contact))
+                return BadRequest();
+            return Ok();
+        }
+
 
         [HttpGet]
         [Route("contacts/{id}")]
@@ -100,35 +131,8 @@ namespace server.Controllers
             return contact;
         }
 
-        // PUT: api/Users/5
-        [HttpPut("contacts/{id}")]
-        public async Task<IActionResult> PutUser(string id, User user) {
-            if (id != user.Id) {
-                return BadRequest();
-            }
 
-            User userInDB = _context.GetUserByID(id);
-            if (userInDB == null) {
-                return NotFound();
-            }
-            else {
-                _context.UpdateUser(user);
-            }
 
-            //            _context.Entry(user).State = EntityState.Modified;
-
-            /*            try {
-                            await _context.SaveChangesAsync();
-                        } catch (DbUpdateConcurrencyException) {
-                            if (!UserExists(id)) {
-                                return NotFound();
-                            } else {
-                                throw;
-                            }
-                        }
-            */
-            return NoContent();
-        }
 
         [HttpGet]
         [Route("Login")]
@@ -173,10 +177,10 @@ namespace server.Controllers
             // User not here
             if (to == null || from == null)
                 return NotFound();
-            var msg = new Message(transfer.From, transfer.To ) {
+            var msg = new Message(transfer.From, transfer.To) {
                 MessageText = transfer.Content
             };
-            _context.AddMessage(msg);
+            _context.AddMessage(msg);                           
             return Ok();
         }
 
