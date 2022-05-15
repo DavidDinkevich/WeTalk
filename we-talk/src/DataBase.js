@@ -1,7 +1,6 @@
 import { refreshUIChatList } from "./chat-list/ChatList";
 import { refreshMessagesList } from "./chat-view/ChatView";
 
-
 export const login = async function(username, password) {
     // await fetch("https://localhost:7013/api/Users/contacts")
     //     .then(response => response.json())
@@ -33,7 +32,7 @@ export const updateMessages = async function(contactID) {
 
 
 export const postMessageToServer = async function({from, to, content}) {  
-    console.log("sending: " + JSON.stringify({from, to, content}))
+    // console.log("sending: " + JSON.stringify({from, to, content}))
     await fetch('https://localhost:7013/api/Chats/transfer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -41,6 +40,23 @@ export const postMessageToServer = async function({from, to, content}) {
     });
 }
 
+export const postContactToServer = async function({contactID}) {
+    await fetch('https://localhost:7013/api/Users/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: contactID
+    });
+    return true;
+}
+
+export const putContactToServer = async function({contactID}) {
+    await fetch('https://localhost:7013/api/Users/contacts/'+contactID, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({name: "yobro", server: "NA"})
+    });
+    return true;
+}
 
 const context = {
     currentUser: {

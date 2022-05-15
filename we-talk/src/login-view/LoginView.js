@@ -31,13 +31,20 @@ const checkUserExists = function () {
 }
 
 const onSubmitLogin = function (navigate) {
-    const username = document.getElementById(`login_form_username_field`).value;
-    const password = document.getElementById(`login_form_password_field`).value;
-    login(username, password);
-    if (checkUserExists()) {
-        setActiveUser(username);
-        navigate('/chat', { state: { username:username } });
-    }
+    fetch("https://localhost:7013/api/Users/Login", 
+    {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: "{}"
+});
+
+    // const username = document.getElementById(`login_form_username_field`).value;
+    // const password = document.getElementById(`login_form_password_field`).value;
+    // login(username, password);
+    // if (checkUserExists()) {
+    //     setActiveUser(username);
+    //     navigate('/chat', { state: { username:username } });
+    // }
 }
 
 const onSubmitSignup = function (navigate) {

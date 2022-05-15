@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
 
+
 namespace server.Controllers
 {
     [Route("api/[controller]")]
@@ -37,6 +38,9 @@ namespace server.Controllers
         [HttpGet]
         [Route("contacts")]
         public async Task<ActionResult<ICollection<User>>> GetContacts() {
+            if (HttpContext.Session.GetString("username") == null)
+                return BadRequest("Invalid session");
+
             //var user = await _context.User.FindAsync(0);
             var user = _context.GetCurrentUser();
 
@@ -51,6 +55,17 @@ namespace server.Controllers
             return Ok(contacts);
         }
 
+        [HttpPost]
+        [Route("contacts")]
+        public async Task<ActionResult> AddContact(AddContactInput inp) {
+            //var user = await _context.User.FindAsync(0);
+            var user = _context.GetCurrentUser();
+            if (_context.ConnectUsers(user.Id, inp.Id))
+                return Ok();
+            return NotFound();
+        }
+
+
         [HttpGet]
         [Route("contacts/{id}")]
         public async Task<ActionResult<User>> GetContactByID(string id) {
@@ -61,6 +76,47 @@ namespace server.Controllers
             }
             _context.UpdateLastInfo(user, contact);
             return contact;
+        }
+
+        // PUT: api/Users/5
+        [HttpPut("contacts/{id}")]
+        public async Task<IActionResult> PutUser(string id, User user) {
+            if (id != user.Id) {
+                return BadRequest();
+            }
+
+            User userInDB = _context.GetUserByID(id);
+            if (userInDB == null) {
+                return NotFound();
+            }
+            else {
+                _context.UpdateUser(user);
+            }
+
+            //            _context.Entry(user).State = EntityState.Modified;
+
+            /*            try {
+                            await _context.SaveChangesAsync();
+                        } catch (DbUpdateConcurrencyException) {
+                            if (!UserExists(id)) {
+                                return NotFound();
+                            } else {
+                                throw;
+                            }
+                        }
+            */
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        
+        
+        public async Task<IActionResult> Login() {
+            Console.WriteLine("we ACTUALLY got here!!!!");
+            HttpContext.Session.SetString("username", "shachar");
+            Console.WriteLine(HttpContext.Session.GetString("username"));
+            return Ok();
         }
 
         /*

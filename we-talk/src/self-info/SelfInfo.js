@@ -1,7 +1,7 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import { getActiveUser, getContactByName, users } from "../DataBase";
+import { getActiveUser, getContactByName, postContactToServer, updateUserContacts, users } from "../DataBase";
 import { getUserByName } from "../DataBase";
 import './self-info.css';
 
@@ -10,18 +10,28 @@ function SelfInfo() {
 
 
     function addNewContact() {
-        let input = document.getElementById('inputBox').value;
-        if (input !== '') {
-            let contactInDataBase = getUserByName(input);
-            if (contactInDataBase != null && (getContactByName(input) == null) && (getContactByName(contactInDataBase.displayName) === undefined)) {
-                let newContact = { name: contactInDataBase.displayName, image: contactInDataBase.image, messagesList: [], time: '' };
-                addContact(newContact);
+        let contactID = document.getElementById('inputBox').value;
+        if (contactID !== '') {
+            if (postContactToServer(contactID)) {
+                updateUserContacts();
                 setIsOpen(false);
             } else {
                 document.getElementById('messageContactNotRegistered').style.color = 'red';
                 document.getElementById('messageContactNotRegistered').style.paddingLeft = "2%"
-                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered or already exists";
+                document.getElementById('messageContactNotRegistered').innerHTML 
+                                = "Contact is not registered or already exists";
             }
+
+            // let contactInDataBase = getUserByName(input);
+            // if (contactInDataBase != null && (getContactByName(input) == null) && (getContactByName(contactInDataBase.displayName) === undefined)) {
+            //     let newContact = { name: contactInDataBase.displayName, image: contactInDataBase.image, messagesList: [], time: '' };
+            //     addContact(newContact);
+            //     setIsOpen(false);
+            // } else {
+            //     document.getElementById('messageContactNotRegistered').style.color = 'red';
+            //     document.getElementById('messageContactNotRegistered').style.paddingLeft = "2%"
+            //     document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered or already exists";
+            // }
         }
     }
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using server.Data;
+using Microsoft.AspNetCore.Session;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<serverContext>(options =>
@@ -8,6 +10,17 @@ builder.Services.AddDbContext<serverContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options => {
+    options.IOTimeout = TimeSpan.FromMinutes(2);
+});
+
+builder.Services.Configure<CookiePolicyOptions>(options => {
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
 
 builder.Services.AddCors(options => {
     options.AddPolicy("Allow All",
@@ -22,6 +35,7 @@ builder.Services.AddCors(options => {
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
@@ -29,12 +43,18 @@ if (!app.Environment.IsDevelopment()) {
     app.UseHsts();
 }
 
-app.UseCors("Allow All");
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("Allow All");
+
+app.UseSession();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

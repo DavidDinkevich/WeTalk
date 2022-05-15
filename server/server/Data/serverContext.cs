@@ -1,4 +1,4 @@
-﻿#nullable disable
+﻿ #nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +47,21 @@ namespace server.Data
             int currUserID = 1;
             return usersDB[currUserID];
         }
+        
+        public bool ConnectUsers(string u1ID, string u2ID) {
+            var u1 = GetUserByID(u1ID);
+            var u2 = GetUserByID(u2ID);
+            if (u1 == null || u2 == null)
+                return false;
+            u1.Contacts.Add(u2);
+            u2.Contacts.Add(u1);
+            chatDB.Add(new Chat() {
+                User1 = u1.Id,
+                User2 = u2.Id
+            });
+            return true;
+
+        }
 
         public Chat getChat(string u1Id, string u2Id) {
             Chat chat = chatDB.FirstOrDefault(
@@ -55,8 +70,12 @@ namespace server.Data
             return chat;
         }
 
-        public User getUserByID(string id) {
+        public User GetUserByID(string id) {
             return usersDB.FirstOrDefault((u) => u.Id == id);
+        }
+
+        public void UpdateUser(User user) {
+            usersDB[usersDB.FindIndex((u) => u.Id == user.Id)] = user;
         }
 
         public IList<Message> GetMessagesWithContact(string contactID) {
@@ -84,8 +103,8 @@ namespace server.Data
             Chat chat = getChat(msg.Sender, msg.Recipient);
             if (chat != null) {
                 msg.Id = chat.Messages.Count();
-                User sender = getUserByID(msg.Sender);
-                User recipient = getUserByID(msg.Recipient);
+                User sender = GetUserByID(msg.Sender);
+                User recipient = GetUserByID(msg.Recipient);
                 if (sender != null && recipient != null) {
                     msg.Sender = sender.Name;
                     msg.Recipient = recipient.Name;
