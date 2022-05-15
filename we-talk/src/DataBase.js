@@ -11,14 +11,8 @@ export const updateUserContacts = async function() {
     await fetch("https://localhost:7013/api/Users/contacts")
         .then(response => response.json())
         .then(data => {
-            // contactList = data;
             context.currentUser.contacts = data;
-            console.log(context.currentUser.contacts)
-            console.log(data);
-            // console.log(JSON.stringify(data));
-            // runQuery( refreshUIChatList);
             refreshUIChatList();
-            // setUIChatListHandle(contactList.concat([]));    
         });
 }
 
@@ -32,22 +26,32 @@ export const updateMessages = async function(contactID) {
     );
 }
 
-
-export const postMessageToServer = async function({from, to, content}) {  
-    // console.log("sending: " + JSON.stringify({from, to, content}))
-    await fetch('https://localhost:7013/api/Chats/transfer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({from, to, content})
-    });
-}
+// this is the transfer that needs to be in the server and not here
+// export const postMessageToServer = async function({from, to, content}) {  
+//     // console.log("sending: " + JSON.stringify({from, to, content}))
+//     await fetch('https://localhost:7013/api/Chats/transfer', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({from, to, content})
+//     });
+// } 
 
 export const postContactToServer = async function({id, name, server}) {
-    console.log(JSON.stringify({id: id, name: name, server: server}));
     await fetch('https://localhost:7013/api/Users/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({id: id, name: name, server: server})
+    });
+    return true;
+}
+
+export const postMessageToServer = async function({content, to}) {
+    console.log("WHY AREN'T YOU WORKINGGGGGG " + to)
+    // console.log(JSON.stringify({content: Messagecontent}));
+    await fetch('https://localhost:7013/api/Chats/contacts/'+to+'/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({content: content})
     });
     return true;
 }

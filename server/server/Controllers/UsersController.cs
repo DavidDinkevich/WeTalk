@@ -70,11 +70,10 @@ namespace server.Controllers
             // Add to us
             if (!_context.AddContact(user.Id, inp.Id))
                 return NotFound();
-
-            Console.WriteLine(string.Format("https://{0}/api/Users/invitations", inp.Server));
+            
             // SEND INVITATION TO OTHER SERVER
+            
             JObject oJsonObject = new JObject();
-
             oJsonObject.Add("from", user.Id);
             oJsonObject.Add("to", inp.Id);
             oJsonObject.Add("server", inp.Server);
@@ -163,6 +162,23 @@ namespace server.Controllers
             }
             // Add as contact
             _context.AddContact(invo.To, invo.From);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("transfer")]
+        public async Task<IActionResult> Transfer(Transfer transfer) {
+            Console.WriteLine("We got");
+            //Console.WriteLine(invo.ToString());
+            User to = _context.GetUserByID(transfer.To);
+            User from = _context.GetUserByID(transfer.From);
+            // User not here
+            if (to == null || from == null)
+                return NotFound();
+            var msg = new Message(transfer.From, transfer.To ) {
+                MessageText = transfer.Content
+            };
+            _context.AddMessage(msg);
             return Ok();
         }
 

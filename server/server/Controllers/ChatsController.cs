@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace server.Controllers
 {
@@ -17,6 +19,7 @@ namespace server.Controllers
     public class ChatsController : ControllerBase
     {
         private readonly serverContext _context;
+        private static readonly HttpClient client = new HttpClient();
 
         public ChatsController(serverContext context)
         {
@@ -45,24 +48,48 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        [Route("transfer")]
-        public async Task<ActionResult> AddMessage(MsgJson msgJson) {
+        [Route("contacts/{toId}/messages")]
+        public async Task<ActionResult> AddMessage(string toId, MsgJson msgJson) {
             if (msgJson == null)
                 return BadRequest();
+            User activeUser = _context.GetCurrentUser();
             Message msg;
-            try {
+            try { // Our API
                 msg = JsonSerializer.Deserialize<Message>(msgJson.Content);
-                msg.Sender = msgJson.From;
-                msg.Recipient = msgJson.To;
+                msg.Sender = activeUser.Id;
+                msg.Recipient = toId;
             }
+            // Hemi's API
             catch (Exception ex) {
                 // Foreign client
-                msg = new Message(msgJson.From, msgJson.To) {
+                msg = new Message(activeUser.Id, toId) {
                     MessageText = msgJson.Content,
                     Time = serverContext.GetTime()
                 };
             }
-            return _context.AddMessage(msg) ? new EmptyResult() : BadRequest();
+            // Try to add the message to the database
+            if (!_context.AddMessage(msg))
+                return BadRequest();
+
+            // DO TRANSFER
+
+            JObject oJsonObject = new JObject();
+            oJsonObject.Add("from", activeUser.Id);
+            oJsonObject.Add("to", toId);
+            oJsonObject.Add("content", msgJson.Content);
+            // Get "to" user
+            User toUser = _context.GetUserByID(toId);
+
+            var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
+            await client.PostAsync(
+                string.Format("https://{0}/api/Users/transfer", toUser.Server),
+                content
+            );
+
+            return Created(
+                    string.Format("api/contacts/{0}/messages/{1}", 
+                    msgJson.To, msg.Id), msg
+            );
         }
 
         /*

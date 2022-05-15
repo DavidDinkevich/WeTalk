@@ -1,6 +1,6 @@
 import './chat-list.css'
 
-import { getActiveUser, getContactList, getContacts, getUserContacts, runQuery, updateMessages, updateUserContacts } from "../DataBase"
+import { getActiveUser, updateMessages, updateUserContacts } from "../DataBase"
 import ChatInfo from "./ChatInfo";
 import {  useEffect, useState } from "react";
 import { showChatView } from "../main-view/MainView";

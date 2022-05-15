@@ -40,8 +40,6 @@ function ChatView({ activeContact }) {
         let date = String(new Date()).split(" ")[4]
         // date = date.substring(0, date.lastIndexOf(":"));
 
-        let activeUserName = getActiveUser().id;
-
         let newMessage = Object.assign(
             emptyMessageJSON(),
             { Sender: getActiveUser().name, Recipient: activeContact.name, Time: date },
@@ -51,7 +49,7 @@ function ChatView({ activeContact }) {
         // console.log({from: activeUserName, to: activeContact.id, content: newMessage.messageText});
         postMessageToServer(
             {
-                from: activeUserName, to: activeContact.id, 
+                to: activeContact.id, 
                 // content: JSON.stringify(newMessage)
                 content: newMessage.MessageText
             });

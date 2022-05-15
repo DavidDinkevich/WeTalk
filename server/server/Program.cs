@@ -11,6 +11,10 @@ builder.Services.AddDbContext<serverContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options => {
@@ -35,6 +39,13 @@ builder.Services.AddCors(options => {
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment()) {
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
@@ -57,6 +68,8 @@ app.UseCors("Allow All");
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
