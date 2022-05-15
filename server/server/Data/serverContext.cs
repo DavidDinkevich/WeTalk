@@ -9,13 +9,13 @@ using server.Models;
 
 namespace server.Data
 {
-    public class serverContext : DbContext
-    {
+    public class serverContext : DbContext {
 
         private static List<User> usersDB = new List<User>() {
             new User() { Id="Shachar100", Name="Shachar" },
             new User() { Id="David100", Name="David" },
-            new User() { Id="Aviya100", Name="Aviya" }
+            new User() { Id="Aviya100", Name="Aviya" },
+            new User() { Id="NoaEitan100", Name="Noa" }
         };
 
         private static List<Chat> chatDB = new List<Chat> {
@@ -34,10 +34,31 @@ namespace server.Data
                 }
             },
             new Chat() {
-                Id=1, User1="Aviya100", User2="David100",
+                Id=2, User1="Aviya100", User2="David100",
                 Messages = new List<Message> {}
+            },
+            new Chat() {
+                Id=3, User1="David100", User2="NoaEitan100",
+                Messages= new List<Message> {}
             }
+            
         };
+
+        static serverContext() {
+            usersDB[1].Contacts = new List<Contact>() { 
+                makeContactFromUser(usersDB[0]),
+                makeContactFromUser(usersDB[2])
+            };
+
+        }
+
+        public static Contact makeContactFromUser(User u) {
+            return new Contact { 
+                Id = u.Id,
+                Server = u.Server,
+                Name = u.Name 
+            };
+        }
 
         public static string GetTime() {
             return DateTime.Now.ToShortTimeString() + ":" + DateTime.Now.Second.ToString();
@@ -49,13 +70,16 @@ namespace server.Data
         }
         
         public bool ConnectUsers(string u1ID, string u2ID) {
+            //if (u1ID == u2ID)
+            //    return false;
             var u1 = GetUserByID(u1ID);
             var u2 = GetUserByID(u2ID);
             if (u1 == null || u2 == null)
                 return false;
-            u1.Contacts.Add(u2);
-            u2.Contacts.Add(u1);
+            u1.Contacts.Add(makeContactFromUser(u2));
+            u2.Contacts.Add(makeContactFromUser(u1));
             chatDB.Add(new Chat() {
+                Id = chatDB.Count,
                 User1 = u1.Id,
                 User2 = u2.Id
             });
@@ -80,8 +104,8 @@ namespace server.Data
 
         public IList<Message> GetMessagesWithContact(string contactID) {
             User current = GetCurrentUser();
-            User other = current.Contacts.FirstOrDefault(
-                user => user.Id == contactID);
+            Contact other = current.Contacts.FirstOrDefault(
+                contact => contact.Id == contactID);
             if (other == null)
                 return null;
             Chat chat = getChat(current.Id, other.Id);
@@ -90,8 +114,10 @@ namespace server.Data
             return chat.Messages;
         }
 
-        public void UpdateLastInfo(User u1, User u2) {
-            Chat chat = getChat(u1.Id, u2.Id);
+        public void UpdateLastInfo(string u1ID, string u2ID) {
+            Chat chat = getChat(u1ID, u2ID);
+            User u1 = GetUserByID(u1ID);
+            User u2 = GetUserByID(u2ID);
             if (chat == null || chat.Messages.Count() == 0) {
                 u1.LastMessage = u2.LastMessage = null;
             } else {
@@ -119,7 +145,7 @@ namespace server.Data
         public serverContext (DbContextOptions<serverContext> options)
             : base(options)
         {
-            usersDB[1].Contacts = new List<User>() { usersDB[0], usersDB[2] };
+            //usersDB[1].Contacts = new List<User>() { usersDB[0], usersDB[2] };
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

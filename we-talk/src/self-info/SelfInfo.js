@@ -12,7 +12,7 @@ function SelfInfo() {
     function addNewContact() {
         let contactID = document.getElementById('inputBox').value;
         if (contactID !== '') {
-            if (postContactToServer(contactID)) {
+            if (postContactToServer({id: "NoaEitan100", name: "Noa", server: "localhost:7013"})) {
                 updateUserContacts();
                 setIsOpen(false);
             } else {

@@ -52,7 +52,7 @@ app.UseRouting();
 
 app.UseCors("Allow All");
 
-app.UseSession();
+//app.UseSession();
 
 app.UseAuthentication();
 

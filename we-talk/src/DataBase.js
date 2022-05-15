@@ -13,6 +13,8 @@ export const updateUserContacts = async function() {
         .then(data => {
             // contactList = data;
             context.currentUser.contacts = data;
+            console.log(context.currentUser.contacts)
+            console.log(data);
             // console.log(JSON.stringify(data));
             // runQuery( refreshUIChatList);
             refreshUIChatList();
@@ -40,11 +42,12 @@ export const postMessageToServer = async function({from, to, content}) {
     });
 }
 
-export const postContactToServer = async function({contactID}) {
+export const postContactToServer = async function({id, name, server}) {
+    console.log(JSON.stringify({id: id, name: name, server: server}));
     await fetch('https://localhost:7013/api/Users/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: contactID
+        body: JSON.stringify({id: id, name: name, server: server})
     });
     return true;
 }

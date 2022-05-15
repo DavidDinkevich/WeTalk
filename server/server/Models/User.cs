@@ -9,14 +9,14 @@ namespace server.Models {
 
         [DataType (DataType.Password)]
         public string Password { get; set; }
-        public IList<User> Contacts { get; set; }
+        public IList<Contact> Contacts { get; set; }
         public string Server { get; set; }
         public Message LastMessage { get; set; }
         public string LastDate { get; set; }
         public string Image { get; set; }
         public User() {
             Image = "";
-            Contacts = new List<User>();
+            Contacts = new List<Contact>();
         }
 
     }

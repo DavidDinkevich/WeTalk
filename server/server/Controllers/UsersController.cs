@@ -38,8 +38,9 @@ namespace server.Controllers
         [HttpGet]
         [Route("contacts")]
         public async Task<ActionResult<ICollection<User>>> GetContacts() {
-            if (HttpContext.Session.GetString("username") == null)
-                return BadRequest("Invalid session");
+            //string username = HttpContext.Session.GetString("username");
+            //if (username == null)
+            //    return BadRequest("Invalid session");
 
             //var user = await _context.User.FindAsync(0);
             var user = _context.GetCurrentUser();
@@ -48,16 +49,18 @@ namespace server.Controllers
                 return NotFound();
             }
             var contacts = user.Contacts;
+            var userContacts = new List<User>();
             for (var i = 0; i < contacts.Count; i++) {
                 var contact = contacts[i];
-                _context.UpdateLastInfo(user, contact);
+                _context.UpdateLastInfo(user.Id, contact.Id);
+                userContacts.Add(_context.GetUserByID(contact.Id));
             }
-            return Ok(contacts);
+            return Ok(userContacts);
         }
 
         [HttpPost]
         [Route("contacts")]
-        public async Task<ActionResult> AddContact(AddContactInput inp) {
+        public async Task<ActionResult> AddContact(Contact inp) {
             //var user = await _context.User.FindAsync(0);
             var user = _context.GetCurrentUser();
             if (_context.ConnectUsers(user.Id, inp.Id))
@@ -68,13 +71,13 @@ namespace server.Controllers
 
         [HttpGet]
         [Route("contacts/{id}")]
-        public async Task<ActionResult<User>> GetContactByID(string id) {
+        public async Task<ActionResult<Contact>> GetContactByID(string id) {
             var user = _context.GetCurrentUser();
-            User contact = user.Contacts.FirstOrDefault(user => user.Id == id);
+            Contact contact = user.Contacts.FirstOrDefault(contact => contact.Id == id);
             if (contact == null) {
                 return NotFound();
             }
-            _context.UpdateLastInfo(user, contact);
+            _context.UpdateLastInfo(user.Id, contact.Id);
             return contact;
         }
 
@@ -108,14 +111,16 @@ namespace server.Controllers
             return NoContent();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("Login")]
+        [AutoValidateAntiforgeryToken]
         
         
         public async Task<IActionResult> Login() {
             Console.WriteLine("we ACTUALLY got here!!!!");
             HttpContext.Session.SetString("username", "shachar");
             Console.WriteLine(HttpContext.Session.GetString("username"));
+            HttpContext.Session.CommitAsync();
             return Ok();
         }
 
