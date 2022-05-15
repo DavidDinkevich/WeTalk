@@ -49,7 +49,7 @@ namespace server.Controllers
 
         [HttpPost]
         [Route("contacts/{toId}/messages")]
-        public async Task<ActionResult> AddMessage(string toId, MsgJson msgJson) {
+        public async Task<ActionResult> AddMessage(string toId, [Bind("Content")] MsgJson msgJson) {
             if (msgJson == null)
                 return BadRequest();
             User activeUser = _context.GetCurrentUser();
@@ -73,22 +73,26 @@ namespace server.Controllers
 
             // DO TRANSFER
 
-            JObject oJsonObject = new JObject();
-            oJsonObject.Add("from", activeUser.Id);
-            oJsonObject.Add("to", toId);
-            oJsonObject.Add("content", msgJson.Content);
+            // First check if this user is registered with us
             // Get "to" user
             User toUser = _context.GetUserByID(toId);
+            if (toUser == null) {
+                Contact toContact = _context.GetContact(toId);
+                string server = toContact.Server;
+                JObject oJsonObject = new JObject();
+                oJsonObject.Add("from", activeUser.Id);
+                oJsonObject.Add("to", toId);
+                oJsonObject.Add("content", msgJson.Content);
 
-            var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
-            await client.PostAsync(
-                string.Format("https://{0}/api/Users/transfer", toUser.Server),
-                content
-            );
-
+                var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
+                await client.PostAsync(
+                    string.Format("https://{0}/api/Users/transfer", server),
+                    content
+                );
+            }
             return Created(
                     string.Format("api/contacts/{0}/messages/{1}", 
-                    msgJson.To, msg.Id), msg
+                    toId, msg.Id), msg
             );
         }
 

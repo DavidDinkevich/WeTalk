@@ -102,6 +102,12 @@ namespace server.Data
             return chat;
         }
 
+        public Contact GetContact(string contactId) {
+            User currUser = GetCurrentUser();
+            Contact c = currUser.Contacts.FirstOrDefault((c) => c.Id == contactId);
+            return c;
+        }
+
         public User GetUserByID(string id) {
             return usersDB.FirstOrDefault((u) => u.Id == id);
         }

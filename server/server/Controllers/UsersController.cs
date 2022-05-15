@@ -168,8 +168,6 @@ namespace server.Controllers
         [HttpPost]
         [Route("transfer")]
         public async Task<IActionResult> Transfer(Transfer transfer) {
-            Console.WriteLine("We got");
-            //Console.WriteLine(invo.ToString());
             User to = _context.GetUserByID(transfer.To);
             User from = _context.GetUserByID(transfer.From);
             // User not here
