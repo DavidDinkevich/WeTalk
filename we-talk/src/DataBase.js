@@ -3,14 +3,49 @@ import { refreshMessagesList } from "./chat-view/ChatView";
 import { addContactSignalR, sendMessageSignalR } from "./SignalRHandler";
 import { searchBox } from "./left-screen/chat-search/ChatSearch";
 
-export const login = async function(username, password) {
-    // await fetch("https://localhost:7013/api/Users/contacts")
-    //     .then(response => response.json())
-    //     .then(data => console.log(data));
+
+const context = {
+    currentUser: {
+        id: 'David100',
+        name: 'David',
+        password: '',
+        image: '',
+        contacts: []
+    },
+    messages: [],
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNoYWNoYXIiLCJuYmYiOjE2NTI4ODYxODQsImV4cCI6MTY1Mjg4OTc4NCwiaWF0IjoxNjUyODg2MTg0fQ.ry-vDulpq0JlYmSbvIgINja_Q4c6wBkH5RwiSIXtOjQ'
+}
+
+
+
+
+export const login = async function(username, password, onSuccess, onFail) {
+    await fetch("https://localhost:7013/api/login",
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username, password})
+        })
+        .then(response => response.text())
+        .then(data => {
+            context.token = data;
+            console.log("Got token: "+ context.token);
+            onSuccess();
+        })
+        .catch(error => {
+            console.log("error: " + error);
+            onFail();
+        })
 }
 
 export const updateUserContacts = async function() {
-    await fetch("https://localhost:7013/api/Users/contacts")
+    await fetch("https://localhost:7013/api/Users/contacts", {
+        headers: {
+            'Authorization': `Bearer ${context.token}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             // context.currentUser.contacts = data;
@@ -23,7 +58,11 @@ export const updateUserContacts = async function() {
 }
 
 export const updateMessages = async function(contactID) {
-    await fetch(`https://localhost:7013/api/Chats/contacts/${contactID}/messages`)
+    await fetch(`https://localhost:7013/api/Chats/contacts/${contactID}/messages`, {
+                headers: {
+                    'Authorization': `Bearer ${context.token}`
+                }
+            })
             .then(response => response.json())
             .then(data => {
                 context.messages = data;
@@ -36,7 +75,10 @@ export const updateMessages = async function(contactID) {
 export const postContactToServer = async function({id, name, server}) {
     await fetch('https://localhost:7013/api/Users/contacts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${context.token}`
+        },
         body: JSON.stringify({id, name, server})
     }).then(() => {
     addContactSignalR(JSON.stringify({id, name, server}));
@@ -47,23 +89,15 @@ export const postContactToServer = async function({id, name, server}) {
 export const postMessageToServer = async function({content, from, to}) {
     await fetch('https://localhost:7013/api/Chats/contacts/'+to+'/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${context.token}`
+        },
         body: JSON.stringify({content, from, to})
     }).then(() => {
         sendMessageSignalR(JSON.stringify({content, from, to}));
     });
     return true;
-}
-
-const context = {
-    currentUser: {
-        id: 'David100',
-        name: 'David',
-        password: '',
-        image: '',
-        contacts: []
-    },
-    messages: []
 }
 
 export function getContacts() {

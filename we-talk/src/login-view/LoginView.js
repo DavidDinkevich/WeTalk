@@ -30,16 +30,20 @@ const checkUserExists = function () {
     return true;
 }
 
-const onSubmitLogin = function (navigate) {
-    fetch("https://localhost:7013/api/Users/Login", 
-    {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: "{}"
-});
+const onSubmitLogin = async function (navigate) {
+    const username = document.getElementById(`login_form_username_field`).value;
+    const password = document.getElementById(`login_form_password_field`).value;
 
-    // const username = document.getElementById(`login_form_username_field`).value;
-    // const password = document.getElementById(`login_form_password_field`).value;
+    const onSuccess = function() {
+        setActiveUser(username);
+        navigate('/chat', { state: { username:username } });
+    }
+    const onFail = function() {
+        //...
+    }
+
+    await login(username, password, onSuccess, onFail);
+
     // login(username, password);
     // if (checkUserExists()) {
     //     setActiveUser(username);

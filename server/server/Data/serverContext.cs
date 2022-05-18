@@ -61,7 +61,7 @@ namespace server.Data
         }
 
         public static string GetTime() {
-            return DateTime.Now.ToShortTimeString() + ":" + DateTime.Now.Second.ToString();
+            return DateTime.Now.ToString("HH:mm:ss");
         }
 
         public User GetCurrentUser() {

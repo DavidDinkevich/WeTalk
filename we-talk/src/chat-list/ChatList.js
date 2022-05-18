@@ -60,7 +60,7 @@ function ChatList({ setActiveContact }) {
         let newContactButton = document.getElementById(`contact_button_${newContact.name}`);
         if (newContactButton != null)
             newContactButton.style.background = '#DDDDDD';      
-        zeroUnReadMessages(newContact);
+        // zeroUnReadMessages(newContact);
     }
 
     handleNewMessage = (change=true, contact) => {

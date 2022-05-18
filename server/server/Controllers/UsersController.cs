@@ -11,25 +11,24 @@ using server.Models;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace server.Controllers
-{
+{   
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
-    {
+    public class UsersController : ControllerBase {
         private readonly serverContext _context;
         private static readonly HttpClient client = new HttpClient();
 
 
-
-        public UsersController(serverContext context)
-        {
+        public UsersController(serverContext context) {
             _context = context;
-
+//            this.authMan = authMan;
         }
 
-        
+
 
         /*
         // GET: api/Users
@@ -56,7 +55,7 @@ namespace server.Controllers
             var userContacts = new List<User>();
             for (var i = 0; i < contacts.Count; i++) {
                 var contact = contacts[i];
-//                string lastMessage = _context.
+                //                string lastMessage = _context.
                 User u = new User() {
                     Id = contact.Id,
                     Name = contact.Name,
@@ -76,9 +75,9 @@ namespace server.Controllers
             // Add to us
             if (!_context.AddContact(user.Id, inp.Id))
                 return NotFound();
-            
+
             // SEND INVITATION TO OTHER SERVER
-            
+
             JObject oJsonObject = new JObject();
             oJsonObject.Add("from", user.Id);
             oJsonObject.Add("to", inp.Id);
@@ -139,21 +138,7 @@ namespace server.Controllers
             return contact;
         }
 
-
-
-
-        [HttpGet]
-        [Route("Login")]
-        [AutoValidateAntiforgeryToken]
-        
-        
-        public async Task<IActionResult> Login() {
-            Console.WriteLine("we ACTUALLY got here!!!!");
-            HttpContext.Session.SetString("username", "shachar");
-            Console.WriteLine(HttpContext.Session.GetString("username"));
-            return Ok();
-        }
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("invitations")]
         public async Task<IActionResult> Invitation(Invitation invo) {
@@ -177,9 +162,10 @@ namespace server.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("transfer")]
-        public async Task<IActionResult> Transfer(Transfer transfer) {
+        public async Task<IActionResult> Transfer(MsgJson transfer) {
             User to = _context.GetUserByID(transfer.To);
             User from = _context.GetUserByID(transfer.From);
             // User not here

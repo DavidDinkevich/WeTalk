@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj": {}
+    "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj": {
+    "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj",
+        "projectUniqueName": "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\server.csproj",
-        "packagesPath": "C:\\Users\\shach\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shach\\git repos\\advanced-programming 2\\WeTalk\\server\\server\\obj\\",
+        "projectPath": "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\server.csproj",
+        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\david\\Documents\\github repos\\WeTalk\\server\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\shach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
             "Microsoft.AspNetCore.Session": {
               "target": "Package",
               "version": "[2.2.0, )"
@@ -61,6 +69,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.3.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.17.0, )"
             }
           },
           "imports": [
