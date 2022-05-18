@@ -20,7 +20,7 @@ namespace server.Controllers
     {
         private readonly serverContext _context;
         private static readonly HttpClient client = new HttpClient();
-
+        
         public ChatsController(serverContext context)
         {
             _context = context;
@@ -70,6 +70,9 @@ namespace server.Controllers
             // Try to add the message to the database
             if (!_context.AddMessage(msg))
                 return BadRequest();
+
+            // UPDATE LISTENERS (SIGNALR)
+
 
             // DO TRANSFER
 

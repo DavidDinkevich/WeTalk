@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using server.Data;
 using Microsoft.AspNetCore.Session;
+using server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddSignalR();
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -30,8 +31,10 @@ builder.Services.AddCors(options => {
     options.AddPolicy("Allow All",
         builder => {
             builder
-                .AllowAnyOrigin()
+//                .SetIsOriginAllowed(origin=> true)
+                .WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
+                .AllowCredentials()
                 .AllowAnyHeader();
         });
 });
@@ -74,5 +77,12 @@ app.MapControllers();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Users}/{action=GetContacts}/{id?}");
+
+app.UseWebSockets();
+//app.MapHub<MessageHub>("messageHub");
+
+app.UseEndpoints(endpoints => {
+    endpoints.MapHub<MessageHub>("Hubs/messageHub");
+});
 
 app.Run();

@@ -26,17 +26,13 @@ function ChatView({ activeContact }) {
     UIMessageList = getMessages();
 
     const uiList = UIMessageList.map((message, key) => {
-        // console.log(message);
-        // console.log(message.recipient, activeContact.name);
         let source =   message.sender !== getActiveUser().name 
                     && message.sender !== getActiveUser().id ? "remote" : "self";
-        console.log(source);
         return <Message {...message} source={source} messageID={message.id} key={key} />;
     });
 
     const sendMessage = function ({ message = '', image = '', video = '', audio = '' }) {
         // Get date for message
-        // console.log(String(new Date()).split(" "))
         let date = String(new Date()).split(" ")[4]
         // date = date.substring(0, date.lastIndexOf(":"));
 
@@ -46,13 +42,15 @@ function ChatView({ activeContact }) {
             { MessageText: message, image, video, audio }
         );
 
-        // console.log({from: activeUserName, to: activeContact.id, content: newMessage.messageText});
         postMessageToServer(
             {
                 to: activeContact.id, 
-                content: JSON.stringify(newMessage)
-                // content: newMessage.MessageText
+                from: getActiveUser().id,
+                // content: JSON.stringify(newMessage)
+                content: newMessage.MessageText
             });
+
+        
         
         refreshUIChatList();
         refreshMessagesList();

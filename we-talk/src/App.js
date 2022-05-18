@@ -4,12 +4,17 @@ import MainView from './main-view/MainView';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import {getContactByName} from './DataBase'
+import SignalRHandler from './SignalRHandler';
+
+export let activeContact;
 
 function App() {
-  let [activeContact, setActiveContact] = useState(getContactByName('Aviya'))
+  let [_activeContact, setActiveContact] = useState(getContactByName('Aviya'))
+  activeContact = _activeContact;
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
+      <SignalRHandler activeContact={activeContact}/>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={

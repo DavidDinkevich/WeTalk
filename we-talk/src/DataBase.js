@@ -1,5 +1,7 @@
 import { refreshUIChatList } from "./chat-list/ChatList";
 import { refreshMessagesList } from "./chat-view/ChatView";
+import { addContactSignalR, sendMessageSignalR } from "./SignalRHandler";
+import { searchBox } from "./left-screen/chat-search/ChatSearch";
 
 export const login = async function(username, password) {
     // await fetch("https://localhost:7013/api/Users/contacts")
@@ -11,7 +13,11 @@ export const updateUserContacts = async function() {
     await fetch("https://localhost:7013/api/Users/contacts")
         .then(response => response.json())
         .then(data => {
-            context.currentUser.contacts = data;
+            // context.currentUser.contacts = data;
+            context.currentUser.contacts = data.filter((value) => {
+                return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
+            })
+            console.log(context.currentUser.contacts)
             refreshUIChatList();
         });
 }
@@ -26,31 +32,25 @@ export const updateMessages = async function(contactID) {
     );
 }
 
-// this is the transfer that needs to be in the server and not here
-// export const postMessageToServer = async function({from, to, content}) {  
-//     // console.log("sending: " + JSON.stringify({from, to, content}))
-//     await fetch('https://localhost:7013/api/Chats/transfer', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({from, to, content})
-//     });
-// } 
 
 export const postContactToServer = async function({id, name, server}) {
     await fetch('https://localhost:7013/api/Users/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({id, name, server})
-    });
+    }).then(() => {
+    addContactSignalR(JSON.stringify({id, name, server}));
+});
     return true;
 }
 
 export const postMessageToServer = async function({content, from, to}) {
-    // console.log(JSON.stringify({content: Messagecontent}));
     await fetch('https://localhost:7013/api/Chats/contacts/'+to+'/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({content, from, to})
+    }).then(() => {
+        sendMessageSignalR(JSON.stringify({content, from, to}));
     });
     return true;
 }
@@ -103,6 +103,11 @@ export function getContactByName(contactName) {
     // return getContactList(activeUser).find((value) => value.name === contactName);
     return context.currentUser.contacts.find((value) => { return value.name === contactName; })
 }
+
+export function getContactById(id) {
+    return context.currentUser.contacts.find((value) => { return value.id === id; })
+}
+
 
 export function getContactList(displayName) {
     // return users.find((value) => { return value.displayName === displayName; }).contacts;

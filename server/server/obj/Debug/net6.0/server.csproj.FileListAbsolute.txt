@@ -802,3 +802,4 @@ C:\Users\david\Documents\github repos\WeTalk\server\server\obj\Debug\net6.0\refi
 C:\Users\david\Documents\github repos\WeTalk\server\server\obj\Debug\net6.0\server.pdb
 C:\Users\david\Documents\github repos\WeTalk\server\server\obj\Debug\net6.0\server.genruntimeconfig.cache
 C:\Users\david\Documents\github repos\WeTalk\server\server\obj\Debug\net6.0\ref\server.dll
+C:\Users\shach\git repos\advanced-programming 2\WeTalk\server\server\bin\Debug\net6.0\libman.json

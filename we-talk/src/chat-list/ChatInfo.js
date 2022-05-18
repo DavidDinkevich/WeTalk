@@ -34,7 +34,7 @@ function ChatInfo({ contact }) {
             </div>
             <div className="chat-info-container">
                 <span id={contact.name + "unread messages"} className="ms-2 mb-2 badge rounded-pill chat-info-unread">
-                    {/*contact.unread*/}</span> 
+                    {contact.unread}</span> 
                 <div>{time}</div>
             </div>
         </li>
