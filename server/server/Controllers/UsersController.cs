@@ -35,6 +35,12 @@ namespace server.Controllers
             var claim = User.Claims.SingleOrDefault(x => x.Type.Equals("username")).Value;
             return _context.GetUserByID(claim);
         }
+
+        [HttpGet]
+        [Route("info")]
+        public async Task<ActionResult<User>> GetCurrentUserInfo() {
+            return Ok(GetCurrentUser());
+        }
             
         /*
         // GET: api/Users

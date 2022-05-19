@@ -7,7 +7,7 @@ function ChatInfo({ contact }) {
     let time = ''
     let lastMessage = contact.lastMessage;
     // let contactImage = getContactByName(contact.name).image;
-    let contactImage = ''
+    let contactImage = 'anonymous_profile.webp'
     if (lastMessage !== undefined && lastMessage != null) {
         lastMessageText = contact.lastMessage.messageText;
         // let lastMessage = messages[messages.length - 1];

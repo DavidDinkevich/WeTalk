@@ -2,6 +2,7 @@ import { refreshUIChatList } from "./chat-list/ChatList";
 import { refreshMessagesList } from "./chat-view/ChatView";
 import { addContactSignalR, sendMessageSignalR } from "./SignalRHandler";
 import { searchBox } from "./left-screen/chat-search/ChatSearch";
+import { refreshSelfInfo } from "./self-info/SelfInfo";
 
 
 const context = {
@@ -15,9 +16,6 @@ const context = {
     messages: [],
     token: ''
 }
-
-
-
 
 export const login = async function(username, password, onSuccess, onFail) {
     const response = await fetch("https://localhost:7013/api/login",
@@ -34,6 +32,20 @@ export const login = async function(username, password, onSuccess, onFail) {
         context.token = await response.text();
         onSuccess();
     }
+}
+
+export const updateUserInfo = async function() {
+    await fetch("https://localhost:7013/api/Users/info", {
+        headers: {
+            'Authorization': `Bearer ${context.token}`
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            context.currentUser = Object.assign(context.currentUser, data);
+            console.log(context.currentUser)
+            refreshSelfInfo();
+        });
 }
 
 export const updateUserContacts = async function() {

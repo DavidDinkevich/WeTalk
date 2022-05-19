@@ -1,12 +1,17 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
-import { useState } from "react";
-import { getActiveUser, getContactByName, postContactToServer, updateUserContacts, users } from "../DataBase";
-import { getUserByName } from "../DataBase";
+import { useEffect, useState } from "react";
+import { getActiveUser, postContactToServer, updateUserContacts, updateUserInfo } from "../DataBase";
 import './self-info.css';
+
+export let refreshSelfInfo;
 
 function SelfInfo() {
     let [isOpen, setIsOpen] = useState(false);
+    let [renderState, _refreshSelfInfo] = useState()
+    refreshSelfInfo = () => _refreshSelfInfo(renderState + 1);
+
+    useEffect(updateUserInfo, [1]);
 
 
     function addNewContact() {
@@ -39,7 +44,7 @@ function SelfInfo() {
         setIsOpen(false);
     }
 
-    let backImage = getActiveUser().image.length > 0 ? `url(${getActiveUser().image})` : 'anonymous_profile.webp';
+    let backImage = getActiveUser().image.length > 0 ? `url(${getActiveUser().image})` : 'url(anonymous_profile.webp)';
 
     return (
         <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
