@@ -3,12 +3,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using server.Data;
 
 namespace server.Models {
     public class JWTAuthenticationManager : IJWTAuthenticationManager {
-        private readonly IDictionary<string, string> users = new Dictionary<string, string>() {
-            { "shachar", "password1" }, { "aviya", "password2" }
-        };
 
         private readonly string key;
 
@@ -16,15 +14,16 @@ namespace server.Models {
             this.key = key;
         }
 
-        public string Authenticate(string username, string password) {
-            if (!users.Any(u => u.Key == username && u.Value == password)) {
+        public string Authenticate(serverContext dbContext, string username, string password) {
+
+            if (!dbContext.Authenticate(username, password)) {
                 return null;
             }
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(key);
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, username)
+                    new Claim("username", username)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(

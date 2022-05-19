@@ -26,78 +26,81 @@ namespace server.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        [Route("contacts/{id}/messages")]
-        public async Task<ActionResult<IList<Message>>> GetMessagesWithContact(string id) {
-            var messages = _context.GetMessagesWithContact(id);
-            if (messages == null)
-                return NotFound();
-            return Ok(messages);
-        }
+        //[HttpGet]
+        //[Route("contacts/{id}/messages")]
+        //public async Task<ActionResult<IList<Message>>> GetMessagesWithContact(string id) {
+        //    var user = GetCurrentUser();
+        //    var messages = _context.GetMessagesWithContact(user.Id, id);
+        //    if (messages == null)
+        //        return NotFound();
+        //    return Ok(messages);
+        //}
 
-        [HttpGet]
-        [Route("contacts/{id1}/messages/{id2}")]
-        public async Task<ActionResult<Message>> GetMessageWithContact(string id1, int id2) {
-            var messages = _context.GetMessagesWithContact(id1);
-            if (messages == null)
-                return NotFound();
-            var message = messages.FirstOrDefault(msg => msg.Id == id2);
-            if (message == null)
-                return NotFound();
-            return Ok(message);
-        }
+        //[HttpGet]
+        //[Route("contacts/{id1}/messages/{id2}")]
+        //public async Task<ActionResult<Message>> GetMessageWithContact(string id1, int id2) {
+        //    var user = GetCurrentUser();
+        //    var messages = _context.GetMessagesWithContact(user.Id, id1);
+        //    if (messages == null)
+        //        return NotFound();
+        //    var message = messages.FirstOrDefault(msg => msg.Id == id2);
+        //    if (message == null)
+        //        return NotFound();
+        //    return Ok(message);
+        //}
 
-        [HttpPost]
-        [Route("contacts/{toId}/messages")]
-        public async Task<ActionResult> AddMessage(string toId, [Bind("Content")] MsgJson msgJson) {
-            if (msgJson == null)
-                return BadRequest();
-            User activeUser = _context.GetCurrentUser();
-            Message msg;
-            try { // Our API
-                msg = JsonSerializer.Deserialize<Message>(msgJson.Content);
-                msg.Sender = activeUser.Id;
-                msg.Recipient = toId;
-            }
-            // Hemi's API
-            catch (Exception ex) {
-                // Foreign client
-                msg = new Message(activeUser.Id, toId) {
-                    MessageText = msgJson.Content,
-                    Time = serverContext.GetTime()
-                };
-            }
-            // Try to add the message to the database
-            if (!_context.AddMessage(msg))
-                return BadRequest();
+        //[HttpPost]
+        //[Route("contacts/{toId}/messages")]
+        //public async Task<ActionResult> AddMessage(string toId, [Bind("Content")] MsgJson msgJson) {
+        //    if (msgJson == null)
+        //        return BadRequest();
+        //    User activeUser = GetCurrentUser();
+        //    Message msg;
+        //    try { // Our API
+        //        msg = JsonSerializer.Deserialize<Message>(msgJson.Content);
+        //        msg.Sender = activeUser.Id;
+        //        msg.Recipient = toId;
+        //    }
+        //    // Hemi's API
+        //    catch (Exception ex) {
+        //        // Foreign client
+        //        msg = new Message(activeUser.Id, toId) {
+        //            MessageText = msgJson.Content,
+        //            Time = serverContext.GetTime()
+        //        };
+        //    }
+        //    // Try to add the message to the database
+        //    if (!_context.AddMessage(msg))
+        //        return BadRequest();
 
-            // UPDATE LISTENERS (SIGNALR)
+        //    // UPDATE LISTENERS (SIGNALR)
 
 
-            // DO TRANSFER
+        //    // DO TRANSFER
 
-            // First check if this user is registered with us
-            // Get "to" user
-            User toUser = _context.GetUserByID(toId);
-            if (toUser == null) {
-                Contact toContact = _context.GetContact(toId);
-                string server = toContact.Server;
-                JObject oJsonObject = new JObject();
-                oJsonObject.Add("from", activeUser.Id);
-                oJsonObject.Add("to", toId);
-                oJsonObject.Add("content", msgJson.Content);
+        //    // First check if this user is registered with us
+        //    // Get "to" user
+        //    User toUser = _context.GetUserByID(toId);
+        //    if (toUser == null) {
+        //        var user = GetActiveUser();
+        //        Contact toContact = _context.GetContact(user.Id, toId);
+        //        string server = toContact.Server;
+        //        JObject oJsonObject = new JObject();
+        //        oJsonObject.Add("from", activeUser.Id);
+        //        oJsonObject.Add("to", toId);
+        //        oJsonObject.Add("content", msgJson.Content);
 
-                var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
-                await client.PostAsync(
-                    string.Format("https://{0}/api/Users/transfer", server),
-                    content
-                );
-            }
-            return Created(
-                    string.Format("api/contacts/{0}/messages/{1}", 
-                    toId, msg.Id), msg
-            );
-        }
+        //        var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
+        //        await client.PostAsync(
+        //            string.Format("https://{0}/api/Users/transfer", server),
+        //            content
+        //        );
+        //    }
+        //    return Created(
+        //            string.Format("api/contacts/{0}/messages/{1}", 
+        //            toId, msg.Id), msg
+        //    );
+        //}
 
         /*
         // GET: api/Chats

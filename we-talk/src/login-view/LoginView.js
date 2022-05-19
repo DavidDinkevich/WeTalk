@@ -33,7 +33,7 @@ const checkUserExists = function () {
 const onSubmitLogin = async function (navigate) {
     const username = document.getElementById(`login_form_username_field`).value;
     const password = document.getElementById(`login_form_password_field`).value;
-
+    
     const onSuccess = function() {
         setActiveUser(username);
         navigate('/chat', { state: { username:username } });

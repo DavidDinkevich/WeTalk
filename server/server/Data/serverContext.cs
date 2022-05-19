@@ -5,17 +5,24 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using server.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace server.Data
 {
     public class serverContext : DbContext {
 
+        
+
         private static List<User> usersDB = new List<User>() {
-            new User() { Id="Shachar100", Name="Shachar" , Server="localhost:7013"},
-            new User() { Id="David100", Name="David", Server="localhost:7013" },
-            new User() { Id="Aviya100", Name="Aviya" ,Server="localhost:7013"},
-            new User() { Id="NoaEitan100", Name="Noa" ,Server="localhost:7013"}
+            new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server="localhost:7013"},
+            new User() { Id="David100", Name="David", Password="yomama100", Server="localhost:7013" },
+            new User() { Id="Aviya100", Name="Aviya", Password="yomama100", Server="localhost:7013"},
+            new User() { Id="NoaEitan100", Name="Noa", Password="yomama100", Server="localhost:7013"}
         };
 
         private static List<Chat> chatDB = new List<Chat> {
@@ -64,7 +71,12 @@ namespace server.Data
             return DateTime.Now.ToString("HH:mm:ss");
         }
 
-        public User GetCurrentUser() {
+        public bool Authenticate(string username, string password) {
+            return usersDB.Any(u => u.Id == username && u.Password == password) != null;
+        }
+
+
+        public User GetCurrentUser(string token) {
             int currUserID = 1;
             return usersDB[currUserID];
         }
@@ -102,19 +114,19 @@ namespace server.Data
             return chat;
         }
 
-        public Contact GetContact(string contactId) {
-            User currUser = GetCurrentUser();
+        public Contact GetContact(string activeUserID,string contactId) {
+            User currUser = GetUserByID(activeUserID);
             Contact c = currUser.Contacts.FirstOrDefault((c) => c.Id == contactId);
             return c;
         }
 
-        public bool RemoveContact(string contactId) {
-            var contact = GetContact(contactId);
-            return GetCurrentUser().Contacts.Remove(contact);
+        public bool RemoveContact(string activeUserID, string contactId) {
+            var contact = GetContact(activeUserID, contactId);
+            return GetUserByID(activeUserID).Contacts.Remove(contact);
         }
 
-        public bool RemoveMessage(string contactId, int messageId) {
-            User curr = GetCurrentUser();
+        public bool RemoveMessage(string activeUserID, string contactId, int messageId) {
+            User curr = GetUserByID(activeUserID);
             Chat c = getChat(curr.Id, contactId);
             if (c == null)
                 return false;
@@ -133,8 +145,8 @@ namespace server.Data
             usersDB[usersDB.FindIndex((u) => u.Id == user.Id)] = user;
         }
 
-        public IList<Message> GetMessagesWithContact(string contactID) {
-            User current = GetCurrentUser();
+        public IList<Message> GetMessagesWithContact(string activeUserID, string contactID) {
+            User current = GetUserByID(activeUserID);
             Contact other = current.Contacts.FirstOrDefault(
                 contact => contact.Id == contactID);
             if (other == null)
@@ -156,16 +168,16 @@ namespace server.Data
             }
         }
 
-        public Message GetLastMessageWithContact(string contactId) {
-            User curr = GetCurrentUser();
+        public Message GetLastMessageWithContact(string activeUserID, string contactId) {
+            User curr = GetUserByID(activeUserID);
             Chat chat = getChat(curr.Id, contactId);
             if (chat == null || chat.Messages.Count == 0)
                 return null;
             return chat.Messages[chat.Messages.Count - 1];
         }
 
-        public bool SetMessage(string contactId, int msgId, string content) {
-            Chat chat = getChat(GetCurrentUser().Id, contactId);
+        public bool SetMessage(string activeUserID, string contactId, int msgId, string content) {
+            Chat chat = getChat(GetUserByID(activeUserID).Id, contactId);
             if (chat == null)
                 return false;
             Message msg = chat.Messages.FirstOrDefault(m => m.Id == msgId);
@@ -192,8 +204,8 @@ namespace server.Data
             return false;
         }
 
-        public bool SetContact(string id, NameAndServer contact) {
-            Contact cont = GetCurrentUser().Contacts.FirstOrDefault(c => c.Id == id);
+        public bool SetContact(string activeUserID, string id, NameAndServer contact) {
+            Contact cont = GetUserByID(activeUserID).Contacts.FirstOrDefault(c => c.Id == id);
             if (cont == null)
                 return false;
             cont.Name = contact.Name;
@@ -219,7 +231,7 @@ namespace server.Data
 
         public DbSet<server.Models.Message> Message { get; set; }
 
-        public DbSet<server.Models.User> User { get; set; }
+        public DbSet<server.Models.User> UsersDB { get; set; }
 
         public DbSet<server.Models.Chat> Chat { get; set; }
     }

@@ -6,21 +6,21 @@ import { searchBox } from "./left-screen/chat-search/ChatSearch";
 
 const context = {
     currentUser: {
-        id: 'David100',
-        name: 'David',
+        id: '',
+        name: '',
         password: '',
         image: '',
         contacts: []
     },
     messages: [],
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InNoYWNoYXIiLCJuYmYiOjE2NTI4ODYxODQsImV4cCI6MTY1Mjg4OTc4NCwiaWF0IjoxNjUyODg2MTg0fQ.ry-vDulpq0JlYmSbvIgINja_Q4c6wBkH5RwiSIXtOjQ'
+    token: ''
 }
 
 
 
 
 export const login = async function(username, password, onSuccess, onFail) {
-    await fetch("https://localhost:7013/api/login",
+    const response = await fetch("https://localhost:7013/api/login",
         {
             method: 'POST',
             headers: {
@@ -28,16 +28,12 @@ export const login = async function(username, password, onSuccess, onFail) {
             },
             body: JSON.stringify({username, password})
         })
-        .then(response => response.text())
-        .then(data => {
-            context.token = data;
-            console.log("Got token: "+ context.token);
-            onSuccess();
-        })
-        .catch(error => {
-            console.log("error: " + error);
-            onFail();
-        })
+    if (!response.ok) {
+        onFail();
+    } else {
+        context.token = await response.text();
+        onSuccess();
+    }
 }
 
 export const updateUserContacts = async function() {
@@ -116,12 +112,13 @@ export function getMessageByID(messageID) {
     return context.messages.find((msg) => msg.id === messageID);
 }
 
-//---------------------------------
 
 export function setActiveUser(name) {
+    context.currentUser.id = name;
     // let index = users.findIndex((user) => {return user.username === name});
     // activeUser = users[index];
 }
+//---------------------------------
 
 export function addNewUser({username, displayName, password, image}) {
     // users.push({username: username, displayName: displayName, password, image, contacts:[]});

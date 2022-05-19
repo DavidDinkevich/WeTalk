@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using server.Models;
+using server.Data;
 
 namespace server.Controllers {
 
@@ -10,15 +11,17 @@ namespace server.Controllers {
     [ApiController]
     public class AuthenticationController : ControllerBase {
         private readonly IJWTAuthenticationManager authMan;
-        public AuthenticationController(IJWTAuthenticationManager authMan) {
+        private readonly serverContext dbContext;
+        public AuthenticationController(IJWTAuthenticationManager authMan, serverContext context) {
             this.authMan = authMan;
+            this.dbContext = context;
         }
-
+        
         [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserCred userCred) {
-            var token = authMan.Authenticate(userCred.Username, userCred.Password);
+            var token = authMan.Authenticate(dbContext, userCred.Username, userCred.Password);
             if (token == null)
                 return Unauthorized();
             return Ok(token);

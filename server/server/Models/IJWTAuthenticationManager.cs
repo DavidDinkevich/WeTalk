@@ -1,5 +1,7 @@
-﻿namespace server.Models {
+﻿using server.Data;
+
+namespace server.Models {
     public interface IJWTAuthenticationManager {
-        string Authenticate(string username, string password);
+        string Authenticate(serverContext dbContext, string username, string password);
     }
 }
