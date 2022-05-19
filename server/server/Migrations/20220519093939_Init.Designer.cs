@@ -12,7 +12,7 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(serverContext))]
-    [Migration("20220511080112_Init")]
+    [Migration("20220519093939_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

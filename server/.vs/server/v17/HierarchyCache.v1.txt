@@ -1,0 +1,530 @@
+﻿++Solution 'server' ‎(1 of 1 project)
+i:{00000000-0000-0000-0000-000000000000}:server.sln
+++server
+i:{00000000-0000-0000-0000-000000000000}:server
+++Connected Services 
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1079
+++Dependencies
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1078
+++Properties
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\properties\
+++wwwroot
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\
+++Controllers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\controllers\
+++ChatsController.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\controllers\chatscontroller.cs
+++HomeController.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\controllers\homecontroller.cs
+++MessagesController.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\controllers\messagescontroller.cs
+++RatingsController.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\controllers\ratingscontroller.cs
+++UsersController.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\controllers\userscontroller.cs
+++WeatherForecastController.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\controllers\weatherforecastcontroller.cs
+++Data
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\data\
+++serverContext.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\data\servercontext.cs
+++Migrations
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\migrations\
+++20220508173252_Init.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\migrations\20220508173252_init.cs
+++serverContextModelSnapshot.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\migrations\servercontextmodelsnapshot.cs
+++Models
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\
+++Chat.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\chat.cs
+++Contact.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\contact.cs
+++Content.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\content.cs
+++ErrorViewModel.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\errorviewmodel.cs
+++Invitation.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\invitation.cs
+++Message.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\message.cs
+++MsgJson.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\msgjson.cs
+++NameAndServer.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\nameandserver.cs
+++Rating.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\rating.cs
+++Transfer.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\transfer.cs
+++User.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\models\user.cs
+++Views
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\
+++Home
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\home\
+++Ratings
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\ratings\
+++Create.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\ratings\create.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\home\create.cshtml
+++Delete.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\ratings\delete.cshtml
+++Details.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\ratings\details.cshtml
+++Edit.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\ratings\edit.cshtml
+++Index.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\ratings\index.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\home\index.cshtml
+++Shared
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\shared\
+++_ViewImports.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\_viewimports.cshtml
+++_ViewStart.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\_viewstart.cshtml
+++appsettings.json
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\appsettings.json
+++libman.json
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\libman.json
+++Program.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\program.cs
+++WeatherForecast.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\weatherforecast.cs
+++SQL Server Express LocalDB (Local) (ConnectionStrings:serverContext)
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1111
+++Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:analyzers
+++Frameworks
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:frameworks
+++Packages
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:packages
+++launchSettings.json
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\properties\launchsettings.json
+++serviceDependencies.json
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\properties\servicedependencies.json
+++css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\css\
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\
+++js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\js\
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\
+++lib
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\
+++favicon.ico
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\favicon.ico
+++20220508173252_Init.Designer.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\migrations\20220508173252_init.designer.cs
+++Privacy.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\home\privacy.cshtml
+++_Layout.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\shared\_layout.cshtml
+++_ValidationScriptsPartial.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\shared\_validationscriptspartial.cshtml
+++Error.cshtml
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\shared\error.cshtml
+++appsettings.Development.json
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\appsettings.development.json
+++MessagePackAnalyzer
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\.nuget\packages\messagepackanalyzer\2.1.152\analyzers\dotnet\messagepackanalyzer.dll
+++Microsoft.AspNetCore.Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.App.Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.3\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
+++Microsoft.AspNetCore.App.CodeFixes
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.3\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.sourcegenerator.tooling.internal.dll
+++Microsoft.CodeAnalysis.Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.2\analyzers\dotnet\cs\microsoft.codeanalysis.analyzers.dll
+++Microsoft.CodeAnalysis.CSharp.Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.2\analyzers\dotnet\cs\microsoft.codeanalysis.csharp.analyzers.dll
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.4\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+++Microsoft.Extensions.Logging.Generators
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.3\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++Microsoft.NET.Sdk.Razor.SourceGenerators
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\sdk\6.0.201\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
+++System.Text.Json.SourceGeneration
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.3\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.AspNetCore.App
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\microsoft.aspnetcore.app
+++Microsoft.NETCore.App
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\microsoft.netcore.app
+++Microsoft.AspNetCore.Session (2.2.0)
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1093
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.4)
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1091
+++Microsoft.EntityFrameworkCore.Tools (6.0.4)
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1094
+++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.3)
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1095
+++Swashbuckle.AspNetCore (6.3.0)
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:>1092
+++serviceDependencies.local.json
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\properties\servicedependencies.local.json
+++site.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\css\site.css
+++site.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\js\site.js
+++bootstrap
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\
+++jquery
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery\
+++jquery-validation
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation\
+++jquery-validation-unobtrusive
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation-unobtrusive\
+++microsoft
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\microsoft\
+++_Layout.cshtml.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\views\shared\_layout.cshtml.css
+++dist
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery\dist\
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation\dist\
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\microsoft\signalr\dist\
+++LICENSE
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\license
+++LICENSE.txt
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery\license.txt
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation-unobtrusive\license.txt
+++LICENSE.md
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation\license.md
+++jquery.validate.unobtrusive.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+++signalr
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\microsoft\signalr\
+++jquery.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery\dist\jquery.js
+++additional-methods.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation\dist\additional-methods.js
+++jquery.validate.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+++jquery.validate.unobtrusive.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+++bootstrap.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+++bootstrap-grid.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+++bootstrap-reboot.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+++bootstrap-utilities.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+++bootstrap.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+++jquery.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery\dist\jquery.min.js
+++additional-methods.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+++jquery.validate.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+++browser
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\microsoft\signalr\dist\browser\
+++bootstrap.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+++bootstrap.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+++bootstrap.rtl.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+++bootstrap-grid.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+++bootstrap-grid.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+++bootstrap-grid.rtl.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+++bootstrap-reboot.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+++bootstrap-reboot.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+++bootstrap-reboot.rtl.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+++bootstrap-utilities.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+++bootstrap-utilities.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+++bootstrap-utilities.rtl.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+++bootstrap.bundle.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+++bootstrap.esm.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+++bootstrap.js.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+++bootstrap.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+++jquery.min.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\jquery\dist\jquery.min.map
+++signalr.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\microsoft\signalr\dist\browser\signalr.js
+++bootstrap.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+++bootstrap.rtl.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+++bootstrap.rtl.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+++bootstrap-grid.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+++bootstrap-grid.rtl.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+++bootstrap-grid.rtl.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+++bootstrap-reboot.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+++bootstrap-reboot.rtl.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+++bootstrap-reboot.rtl.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+++bootstrap-utilities.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+++bootstrap-utilities.rtl.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+++bootstrap-utilities.rtl.min.css
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+++bootstrap.bundle.js.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+++bootstrap.bundle.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+++bootstrap.esm.js.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+++bootstrap.esm.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+++bootstrap.min.js.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+++signalr.min.js
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\microsoft\signalr\dist\browser\signalr.min.js
+++bootstrap.rtl.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+++bootstrap-grid.rtl.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+++bootstrap-reboot.rtl.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+++bootstrap-utilities.rtl.min.css.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+++bootstrap.bundle.min.js.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+++bootstrap.esm.min.js.map
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+++Script Documents
+++VM5
+++chromewebdata
+++VM12
+++VM13
+++VM14
+++VM15
+++VM16
+++VM17
+++VM18
+++VM19
+++VM20
+++VM21
+++VM22
+++VM23
+++VM24
+++VM25
+++VM26
+++VM27
+++VM28
+++VM29
+++VM30
+++VM31
+++VM32
+++VM33
+++VM34
+++VM35
+++VM36
+++VM37
+++VM38
+++VM39
+++VM40
+++Index.html
+++VM48
+++VM49
+++VM50
+++VM51
+++VM52
+++VM53
+++VM54
+++VM55
+++VM56
+++VM57
+++VM58
+++VM59
+++VM60
+++VM61
+++VM62
+++VM63
+++VM64
+++VM65
+++VM66
+++VM67
+++VM68
+++VM69
+++VM70
+++VM71
+++VM72
+++VM73
+++VM74
+++VM75
+++VM76
+++VM84
+++VM85
+++VM86
+++VM87
+++VM88
+++VM89
+++VM90
+++VM91
+++VM92
+++VM93
+++VM94
+++VM95
+++VM96
+++VM97
+++VM98
+++VM99
+++VM100
+++VM101
+++VM102
+++VM103
+++VM104
+++VM105
+++VM106
+++VM107
+++VM108
+++VM109
+++VM110
+++VM111
+++VM112
+++NewFolder
+++Hubs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\hubs\
+++Hub.cs
+++MyHub.cs
+++VM83
+++MessageHub.cs
+i:{03becff5-4359-45c6-bc99-4cbc57e7a233}:c:\users\shach\git repos\advanced-programming 2\wetalk\server\server\hubs\myhub.cs
+++VM77
+++VM78
+++main.f7772a2de81343477c73.hot-update.js
+++bundle.js
+++main.7bd903d1bade36d3badc.hot-update.js
+++main.5647ebfb9cb04e89336f.hot-update.js
+++main.4df57bf8a711842b8194.hot-update.js
+++main.cc64df12764d35a2b49a.hot-update.js
+++main.421bf2a491df7ac564c8.hot-update.js
+++main.9b7a1891eb0a7d31d96a.hot-update.js
+++main.0cb12969a780bd88485c.hot-update.js
+++main.930fba9cbac0de0d70ff.hot-update.js
+++main.a1cdb2757e3dda9f8d30.hot-update.js
+++main.fecabbd0f70805f37427.hot-update.js
+++main.3103deba0da8b8960c6d.hot-update.js
+++main.ae5598271cc64541445d.hot-update.js
+++main.c27c1f0fddf2af1c57b9.hot-update.js
+++main.0714aa1c704007f8d55c.hot-update.js
+++main.2bd10c097109113afc64.hot-update.js
+++main.e14234a5a64bd85149a7.hot-update.js
+++main.ba6a5edb99e46cd87808.hot-update.js
+++main.a10c851e63f3550580f0.hot-update.js
+++main.0fa3efc10c3ab118de65.hot-update.js
+++main.adedc1d4d8f2f7762ce9.hot-update.js
+++main.007d01c6542132ab6725.hot-update.js
+++main.b4fa7259761314ca8889.hot-update.js
+++main.7d46953cc13ba5d3266a.hot-update.js
+++main.05051ac6826120e80f00.hot-update.js
+++main.d83a5e7886fd90a85f87.hot-update.js
+++main.cb24a746b7928ee16de2.hot-update.js
+++main.75489ca1c60ba0536693.hot-update.js
+++main.a43f5a3d2f72e116583d.hot-update.js
+++main.4b218bf3cc944c31f99c.hot-update.js
+++main.903621a5dbddc14511cc.hot-update.js
+++main.61f8d7a3bd988af8bd89.hot-update.js
+++main.83ea6ae7c3da23ced73e.hot-update.js
+++main.b7f3ae70fbf7fb684851.hot-update.js
+++main.29f0fca68ec41f9b2b10.hot-update.js
+++main.4d9f8d59d66fb6186de8.hot-update.js
+++main.72ac8378241a82dd154f.hot-update.js
+++main.b22d09c7f2bfd153db6c.hot-update.js
+++main.f0362a4590b8de2fc380.hot-update.js
+++main.dd6838bd8ceb9c1ca2a5.hot-update.js
+++main.1cf54095bc768eb50107.hot-update.js
+++main.be764a1d635885b9ff00.hot-update.js
+++main.a42f6f977cc98559e41c.hot-update.js
+++main.9ff395ed10ebd04f15a7.hot-update.js
+++main.e06475ff2c8ba3626b7e.hot-update.js
+++main.44c3cd0b822ffedfd94f.hot-update.js
+++main.7e068afb3ca0eeaffa58.hot-update.js
+++main.16b20562f7ac3279871b.hot-update.js
+++main.72ab641a81fcafe55057.hot-update.js
+++main.7ff85a52bc5f0ffd75a9.hot-update.js
+++main.0cc08804fcb73b79b8ea.hot-update.js
+++main.09d836936596d115d904.hot-update.js
+++main.d686c9b849f1974f46d6.hot-update.js
+++main.5deea55c286a25cd705b.hot-update.js
+++main.a9af0333cea0a25fcf33.hot-update.js
+++main.8f1b151674240f2ce113.hot-update.js
+++main.f316bb23e1dd2ee134ba.hot-update.js
+++main.85359160d3e18bb11eff.hot-update.js
+++main.cd0f5f7942a6a6e4318a.hot-update.js
+++main.1de9bdbc2fd3131a8a24.hot-update.js
+++main.8762a1d2dfc11fe58301.hot-update.js
+++main.6978ea9a19ac25eefb95.hot-update.js
+++main.da14fa05bfc7279f7825.hot-update.js
+++main.a2cbb76880cd8bb110dc.hot-update.js
+++main.7c747bfe161f264baf09.hot-update.js
+++main.c00608e6f509ce6b5035.hot-update.js
+++main.72da0bdf4b4aa1c0ba52.hot-update.js
+++main.8780372a8db27c339438.hot-update.js
+++main.941d8a1b94745c309bd5.hot-update.js
+++main.216912777921bece3c9b.hot-update.js
+++main.2cec0325bfd202f7a097.hot-update.js
+++main.00041fca9aa6beaff2c0.hot-update.js
+++main.50b5340ce1b71a120af4.hot-update.js
+++main.3ad45d7f230d6faff1c3.hot-update.js
+++main.575024fac18f3f22a616.hot-update.js
+++main.f64167e5cc6cadef9045.hot-update.js
+++main.39cc07fb3e2be940db34.hot-update.js
+++main.40aa2cbcc98ca815d5a6.hot-update.js
+++main.bdfe9d6163f089cec905.hot-update.js
+++main.15380c0082c274c0d7d3.hot-update.js
+++main.49960851610b504a9515.hot-update.js
+++main.9c25b8fce6b397f4afc8.hot-update.js
+++main.1be0c3fc0935bd0b61b7.hot-update.js
+++main.d6649287f27750e32385.hot-update.js
+++main.fbbd3e66f3e49c7b23e0.hot-update.js
+++main.4362aefb3dbe4168a57b.hot-update.js
+++main.94e1cbaf1ebc1c754f00.hot-update.js
+++main.9a4a59e0eee678284234.hot-update.js
+++main.95e44d57cc1457e2e11b.hot-update.js
+++main.833709958b215c118fa4.hot-update.js
+++main.6c2042adc75f18a55f75.hot-update.js
+++main.a4dbd66b36be835d7535.hot-update.js
+++main.25b2554d8b09edd0f5fe.hot-update.js
+++main.16aab56eb9df38e83799.hot-update.js
+++main.a49faccf60f38c507c51.hot-update.js
+++main.8b76456f4f8fc194b23d.hot-update.js
+++main.c8cc0a39b5c5bf289c94.hot-update.js
+++main.6d905dd4ab71274ae6be.hot-update.js
+++main.df849b6c20fbfd6a7bae.hot-update.js
+++main.a397216421dd247b6909.hot-update.js
+++main.d4987c1066978a7d0f87.hot-update.js
+++main.6beef35d93717bca4893.hot-update.js
+++main.6077a0f20dd8422d236d.hot-update.js
+++main.280a3d15315f4ddfa369.hot-update.js
+++main.300a49841d2045eba1dd.hot-update.js
+++main.8c95794068362c2a5e87.hot-update.js
+++main.1e5a886a79e1c9f08cad.hot-update.js
+++main.a54b7c09b1113f5119b8.hot-update.js
+++main.8b2c63e069558ef26ed4.hot-update.js
+++main.5821c6c0de6f95a5aed8.hot-update.js
+++main.3cb3a06c17ff9c3bb7f3.hot-update.js
+++main.053df34e678ca845faed.hot-update.js
+++main.493e5cc5e0f47ab307bb.hot-update.js
+++main.4c72eddb9db6955b91f6.hot-update.js

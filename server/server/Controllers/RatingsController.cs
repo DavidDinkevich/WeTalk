@@ -35,12 +35,10 @@ namespace server.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(string query)
         {
-
-            //var q = _service.GetRatings().Where(rating => rating.RatingsCount.Contains(query));
-            if (string.IsNullOrEmpty(query))
-            {
+            if (string.IsNullOrEmpty(query)) {
                 return View(await _service.GetRatings());
             }
+            //var q = _service.GetRatings().Where(rating => rating.RatingsCount.Contains(query));
             var q = _service.Search(query);
             // return View(await q.ToListAsync());
             return Json(await q.ToListAsync());
