@@ -66,7 +66,7 @@ export const updateUserContacts = async function() {
 }
 
 export const updateMessages = async function(contactID) {
-    await fetch(`https://localhost:7013/api/Chats/contacts/${contactID}/messages`, {
+    await fetch(`https://localhost:7013/api/Users/contacts/${contactID}/messages`, {
                 headers: {
                     'Authorization': `Bearer ${context.token}`
                 }
@@ -95,7 +95,7 @@ export const postContactToServer = async function({id, name, server}) {
 }
 
 export const postMessageToServer = async function({content, from, to}) {
-    await fetch('https://localhost:7013/api/Chats/contacts/'+to+'/messages', {
+    await fetch('https://localhost:7013/api/Users/contacts/'+to+'/messages', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',

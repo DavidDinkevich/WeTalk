@@ -5,8 +5,8 @@ import { getMessageByID } from '../DataBase';
 
 function Message({ source, id, sender, time }) {
     // const messageSide = source === 'self' ? 'msg-self' : 'msg-remote';
-    let senderImage = getActiveUser().image;
-    let recipientImage = '';
+    let senderImage = getActiveUser().image.length > 0 ? getActiveUser().image : 'anonymous_profile.webp';
+    let recipientImage = 'anonymous_profile.webp';
 
     if (source === 'remote') {
         return (

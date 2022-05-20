@@ -15,9 +15,11 @@ function SelfInfo() {
 
 
     function addNewContact() {
-        let contactID = document.getElementById('inputBox').value;
-        if (contactID !== '') {
-            if (postContactToServer({id: "NoaEitan100", name: "Noa", server: "localhost:7013"})) {
+        let contactID = document.getElementById('contactNameBox').value;
+        let ip = document.getElementById('ipBox').value;
+        let port = document.getElementById('portBox').value;
+        if (contactID !== '' && ip != '' && port != '') {
+            if (postContactToServer({id: contactID, name: contactID, server: `${ip}:${port}`})) {
                 updateUserContacts();
                 setIsOpen(false);
             } else {
@@ -72,14 +74,9 @@ function SelfInfo() {
                     <div className="input-group flex-nowrap">
                         <div className="col">
                             <div className="col">
-                                <input type="text" id="inputBox" className="form-control" placeholder="Name"
-                                    onKeyUp={(e) => {
-                                        if (!e) e = window.event;
-                                        var keyCode = e.code || e.key;
-                                        if (keyCode === 'Enter') {
-                                            addNewContact();
-                                        }
-                                    }} required></input>
+                                <input type="text" id="contactNameBox" className="form-control inner-add-contact-form" placeholder="Contact ID" required></input>
+                                <input type="text" id="ipBox" className="form-control inner-add-contact-form" placeholder="IP" minLength="7" maxLength="15" size="15"></input>
+                                <input type="number" id="portBox" className="form-control inner-add-contact-form" placeholder="Port" required></input>
                             </div>
                             <div className="col message-not-registered">
                                 <span id='messageContactNotRegistered'></span>
