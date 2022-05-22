@@ -40,8 +40,8 @@ export function DataBase() {
                 refreshSelfInfo();
             })
             .catch(err => {
-                console.log("We've been thrown out :(")
-                navigate("/")
+                alert("Session has expired");
+                navigate("/");
             });
     }
     
@@ -60,8 +60,8 @@ export function DataBase() {
                 refreshUIChatList();
             })
             .catch(err => {
-                console.log("We've been thrown out :(")
-                navigate("/")
+                alert("Session has expired");
+                navigate("/");
             });
 
     }
@@ -81,29 +81,26 @@ export function DataBase() {
             refreshMessagesList();
         })
         .catch(err => {
-            console.log("We've been thrown out :(")
-            navigate("/")
+            alert("Session has expired");
+            navigate("/");
         });
     }
     
     postContactToServer = async function ({ Id, Name, Server }) {
         const json = JSON.stringify({ Id, Name, Server });
         console.log(json)
-        await fetch('https://localhost:7013/api/Users/contacts', {
+        const response = await fetch('https://localhost:7013/api/Users/contacts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${context.token}`
             },
             body: json
-        }).then(() => {
-            console.log(json)
-            addContactSignalR(json);
-        })
-        .catch(err => {
-            console.log("We've been thrown out :(")
-            // navigate("/")
         });
+        if (response.ok)
+            addContactSignalR(json);
+        else
+            alert("Server is invalid or contact couldn't be found")
 
         return true;
     }
@@ -120,8 +117,8 @@ export function DataBase() {
             sendMessageSignalR(JSON.stringify({ Content, From, To }));
         })
         .catch(err => {
-            console.log("We've been thrown out :(")
-            navigate("/")
+            alert("Session has expired");
+            navigate("/");
         });
 
         return true;

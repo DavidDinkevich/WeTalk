@@ -44,7 +44,7 @@ builder.Services.AddSignalR();
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options => {
-    options.IOTimeout = TimeSpan.FromMinutes(2);
+    options.IOTimeout = TimeSpan.FromMinutes(20);
 });
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
