@@ -3,6 +3,7 @@ import { refreshMessagesList } from "./chat-view/ChatView";
 import { addContactSignalR, sendMessageSignalR } from "./SignalRHandler";
 import { searchBox } from "./left-screen/chat-search/ChatSearch";
 import { refreshSelfInfo } from "./self-info/SelfInfo";
+import { useNavigate } from "react-router-dom";
 
 const SERVER_NAME = "localhost:7013"
 
@@ -17,6 +18,119 @@ const context = {
     messages: [],
     token: ''
 }
+
+export let updateUserInfo;
+export let updateUserContacts;
+export let updateMessages;
+export let postContactToServer;
+export let postMessageToServer;
+
+export function DataBase() {
+    const navigate = useNavigate();
+
+    updateUserInfo = async function () {
+        await fetch("https://localhost:7013/api/Users/info", {
+            headers: {
+                'Authorization': `Bearer ${context.token}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                context.currentUser = Object.assign(context.currentUser, data);
+                refreshSelfInfo();
+            })
+            .catch(err => {
+                console.log("We've been thrown out :(")
+                navigate("/")
+            });
+    }
+    
+    updateUserContacts = async function () {
+        await fetch("https://localhost:7013/api/Users/contacts", {
+            headers: {
+                'Authorization': `Bearer ${context.token}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // context.currentUser.contacts = data;
+                context.currentUser.contacts = data.filter((value) => {
+                    return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
+                })
+                refreshUIChatList();
+            })
+            .catch(err => {
+                console.log("We've been thrown out :(")
+                navigate("/")
+            });
+
+    }
+    
+    updateMessages = async function (contactID) {
+        await fetch(`https://localhost:7013/api/Users/contacts/${contactID}/messages`, {
+            headers: {
+                'Authorization': `Bearer ${context.token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            context.messages = data;
+            console.log("Updated Messages:")
+            console.log(context.messages);
+            console.log("Refreshing screen......................");
+            refreshMessagesList();
+        })
+        .catch(err => {
+            console.log("We've been thrown out :(")
+            navigate("/")
+        });
+    }
+    
+    postContactToServer = async function ({ Id, Name, Server }) {
+        const json = JSON.stringify({ Id, Name, Server });
+        console.log(json)
+        await fetch('https://localhost:7013/api/Users/contacts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: json
+        }).then(() => {
+            console.log(json)
+            addContactSignalR(json);
+        })
+        .catch(err => {
+            console.log("We've been thrown out :(")
+            // navigate("/")
+        });
+
+        return true;
+    }
+    
+    postMessageToServer = async function ({ Content, From, To }) {
+        await fetch('https://localhost:7013/api/Users/contacts/' + To + '/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ Content, From, To })
+        }).then(() => {
+            sendMessageSignalR(JSON.stringify({ Content, From, To }));
+        })
+        .catch(err => {
+            console.log("We've been thrown out :(")
+            navigate("/")
+        });
+
+        return true;
+    }
+
+    return <></>
+}
+
+export default DataBase;
 
 export const login = async function (username, password, onSuccess, onFail) {
     const response = await fetch("https://localhost:7013/api/login",
@@ -61,83 +175,6 @@ export const signup = async function (username, password, displayName, onSuccess
     }
 }
 
-export const updateUserInfo = async function () {
-    await fetch("https://localhost:7013/api/Users/info", {
-        headers: {
-            'Authorization': `Bearer ${context.token}`
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            context.currentUser = Object.assign(context.currentUser, data);
-            refreshSelfInfo();
-        });
-}
-
-export const updateUserContacts = async function () {
-    await fetch("https://localhost:7013/api/Users/contacts", {
-        headers: {
-            'Authorization': `Bearer ${context.token}`
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            // context.currentUser.contacts = data;
-            context.currentUser.contacts = data.filter((value) => {
-                return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
-            })
-            refreshUIChatList();
-        });
-}
-
-export const updateMessages = async function (contactID) {
-    await fetch(`https://localhost:7013/api/Users/contacts/${contactID}/messages`, {
-        headers: {
-            'Authorization': `Bearer ${context.token}`
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            context.messages = data;
-            console.log("Updated Messages:")
-            console.log(context.messages);
-            console.log("Refreshing screen......................");
-            refreshMessagesList();
-        }
-        );
-}
-
-
-export const postContactToServer = async function ({ Id, Name, Server }) {
-    const json = JSON.stringify({ Id, Name, Server });
-    console.log(json)
-    await fetch('https://localhost:7013/api/Users/contacts', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${context.token}`
-        },
-        body: json
-    }).then(() => {
-        console.log(json)
-        addContactSignalR(json);
-    });
-    return true;
-}
-
-export const postMessageToServer = async function ({ Content, From, To }) {
-    await fetch('https://localhost:7013/api/Users/contacts/' + To + '/messages', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${context.token}`
-        },
-        body: JSON.stringify({ Content, From, To })
-    }).then(() => {
-        sendMessageSignalR(JSON.stringify({ Content, From, To }));
-    });
-    return true;
-}
 
 export function getContacts() {
     return context.currentUser.contacts;
@@ -158,20 +195,9 @@ export function getMessageByID(messageID) {
 
 export function setActiveUser(name) {
     context.currentUser.id = name;
-    // let index = users.findIndex((user) => {return user.username === name});
-    // activeUser = users[index];
 }
 //---------------------------------
 
-export function addNewUser({ username, displayName, password, image }) {
-    // users.push({username: username, displayName: displayName, password, image, contacts:[]});
-}
-
-export function getUserByName(name) {
-    // return users.find((element) => {
-    // return element.username === name
-    // });
-}
 
 export function getContactByName(contactName) {
     // return getContactList(activeUser).find((value) => value.name === contactName);
@@ -182,10 +208,6 @@ export function getContactById(id) {
     return context.currentUser.contacts.find((value) => { return value.id === id; })
 }
 
-
-export function getContactList(displayName) {
-    // return users.find((value) => { return value.displayName === displayName; }).contacts;
-}
 
 export const emptyMessageJSON = function () {
     return { source: '', author: '', message: '', image: '', video: '', audio: '' };

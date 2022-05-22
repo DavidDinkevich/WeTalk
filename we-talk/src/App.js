@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import {getContactByName} from './DataBase'
 import SignalRHandler from './SignalRHandler';
+import DataBase from './DataBase';
 
 export let activeContact;
 
@@ -16,6 +17,7 @@ function App() {
     <div style={{ width: '100%', height: '100%' }}>
       <SignalRHandler activeContact={activeContact}/>
       <BrowserRouter>
+        <DataBase />
         <Routes>
           <Route path='/' element={
             <LoginView />

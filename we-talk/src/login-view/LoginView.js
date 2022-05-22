@@ -1,7 +1,7 @@
-import { getUserByName, signup, setActiveUser, login } from '../DataBase';
+import { signup, setActiveUser, login } from '../DataBase';
 import './login-view.css';
 import { useNavigate } from 'react-router-dom';
-import { joinGroup as joinSignalRGroup } from '../SignalRHandler';
+import { joinSignalRGroup } from '../SignalRHandler';
 
 const checkPasswordsMatch = function () {
     let passwordFieldID = `signup_form_password_field`;
@@ -16,19 +16,6 @@ const checkPasswordsMatch = function () {
         document.getElementById('pswd_match_msg_id').innerHTML = "Passwords don't match";
         return false;
     }
-}
-
-const checkUserExists = function () {
-    const userNameField = document.getElementById('login_form_username_field');
-    const passwordField = document.getElementById('login_form_password_field');
-    let user = getUserByName(userNameField.value);
-
-    if (user == null || user.password != passwordField.value) {
-        document.getElementById('user_not_exist_msg').style.color = 'red';
-        document.getElementById('user_not_exist_msg').innerHTML = "User doesn't exist, please sign up first"
-        return false;
-    }
-    return true;
 }
 
 const onSubmitLogin = async function (navigate) {
@@ -54,30 +41,16 @@ const onSubmitSignup = async function (navigate) {
     // const imageField = document.getElementById('upload');
 
     if (isUserNameValid() && isPasswordValid() && checkPasswordsMatch()) {
-        // var fReader = new FileReader();
-        // if (imageField.files.length > 0) {
-        //     fReader.readAsDataURL(imageField.files[0]);
-
-        //     fReader.onloadend = function (event) {
-        //         // addNewUser({ username, displayName, password, image: event.target.result });
-        //         setActiveUser(username);
-        //         navigate('/chat', { state: { displayname: displayName } });
-        //     }    
-        // // window.location.replace('/');
-        // } else {
-            // addNewUser({ username: username, displayName: displayName, password: password, image: 'anonymous_profile.webp' });
-            const onSuccess = function() {
-                setActiveUser(username);
-                joinSignalRGroup();
-                navigate('/chat', { state: { username:username } });
-            }
-            const onFail = function() {
-                //...
-            }
-        
-            await signup(username, password, displayName, onSuccess, onFail);
-        
-        // }
+        const onSuccess = function() {
+            setActiveUser(username);
+            joinSignalRGroup();
+            navigate('/chat', { state: { username:username } });
+        }
+        const onFail = function() {
+            //...
+        }
+    
+        await signup(username, password, displayName, onSuccess, onFail);
     }
 
 }

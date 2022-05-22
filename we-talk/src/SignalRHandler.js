@@ -6,7 +6,7 @@ import { getActiveUser, getContactById, updateUserContacts } from './DataBase';
 
 export let sendMessageSignalR;
 export let addContactSignalR;
-export let joinGroup;
+export let joinSignalRGroup;
 
 function SignalRHandler() {
     // Connection handle
@@ -20,7 +20,7 @@ function SignalRHandler() {
         connection.invoke("AddContact", getActiveUser().id, contact);
     }
 
-    joinGroup = () => {
+    joinSignalRGroup = () => {
         console.log("Joining group: " + getActiveUser().id);
         connection.invoke("JoinClientGroup", getActiveUser().id);
         console.log("Joined group: " + getActiveUser().id);
