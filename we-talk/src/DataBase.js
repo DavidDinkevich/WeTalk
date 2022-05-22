@@ -4,6 +4,7 @@ import { addContactSignalR, sendMessageSignalR } from "./SignalRHandler";
 import { searchBox } from "./left-screen/chat-search/ChatSearch";
 import { refreshSelfInfo } from "./self-info/SelfInfo";
 
+const SERVER_NAME = "localhost:7013"
 
 const context = {
     currentUser: {
@@ -17,14 +18,14 @@ const context = {
     token: ''
 }
 
-export const login = async function(username, password, onSuccess, onFail) {
+export const login = async function (username, password, onSuccess, onFail) {
     const response = await fetch("https://localhost:7013/api/login",
         {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({ username, password })
         })
     if (!response.ok) {
         onFail();
@@ -34,7 +35,33 @@ export const login = async function(username, password, onSuccess, onFail) {
     }
 }
 
-export const updateUserInfo = async function() {
+export const signup = async function (username, password, displayName, onSuccess, onFail) {
+    console.log(JSON.stringify(
+        {
+            id: username, password, name: displayName,
+            server: SERVER_NAME
+        }))
+    const response = await fetch("https://localhost:7013/api/signup",
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    Id: username, Password: password, Name: displayName,
+                    Server: SERVER_NAME
+                })
+        })
+    if (!response.ok) {
+        onFail();
+    } else {
+        context.token = await response.text();
+        onSuccess();
+    }
+}
+
+export const updateUserInfo = async function () {
     await fetch("https://localhost:7013/api/Users/info", {
         headers: {
             'Authorization': `Bearer ${context.token}`
@@ -43,12 +70,11 @@ export const updateUserInfo = async function() {
         .then(response => response.json())
         .then(data => {
             context.currentUser = Object.assign(context.currentUser, data);
-            console.log(context.currentUser)
             refreshSelfInfo();
         });
 }
 
-export const updateUserContacts = async function() {
+export const updateUserContacts = async function () {
     await fetch("https://localhost:7013/api/Users/contacts", {
         headers: {
             'Authorization': `Bearer ${context.token}`
@@ -60,50 +86,55 @@ export const updateUserContacts = async function() {
             context.currentUser.contacts = data.filter((value) => {
                 return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
             })
-            console.log(context.currentUser.contacts)
             refreshUIChatList();
         });
 }
 
-export const updateMessages = async function(contactID) {
+export const updateMessages = async function (contactID) {
     await fetch(`https://localhost:7013/api/Users/contacts/${contactID}/messages`, {
-                headers: {
-                    'Authorization': `Bearer ${context.token}`
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                context.messages = data;
-                refreshMessagesList();
-            }
-    );
+        headers: {
+            'Authorization': `Bearer ${context.token}`
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            context.messages = data;
+            console.log("Updated Messages:")
+            console.log(context.messages);
+            console.log("Refreshing screen......................");
+            refreshMessagesList();
+        }
+        );
 }
 
 
-export const postContactToServer = async function({id, name, server}) {
+export const postContactToServer = async function ({ Id, Name, Server }) {
+    const json = JSON.stringify({ Id, Name, Server });
+    console.log(json)
     await fetch('https://localhost:7013/api/Users/contacts', {
         method: 'POST',
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${context.token}`
         },
-        body: JSON.stringify({id, name, server})
+        body: json
     }).then(() => {
-    addContactSignalR(JSON.stringify({id, name, server}));
-});
+        console.log(json)
+        addContactSignalR(json);
+    });
     return true;
 }
 
-export const postMessageToServer = async function({content, from, to}) {
-    await fetch('https://localhost:7013/api/Users/contacts/'+to+'/messages', {
+export const postMessageToServer = async function ({ Content, From, To }) {
+    await fetch('https://localhost:7013/api/Users/contacts/' + To + '/messages', {
         method: 'POST',
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${context.token}`
         },
-        body: JSON.stringify({content, from, to})
+        body: JSON.stringify({ Content, From, To })
     }).then(() => {
-        sendMessageSignalR(JSON.stringify({content, from, to}));
+        sendMessageSignalR(JSON.stringify({ Content, From, To }));
     });
     return true;
 }
@@ -132,13 +163,13 @@ export function setActiveUser(name) {
 }
 //---------------------------------
 
-export function addNewUser({username, displayName, password, image}) {
+export function addNewUser({ username, displayName, password, image }) {
     // users.push({username: username, displayName: displayName, password, image, contacts:[]});
 }
 
 export function getUserByName(name) {
     // return users.find((element) => {
-        // return element.username === name
+    // return element.username === name
     // });
 }
 

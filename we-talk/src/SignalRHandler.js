@@ -1,13 +1,12 @@
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { useEffect, useState } from "react";
-import { handleNewMessage, refreshUIChatList } from './chat-list/ChatList';
-import { refreshMessagesList } from './chat-view/ChatView';
-import { getContactById, getContactByName, getContacts, updateMessages, updateUserContacts } from './DataBase';
-import {showChatView} from '../src/main-view/MainView'
+import { handleNewMessage } from './chat-list/ChatList';
+import { getActiveUser, getContactById, updateUserContacts } from './DataBase';
 
 
 export let sendMessageSignalR;
 export let addContactSignalR;
+export let joinGroup;
 
 function SignalRHandler() {
     // Connection handle
@@ -17,8 +16,15 @@ function SignalRHandler() {
     }
 
     addContactSignalR = contact => {
-        connection.invoke("AddContact", contact);
+        console.log("Sending: " + contact)
+        connection.invoke("AddContact", getActiveUser().id, contact);
     }
+
+    joinGroup = () => {
+        console.log("Joining group: " + getActiveUser().id);
+        connection.invoke("JoinClientGroup", getActiveUser().id);
+        console.log("Joined group: " + getActiveUser().id);
+    };
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
@@ -26,6 +32,7 @@ function SignalRHandler() {
       
             .withAutomaticReconnect()
             .build();
+            
     
         setConnection(newConnection);
     }, []);
@@ -36,15 +43,19 @@ function SignalRHandler() {
             connection.start().then(result => {
 
                 connection.on('ReceivedMessage', message => {
+                    console.log("SignalR here " + message)
                     updateUserContacts();                    
                     let msgJson = JSON.parse(message);
-                    let contact = getContactById(msgJson.to);
-                    if (contact != undefined) {
-                        handleNewMessage(false, contact);
-                    }
+                    let sender = getContactById(msgJson.From);
+                    if (sender != undefined)
+                        handleNewMessage(false, sender);
+                    let recipient = getContactById(msgJson.To);
+                    if (recipient != undefined)
+                        handleNewMessage(false, recipient);
                 });
 
                 connection.on('NewContact', contact => {
+                    console.log(getActiveUser().id + " got new contact")
                      updateUserContacts();
                 });
 

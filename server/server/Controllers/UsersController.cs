@@ -1,18 +1,10 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
-using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Net.Http.Headers;
 using System.Text.Json;
 
 namespace server.Controllers
@@ -85,7 +77,7 @@ namespace server.Controllers
             //var user = await _context.User.FindAsync(0);
             var user = GetCurrentUser();
             // Add to us
-            if (!_context.AddContact(user.Id, inp.Id))
+            if (!_context.AddContact(user.Id, inp))
                 return NotFound();
 
             // SEND INVITATION TO OTHER SERVER
@@ -158,23 +150,27 @@ namespace server.Controllers
         [HttpPost]
         [Route("invitations")]
         public async Task<IActionResult> Invitation(Invitation invo) {
-            Console.WriteLine("We got");
-            //Console.WriteLine(invo.ToString());
             User to = _context.GetUserByID(invo.To);
-            User from = _context.GetUserByID(invo.From);
+            //User from = _context.GetUserByID(invo.From);
             // User not here
             if (to == null)
                 return NotFound();
-            if (from == null) {
-                from = new User() {
-                    Id = invo.From,
-                    Name = invo.From,
-                    Server = invo.Server
-                };
-                _context.AddUser(from);
-            }
+            //if (from == null) {
+            //    from = new User() {
+            //        Id = invo.From,
+            //        Name = invo.From,
+            //        Server = invo.Server
+            //    };
+            //    _context.AddUser(from);
+            //}
             // Add as contact
-            _context.AddContact(invo.To, invo.From);
+
+            Contact fromContact = new Contact() {
+                Id = invo.From,
+                Name = invo.From, // No info given about name, bad API :(
+                Server = invo.Server
+            };
+            _context.AddContact(invo.To, fromContact);
             return Ok();
         }
 

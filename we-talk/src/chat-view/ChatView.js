@@ -38,16 +38,16 @@ function ChatView({ activeContact }) {
 
         let newMessage = Object.assign(
             emptyMessageJSON(),
-            { Sender: getActiveUser().name, Recipient: activeContact.name, Time: date },
+            { Sender: getActiveUser().id, Recipient: activeContact.id, Time: date },
             { MessageText: message, image, video, audio }
         );
 
         postMessageToServer(
             {
-                to: activeContact.id, 
-                from: getActiveUser().id,
+                To: activeContact.id, 
+                From: getActiveUser().id,
                 // content: JSON.stringify(newMessage)
-                content: newMessage.MessageText
+                Content: newMessage.MessageText
             });
 
         

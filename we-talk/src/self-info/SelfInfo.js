@@ -15,11 +15,12 @@ function SelfInfo() {
 
 
     function addNewContact() {
-        let contactID = document.getElementById('contactNameBox').value;
+        let contactID = document.getElementById('contactIdBox').value;
+        let contactName = document.getElementById('contactNameBox').value;
         let ip = document.getElementById('ipBox').value;
         let port = document.getElementById('portBox').value;
         if (contactID !== '' && ip != '' && port != '') {
-            if (postContactToServer({id: contactID, name: contactID, server: `${ip}:${port}`})) {
+            if (postContactToServer({Id: contactID, Name: contactName, Server: `${ip}:${port}`})) {
                 updateUserContacts();
                 setIsOpen(false);
             } else {
@@ -74,7 +75,8 @@ function SelfInfo() {
                     <div className="input-group flex-nowrap">
                         <div className="col">
                             <div className="col">
-                                <input type="text" id="contactNameBox" className="form-control inner-add-contact-form" placeholder="Contact ID" required></input>
+                                <input type="text" id="contactIdBox" className="form-control inner-add-contact-form" placeholder="Contact ID" required></input>
+                                <input type="text" id="contactNameBox" className="form-control inner-add-contact-form" placeholder="Contact Name" required></input>
                                 <input type="text" id="ipBox" className="form-control inner-add-contact-form" placeholder="IP" minLength="7" maxLength="15" size="15"></input>
                                 <input type="number" id="portBox" className="form-control inner-add-contact-form" placeholder="Port" required></input>
                             </div>

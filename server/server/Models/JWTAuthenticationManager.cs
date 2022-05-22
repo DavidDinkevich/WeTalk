@@ -14,11 +14,8 @@ namespace server.Models {
             this.key = key;
         }
 
-        public string Authenticate(serverContext dbContext, string username, string password) {
+        public string MakeToken(string username) {
 
-            if (!dbContext.Authenticate(username, password)) {
-                return null;
-            }
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(key);
             var tokenDescriptor = new SecurityTokenDescriptor {

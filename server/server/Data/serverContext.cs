@@ -72,7 +72,7 @@ namespace server.Data
         }
 
         public bool Authenticate(string username, string password) {
-            return usersDB.Any(u => u.Id == username && u.Password == password) != null;
+            return usersDB.Any(u => u.Id == username && u.Password == password);
         }
 
 
@@ -85,24 +85,23 @@ namespace server.Data
             usersDB.Add(u);
         }
         
-        public bool AddContact(string u1ID, string u2ID) {
-            if (u1ID == u2ID)
+        public bool AddContact(string u1ID, Contact other) {
+            if (u1ID == other.Id)
                 return false;
             var u1 = GetUserByID(u1ID);
-            var u2 = GetUserByID(u2ID);
-            if (u1 == null || u2 == null)
+            if (u1 == null)
                 return false;
             // Already a contact
-            var find = u1.Contacts.FirstOrDefault((c) => c.Id == u2ID);
+            var find = u1.Contacts.FirstOrDefault((c) => c.Id == other.Id);
             if (find != null)
                 return true;
-            u1.Contacts.Add(makeContactFromUser(u2));
+            u1.Contacts.Add(other);
 //            u2.Contacts.Add(makeContactFromUser(u1));
             chatDB.Add(new Chat() {
                 Id = chatDB.Count,
                 User1 = u1.Id,
-                User2 = u2.Id
-            });
+                User2 = other.Id
+            });;
 
             return true;
         }

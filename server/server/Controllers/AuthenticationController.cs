@@ -21,7 +21,34 @@ namespace server.Controllers {
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserCred userCred) {
-            var token = authMan.Authenticate(dbContext, userCred.Username, userCred.Password);
+            // User not in system
+            if (!dbContext.Authenticate(userCred.Username, userCred.Password)) {
+                return BadRequest();
+            }
+            // Make token for user
+            var token = authMan.MakeToken(userCred.Username);
+            if (token == null)
+                return Unauthorized();
+            return Ok(token);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("Signup")]
+        public async Task<IActionResult> Signup([FromBody] SignupCreds creds) {
+            // User in system
+            if (dbContext.Authenticate(creds.Id, creds.Password)) {
+                return BadRequest();
+            }
+            // Add to users database
+            dbContext.AddUser(new User() {
+                Id = creds.Id,
+                Name = creds.Name,
+                Password = creds.Password,
+                Server = creds.Server
+            });
+            // Make token for user
+            var token = authMan.MakeToken(creds.Id);
             if (token == null)
                 return Unauthorized();
             return Ok(token);

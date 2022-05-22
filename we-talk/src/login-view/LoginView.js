@@ -1,6 +1,7 @@
-import { getUserByName, addNewUser, setActiveUser, login } from '../DataBase';
+import { getUserByName, signup, setActiveUser, login } from '../DataBase';
 import './login-view.css';
 import { useNavigate } from 'react-router-dom';
+import { joinGroup as joinSignalRGroup } from '../SignalRHandler';
 
 const checkPasswordsMatch = function () {
     let passwordFieldID = `signup_form_password_field`;
@@ -36,6 +37,7 @@ const onSubmitLogin = async function (navigate) {
     
     const onSuccess = function() {
         setActiveUser(username);
+        joinSignalRGroup();
         navigate('/chat', { state: { username:username } });
     }
     const onFail = function() {
@@ -43,39 +45,39 @@ const onSubmitLogin = async function (navigate) {
     }
 
     await login(username, password, onSuccess, onFail);
-
-    // login(username, password);
-    // if (checkUserExists()) {
-    //     setActiveUser(username);
-    //     navigate('/chat', { state: { username:username } });
-    // }
 }
 
-const onSubmitSignup = function (navigate) {
+const onSubmitSignup = async function (navigate) {
     const username = document.getElementById(`signup_form_username_field`).value;
     const displayName = document.getElementById(`signup_form_displayName_field`).value;
     const password = document.getElementById('signup_form_password_field').value;
-    const imageField = document.getElementById('upload');
+    // const imageField = document.getElementById('upload');
 
-    if (isUserNameValid() && isPasswordValid() && checkPasswordsMatch() && getUserByName(username) === undefined) {
-        var fReader = new FileReader();
-        if (imageField.files.length > 0) {
-            fReader.readAsDataURL(imageField.files[0]);
+    if (isUserNameValid() && isPasswordValid() && checkPasswordsMatch()) {
+        // var fReader = new FileReader();
+        // if (imageField.files.length > 0) {
+        //     fReader.readAsDataURL(imageField.files[0]);
 
-            fReader.onloadend = function (event) {
-                addNewUser({ username: username, displayName: displayName, password: password, image: event.target.result });
+        //     fReader.onloadend = function (event) {
+        //         // addNewUser({ username, displayName, password, image: event.target.result });
+        //         setActiveUser(username);
+        //         navigate('/chat', { state: { displayname: displayName } });
+        //     }    
+        // // window.location.replace('/');
+        // } else {
+            // addNewUser({ username: username, displayName: displayName, password: password, image: 'anonymous_profile.webp' });
+            const onSuccess = function() {
                 setActiveUser(username);
-                navigate('/chat', { state: { displayname: displayName } });
-            }    
-        // window.location.replace('/');
-        } else {
-            addNewUser({ username: username, displayName: displayName, password: password, image: 'anonymous_profile.webp' });
-            setActiveUser(username);
-            navigate('/chat', { state: { displayname: displayName } });
-        }
-    }
-    else if (getUserByName(username) !== undefined) {
-        alert("Username is already taken, please choose another");
+                joinSignalRGroup();
+                navigate('/chat', { state: { username:username } });
+            }
+            const onFail = function() {
+                //...
+            }
+        
+            await signup(username, password, displayName, onSuccess, onFail);
+        
+        // }
     }
 
 }
