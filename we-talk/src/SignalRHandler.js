@@ -13,6 +13,7 @@ function SignalRHandler() {
     const [ connection, setConnection ] = useState(null);
     sendMessageSignalR = msgText => {
         console.log("Sending: " + msgText)
+        connection.invoke("SendMessage", msgText);
     }
 
     addContactSignalR = contact => {
@@ -40,6 +41,7 @@ function SignalRHandler() {
             connection.start().then(result => {
 
                 connection.on('ReceivedMessage', message => {
+                    console.log("Got message: " + message)
                     updateUserContacts();                    
                     let msgJson = JSON.parse(message);
                     let sender = getContactById(msgJson.from);
@@ -51,6 +53,7 @@ function SignalRHandler() {
                 });
 
                 connection.on('NewContact', contact => {
+                    console.log("new contact " + contact)
                      updateUserContacts();
                 });
 

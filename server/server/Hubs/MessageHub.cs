@@ -27,7 +27,10 @@ namespace server.Hubs {
         public async Task AddContact(string groupID, string contact) {
             // DISSEMINATE CONTACT TO RECIPIENT'S GROUP
             // Get "to" group
-            Contact contactObj = JsonSerializer.Deserialize<Contact>(contact);
+            var options = new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true
+            };
+            Contact contactObj = JsonSerializer.Deserialize<Contact>(contact, options);
             await Clients.Group(contactObj.Id).SendAsync("NewContact", contact);
             // DISSEMINATE CONTACT TO SENDER'S GROUP
             await Clients.Group(groupID).SendAsync("NewContact", contact);

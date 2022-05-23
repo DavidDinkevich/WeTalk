@@ -36,8 +36,6 @@ function ChatList({ setActiveContact }) {
             let hoursB = lastMessageTimeB.split(":")[0];
             let minutesB = lastMessageTimeB.split(":")[1];
             let secondsB = lastMessageTimeB.split(":")[2];
-            console.log(lastMessageTimeA)
-            console.log(hoursA, minutesA, secondsA)
 
             return (hoursB - hoursA) * 60 * 60 + (minutesB - minutesA) * 60 + (secondsB - secondsA);
         });
