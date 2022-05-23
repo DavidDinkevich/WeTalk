@@ -103,7 +103,7 @@ namespace server.Data
             // Already a contact
             var find = u1.Contacts.FirstOrDefault((c) => c.Id == other.Id);
             if (find != null)
-                return true;
+                return false;
             u1.Contacts.Add(other);
 //            u2.Contacts.Add(makeContactFromUser(u1));
             chatDB.Add(new Chat() {

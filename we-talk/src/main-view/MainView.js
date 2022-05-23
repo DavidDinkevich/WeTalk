@@ -6,11 +6,13 @@ import React, { useState } from "react";
 import Logo from '../logo/Logo.js';
 
 export let showChatView;
+export let hideChatView;
 
 function MainView({ selfInfo, activeContact, setActiveContact }) {
 
     const [chatViewHidden, setChatViewHidden] = useState(true);
     showChatView = () => setChatViewHidden(false);
+    hideChatView = () => setChatViewHidden(true)
 
     return (
         <div className='row g-0 main-view-container'>

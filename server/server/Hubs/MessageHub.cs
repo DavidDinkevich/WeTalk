@@ -15,14 +15,6 @@ namespace server.Hubs {
             // DISSEMINATE MESSAGE TO SENDER'S GROUP
             await Clients.Group(msg.From).SendAsync("ReceivedMessage", msgJson);
         }
-        public async Task SendMessageFromForeignServer(MsgJson msg) {
-            // DISSEMINATE MESSAGE TO RECIPIENT'S GROUP
-            // Get "to" group
-            string msgJson = JsonSerializer.Serialize(msg);
-            await Clients.Group(msg.To).SendAsync("ReceivedMessage", msgJson);
-        }
-
-        
 
         public async Task AddContact(string groupID, string contact) {
             // DISSEMINATE CONTACT TO RECIPIENT'S GROUP

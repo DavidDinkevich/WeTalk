@@ -117,7 +117,7 @@ namespace server.Controllers {
 
             // UPDATE SIGNALR
             // Push to clients with signalr
-            await _hubContext.Clients.Group(user.Id).SendAsync("NewContact", "");
+            await _hubContext.Clients.Group(user.Id).SendAsync("ReloadContacts");
 
             return NoContent();
         }
@@ -128,16 +128,25 @@ namespace server.Controllers {
             var user = GetCurrentUser();
             if (!_context.RemoveMessage(user.Id, id, id2))
                 return BadRequest();
+            
+            // UPDATE SIGNALR
+            // Push to clients with signalr
+            await _hubContext.Clients.Group(user.Id).SendAsync("ReloadMessages", id);
 
             return NoContent();
         }
 
         [HttpPut]
         [Route("contacts/{id}/messages/{id2}")]
-        public async Task<ActionResult> PutMessage(string id, int id2, Content content) {
+        public async Task<ActionResult> PutMessage(string id, int id2, MessageContent content) {
             var user = GetCurrentUser();
-            if (!_context.SetMessage(user.Id, id, id2, content.MessageText))
+            if (!_context.SetMessage(user.Id, id, id2, content.Content))
                 return BadRequest();
+
+            // UPDATE SIGNALR
+            // Push to clients with signalr
+            await _hubContext.Clients.Group(user.Id).SendAsync("ReloadMessages", id);
+
             return NoContent();
         }
 
@@ -153,7 +162,7 @@ namespace server.Controllers {
             string contactJson = JsonSerializer.Serialize(contact, new JsonSerializerOptions {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
-            await _hubContext.Clients.Group(user.Id).SendAsync("NewContact", contactJson);
+            await _hubContext.Clients.Group(user.Id).SendAsync("ReloadContacts");
 
             return NoContent();
         }

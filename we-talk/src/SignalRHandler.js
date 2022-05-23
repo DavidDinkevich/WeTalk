@@ -1,7 +1,9 @@
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { useEffect, useState } from "react";
-import { handleNewMessage } from './chat-list/ChatList';
-import { getActiveUser, getContactById, updateUserContacts } from './DataBase';
+import { handleNewMessage, refreshUIChatList } from './chat-list/ChatList';
+import { refreshMessagesList } from './chat-view/ChatView';
+import { getActiveUser, getContactById, updateMessages, updateUserContacts } from './DataBase';
+import { hideChatView, showChatView } from './main-view/MainView';
 
 
 export let sendMessageSignalR;
@@ -41,7 +43,6 @@ function SignalRHandler() {
             connection.start().then(result => {
 
                 connection.on('ReceivedMessage', message => {
-                    console.log("Got message: " + message)
                     updateUserContacts();                    
                     let msgJson = JSON.parse(message);
                     let sender = getContactById(msgJson.from);
@@ -53,9 +54,20 @@ function SignalRHandler() {
                 });
 
                 connection.on('NewContact', contact => {
-                    console.log("new contact " + contact)
                      updateUserContacts();
+                     hideChatView();
                 });
+
+                connection.on('ReloadMessages', contact => {
+                    updateUserContacts();
+                    updateMessages(contact);
+                });
+
+                connection.on('ReloadContacts', () => {
+                    updateUserContacts();                    
+                    hideChatView();
+                });
+
 
             })
             .catch(e => console.log('Connection failed :( ', e));
