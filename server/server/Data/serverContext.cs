@@ -110,7 +110,7 @@ namespace server.Data
                 Id = chatDB.Count,
                 User1 = u1.Id,
                 User2 = other.Id
-            });;
+            });
 
             return true;
         }

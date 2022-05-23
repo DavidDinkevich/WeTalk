@@ -85,6 +85,13 @@ namespace server.Controllers {
             if (!_context.AddContact(user.Id, inp))
                 return NotFound();
 
+            // UPDATE SIGNALR
+            // Push to clients with signalr
+            string contactJson = JsonSerializer.Serialize(inp, new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            await _hubContext.Clients.Group(user.Id).SendAsync("NewContact", contactJson);
+
             // SEND INVITATION TO OTHER SERVER
 
             JObject oJsonObject = new JObject();
@@ -107,6 +114,11 @@ namespace server.Controllers {
             var user = GetCurrentUser();
             if (!_context.RemoveContact(user.Id, id))
                 return BadRequest();
+
+            // UPDATE SIGNALR
+            // Push to clients with signalr
+            await _hubContext.Clients.Group(user.Id).SendAsync("NewContact", "");
+
             return NoContent();
         }
 
@@ -116,6 +128,7 @@ namespace server.Controllers {
             var user = GetCurrentUser();
             if (!_context.RemoveMessage(user.Id, id, id2))
                 return BadRequest();
+
             return NoContent();
         }
 
@@ -134,6 +147,14 @@ namespace server.Controllers {
             var user = GetCurrentUser();
             if (!_context.SetContact(user.Id, id, contact))
                 return BadRequest();
+
+            // UPDATE SIGNALR
+            // Push to clients with signalr
+            string contactJson = JsonSerializer.Serialize(contact, new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            await _hubContext.Clients.Group(user.Id).SendAsync("NewContact", contactJson);
+
             return NoContent();
         }
 
@@ -164,26 +185,26 @@ namespace server.Controllers {
         [Route("invitations")]
         public async Task<IActionResult> Invitation(Invitation invo) {
             User to = _context.GetUserByID(invo.To);
-            //User from = _context.GetUserByID(invo.From);
             // User not here
             if (to == null)
                 return NotFound();
-            //if (from == null) {
-            //    from = new User() {
-            //        Id = invo.From,
-            //        Name = invo.From,
-            //        Server = invo.Server
-            //    };
-            //    _context.AddUser(from);
-            //}
-            // Add as contact
 
+            // Add as contact
             Contact fromContact = new Contact() {
                 Id = invo.From,
                 Name = invo.From, // No info given about name, bad API :(
                 Server = invo.Server
             };
-            _context.AddContact(invo.To, fromContact);
+            if (!_context.AddContact(invo.To, fromContact))
+                return BadRequest();
+
+            // UPDATE SIGNALR
+            // Push to clients with signalr
+            string contactJson= JsonSerializer.Serialize(invo, new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            await _hubContext.Clients.Group(invo.To).SendAsync("NewContact", contactJson);
+
             return Created("api/contacts/" + invo.From, fromContact);
         }
 
