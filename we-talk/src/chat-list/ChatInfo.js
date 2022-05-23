@@ -1,19 +1,21 @@
 import './chat-info.css'
+import {formatTime} from '../DataBase'
 
 function ChatInfo({ contact }) {
     const maxMessageLength = 25;    
     // let messages = contact.messagesList;
     let lastMessageText = ''
     let time = ''
-    let lastMessage = contact.lastMessage;
+    let lastMessage = contact.last;
     // let contactImage = getContactByName(contact.name).image;
     let contactImage = 'anonymous_profile.webp'
     if (lastMessage !== undefined && lastMessage != null) {
-        lastMessageText = contact.lastMessage.messageText;
+        lastMessageText = lastMessage.content;
         // let lastMessage = messages[messages.length - 1];
-        time = lastMessage.time.substring(0, 5);
-        if (lastMessage.messageText.length > 0) {
-            lastMessageText = lastMessage.messageText;
+        time = formatTime(lastMessage.time);
+        // time = lastMessage.time;
+        if (lastMessage.content.length > 0) {
+            lastMessageText = lastMessage.content;
             if (lastMessageText.length > maxMessageLength)
                 lastMessageText = lastMessageText.substring(0, maxMessageLength - 3) + '...';
         }

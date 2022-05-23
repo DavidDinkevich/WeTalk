@@ -1,6 +1,6 @@
 
 import './message.css'
-import { getActiveUser } from '../DataBase'
+import { formatTime, getActiveUser } from '../DataBase'
 import { getMessageByID } from '../DataBase';
 
 function Message({ source, id, sender, time }) {
@@ -22,7 +22,7 @@ function Message({ source, id, sender, time }) {
                             </p>
                         </div> */}
                         <span className="timestamp">
-                            <span className="posttime">{time.substring(0, 5)}</span> •
+                            <span className="posttime">{formatTime(time)}</span> •
                             <span className="displayName">{' ' + sender}</span>
                         </span>
 
@@ -39,7 +39,7 @@ function Message({ source, id, sender, time }) {
 
                         <span className="timestamp">
                             <span className="displayName">{sender}</span> •
-                            <span className="posttime"> {' ' + time.substring(0, 5)}</span>
+                            <span className="posttime"> {' ' + formatTime(time)}</span>
                         </span>
                     </div>
                     <div className="thumb chat-info-image" style={{backgroundImage: `url(${senderImage})`}} />
@@ -53,7 +53,7 @@ function RenderMessageContent({ messageID }) {
     // let accountName = getAccountNameFromMsgID(messageID);
     // let messageNumber = getMessageIndexFromMsgID(messageID);
     // let text = getContactByName(accountName).messagesList[messageNumber].message;
-    let text = getMessageByID(messageID).messageText;
+    let text = getMessageByID(messageID).content;
     // let imgPath = getContactByName(accountName).messagesList[messageNumber].image
     // let videoPath = getContactByName(accountName).messagesList[messageNumber].video
     // let audioPath = getContactByName(accountName).messagesList[messageNumber].audio

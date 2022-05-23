@@ -25,11 +25,13 @@ function ChatView({ activeContact }) {
     // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
     UIMessageList = getMessages();
 
-    const uiList = UIMessageList.map((message, key) => {
-        let source =   message.sender !== getActiveUser().name 
-                    && message.sender !== getActiveUser().id ? "remote" : "self";
-        return <Message {...message} source={source} messageID={message.id} key={key} />;
-    });
+    let uiList = [];
+    if (UIMessageList != null)
+        uiList = UIMessageList.map((message, key) => {
+            let source =   message.sender !== getActiveUser().name 
+                        && message.sender !== getActiveUser().id ? "remote" : "self";
+            return <Message {...message} source={source} messageID={message.id} key={key} />;
+        });
 
     const sendMessage = function ({ message = '', image = '', video = '', audio = '' }) {
         // Get date for message
@@ -38,16 +40,16 @@ function ChatView({ activeContact }) {
 
         let newMessage = Object.assign(
             emptyMessageJSON(),
-            { Sender: getActiveUser().id, Recipient: activeContact.id, Time: date },
-            { MessageText: message, image, video, audio }
+            { sender: getActiveUser().id, recipient: activeContact.id, time: date },
+            { content: message, image, video, audio }
         );
 
         postMessageToServer(
             {
-                To: activeContact.id, 
-                From: getActiveUser().id,
+                to: activeContact.id, 
+                from: getActiveUser().id,
                 // content: JSON.stringify(newMessage)
-                Content: newMessage.MessageText
+                content: newMessage.content
             });
 
         

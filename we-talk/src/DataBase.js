@@ -19,6 +19,15 @@ const context = {
     token: ''
 }
 
+export function formatTime(csTime) {
+    return csTime.substring(11, 16);
+}
+
+export function formatTimeWithSeconds(csTime) {
+    return csTime.substring(11, 19);
+}
+
+
 export let updateUserInfo;
 export let updateUserContacts;
 export let updateMessages;
@@ -46,7 +55,7 @@ export function DataBase() {
     }
     
     updateUserContacts = async function () {
-        await fetch("https://localhost:7013/api/Users/contacts", {
+        await fetch("https://localhost:7013/api/contacts", {
             headers: {
                 'Authorization': `Bearer ${context.token}`
             }
@@ -67,7 +76,7 @@ export function DataBase() {
     }
     
     updateMessages = async function (contactID) {
-        await fetch(`https://localhost:7013/api/Users/contacts/${contactID}/messages`, {
+        await fetch(`https://localhost:7013/api/contacts/${contactID}/messages`, {
             headers: {
                 'Authorization': `Bearer ${context.token}`
             }
@@ -75,9 +84,6 @@ export function DataBase() {
         .then(response => response.json())
         .then(data => {
             context.messages = data;
-            console.log("Updated Messages:")
-            console.log(context.messages);
-            console.log("Refreshing screen......................");
             refreshMessagesList();
         })
         .catch(err => {
@@ -89,7 +95,7 @@ export function DataBase() {
     postContactToServer = async function ({ Id, Name, Server }) {
         const json = JSON.stringify({ Id, Name, Server });
         console.log(json)
-        const response = await fetch('https://localhost:7013/api/Users/contacts', {
+        const response = await fetch('https://localhost:7013/api/contacts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -105,16 +111,16 @@ export function DataBase() {
         return true;
     }
     
-    postMessageToServer = async function ({ Content, From, To }) {
-        await fetch('https://localhost:7013/api/Users/contacts/' + To + '/messages', {
+    postMessageToServer = async function ({ content, from, to }) {
+        await fetch('https://localhost:7013/api/contacts/' + to + '/messages', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${context.token}`
             },
-            body: JSON.stringify({ Content, From, To })
+            body: JSON.stringify({ content, from, to })
         }).then(() => {
-            sendMessageSignalR(JSON.stringify({ Content, From, To }));
+            sendMessageSignalR(JSON.stringify({ content, from, to }));
         })
         .catch(err => {
             alert("Session has expired");

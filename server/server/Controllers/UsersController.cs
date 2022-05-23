@@ -6,19 +6,22 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using System.Text.Json;
+using Microsoft.AspNetCore.SignalR;
+using server.Hubs;
 
-namespace server.Controllers
-{   
+namespace server.Controllers {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class UsersController : ControllerBase {
         private readonly serverContext _context;
         private static readonly HttpClient client = new HttpClient();
+        private static IHubContext<MessageHub> _hubContext;
 
 
-        public UsersController(serverContext context) {
+        public UsersController(serverContext context, IHubContext<MessageHub> hubContext) {
             _context = context;
+            _hubContext = hubContext;
             //            this.authMan = authMan;
         }
 
@@ -29,11 +32,11 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        [Route("info")]
+        [Route("Users/info")]
         public async Task<ActionResult<User>> GetCurrentUserInfo() {
             return Ok(GetCurrentUser());
         }
-            
+
         /*
         // GET: api/Users
         [HttpGet]
@@ -60,11 +63,13 @@ namespace server.Controllers
             for (var i = 0; i < contacts.Count; i++) {
                 var contact = contacts[i];
                 //                string lastMessage = _context.
+                Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
                 User u = new User() {
                     Id = contact.Id,
                     Name = contact.Name,
                     Server = contact.Server,
-                    LastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id),
+                    Last = lastMessage,
+                    LastDate = lastMessage != null ? lastMessage.Time : null
                 };
                 userContacts.Add(u);
             }
@@ -88,12 +93,11 @@ namespace server.Controllers
             oJsonObject.Add("server", inp.Server);
 
             var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(
-                string.Format("https://{0}/api/Users/invitations", inp.Server),
+            await client.PostAsync(
+                string.Format("https://{0}/api/invitations", inp.Server),
                 content);
-            //var responseString = await response.Content.ReadAsStringAsync();
 
-            return Ok();
+            return Created("api/contacts/" + inp.Id, inp);
         }
 
         [HttpDelete]
@@ -101,27 +105,27 @@ namespace server.Controllers
         public async Task<ActionResult> DeleteContact(string id) {
             //var user = await _context.User.FindAsync(0);
             var user = GetCurrentUser();
-            if (!_context.RemoveContact(user.Id,id))
+            if (!_context.RemoveContact(user.Id, id))
                 return BadRequest();
-            return Ok();
+            return NoContent();
         }
 
         [HttpDelete]
         [Route("contacts/{id}/messages/{id2}")]
         public async Task<ActionResult> DeleteMessage(string id, int id2) {
             var user = GetCurrentUser();
-            if (!_context.RemoveMessage(user.Id,id, id2))
+            if (!_context.RemoveMessage(user.Id, id, id2))
                 return BadRequest();
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut]
         [Route("contacts/{id}/messages/{id2}")]
         public async Task<ActionResult> PutMessage(string id, int id2, Content content) {
             var user = GetCurrentUser();
-            if (!_context.SetMessage(user.Id,id, id2, content.MessageText))
+            if (!_context.SetMessage(user.Id, id, id2, content.MessageText))
                 return BadRequest();
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut]
@@ -130,7 +134,7 @@ namespace server.Controllers
             var user = GetCurrentUser();
             if (!_context.SetContact(user.Id, id, contact))
                 return BadRequest();
-            return Ok();
+            return NoContent();
         }
 
 
@@ -143,7 +147,16 @@ namespace server.Controllers
                 return NotFound();
             }
             _context.UpdateLastInfo(user.Id, contact.Id);
-            return contact;
+            Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
+            User u = new User() {
+                Id = contact.Id,
+                Name = contact.Name,
+                Server = contact.Server,
+                Last = lastMessage,
+                LastDate = lastMessage != null ? lastMessage.Time : null
+            };
+
+            return Ok(u);
         }
 
         [AllowAnonymous]
@@ -171,7 +184,7 @@ namespace server.Controllers
                 Server = invo.Server
             };
             _context.AddContact(invo.To, fromContact);
-            return Ok();
+            return Created("api/contacts/" + invo.From, fromContact);
         }
 
         [AllowAnonymous]
@@ -180,14 +193,26 @@ namespace server.Controllers
         public async Task<IActionResult> Transfer(MsgJson transfer) {
             User to = _context.GetUserByID(transfer.To);
             User from = _context.GetUserByID(transfer.From);
+            // Transfers only allowed from foreign servers
+            if (from != null)
+                return BadRequest("Transfers only allowed from users on foreign servers");
             // User not here
-            if (to == null || from == null)
+            if (to == null)
                 return NotFound();
             var msg = new Message(transfer.From, transfer.To) {
-                MessageText = transfer.Content
+                Content = transfer.Content,
+                Time = serverContext.GetTime()
             };
-            _context.AddMessage(msg);                           
-            return Ok();
+            if (!_context.AddMessage(msg))
+                return BadRequest("Sender is not a contact of one of our users");
+
+            // Push to clients with signalr
+            string msgJson = JsonSerializer.Serialize(transfer, new JsonSerializerOptions { 
+                                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            await _hubContext.Clients.Group(transfer.To).SendAsync("ReceivedMessage", msgJson);
+
+
+            return Created(string.Format("api/contacts/{0}/messages/{1}", transfer.From, msg.Id), msg);
         }
 
         [HttpGet]
@@ -229,16 +254,13 @@ namespace server.Controllers
             catch (Exception ex) {
                 // Foreign client
                 msg = new Message(activeUser.Id, toId) {
-                    MessageText = msgJson.Content,
+                    Content = msgJson.Content,
                     Time = serverContext.GetTime()
                 };
             }
             // Try to add the message to the database
             if (!_context.AddMessage(msg))
                 return BadRequest();
-
-            // UPDATE LISTENERS (SIGNALR)
-
 
             // DO TRANSFER
 
@@ -261,8 +283,8 @@ namespace server.Controllers
                 );
             }
             return Created(
-                    string.Format("api/contacts/{0}/messages/{1}",
-                    toId, msg.Id), msg
+                    string.Format("api/contacts/{0}/messages/{1}", toId, msg.Id),
+                    msg
             );
         }
 

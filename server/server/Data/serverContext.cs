@@ -19,7 +19,8 @@ namespace server.Data
         
 
         private static List<User> usersDB = new List<User>() {
-            new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server="localhost:7013"},
+            new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server="localhost:7013",
+                            Contacts = new List<Contact> { new Contact() { Id="John3", Name="John", Server = "david.net:22" } }  },
             new User() { Id="David100", Name="David", Password="yomama100", Server="localhost:7013" },
             new User() { Id="Aviya100", Name="Aviya", Password="yomama100", Server="localhost:7013"},
             new User() { Id="NoaEitan100", Name="Noa", Password="yomama100", Server="localhost:7013"}
@@ -27,17 +28,25 @@ namespace server.Data
 
         private static List<Chat> chatDB = new List<Chat> {
             new Chat() { 
+                Id=0, User1="Shachar100", User2="John3",
+                Messages = new List<Message> {
+                    new Message("Shachar100", "John3") { Id=0, Content="Ma kore!?", Time=GetTime()},
+                    //new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=GetTime()},
+                    //new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=GetTime() }
+                }
+            },
+            new Chat() { 
                 Id=0, User1="Shachar100", User2="David100",
                 Messages = new List<Message> {
-                    new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=GetTime()},
-                    new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=GetTime() }
+                    //new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=GetTime()},
+                    //new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=GetTime() }
                 }
             },
             new Chat() { 
                 Id=1, User1="Shachar100", User2="Aviya100",
                 Messages = new List<Message> {
-                    new Message("Shachar", "Aviya") { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=GetTime() },
-                    new Message("Shachar", "Aviya") { Id=1, MessageText="sdfsdf", Time=GetTime() }
+                    //new Message("Shachar", "Aviya") { Id=0, MessageText="I'm so excited for Maroon 5!!", Time=GetTime() },
+                    //new Message("Shachar", "Aviya") { Id=1, MessageText="sdfsdf", Time=GetTime() }
                 }
             },
             new Chat() {
@@ -68,7 +77,7 @@ namespace server.Data
         }
 
         public static string GetTime() {
-            return DateTime.Now.ToString("HH:mm:ss");
+            return DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffff");
         }
 
         public bool Authenticate(string username, string password) {
@@ -140,6 +149,21 @@ namespace server.Data
             return usersDB.FirstOrDefault((u) => u.Id == id);
         }
 
+        public Contact GetUserOrContact(string id) {
+            User u = GetUserByID(id);
+            if (u != null)
+                return makeContactFromUser(u);
+            else {
+                foreach (User user in usersDB) {
+                    foreach (Contact c in user.Contacts) {
+                        if (c.Id == id)
+                            return c;
+                    }
+                }
+            }
+            return null;
+        }
+
         public void UpdateUser(User user) {
             usersDB[usersDB.FindIndex((u) => u.Id == user.Id)] = user;
         }
@@ -153,6 +177,8 @@ namespace server.Data
             Chat chat = getChat(current.Id, other.Id);
             if (chat == null)
                 return null;
+            foreach (Message msg in chat.Messages)
+                msg.Sent = (msg.Sender == current.Name || msg.Sender == current.Id);
             return chat.Messages;
         }
 
@@ -160,11 +186,11 @@ namespace server.Data
             Chat chat = getChat(u1ID, u2ID);
             User u1 = GetUserByID(u1ID);
             User u2 = GetUserByID(u2ID);
-            if (chat == null || chat.Messages.Count() == 0) {
-                u1.LastMessage = u2.LastMessage = null;
-            } else {
-                u1.LastMessage = u2.LastMessage = chat.Messages[chat.Messages.Count() - 1];
-            }
+            var last = chat == null || chat.Messages.Count() == 0 ? null : chat.Messages[chat.Messages.Count() - 1];
+            if (u1 != null)
+                u1.Last = last;
+            if (u2 != null)
+                u2.Last = last;
         }
 
         public Message GetLastMessageWithContact(string activeUserID, string contactId) {
@@ -182,7 +208,7 @@ namespace server.Data
             Message msg = chat.Messages.FirstOrDefault(m => m.Id == msgId);
             if (msg == null)
                 return false;
-            msg.MessageText = content;
+            msg.Content = content;
             return true;
         }
 
@@ -190,8 +216,8 @@ namespace server.Data
             Chat chat = getChat(msg.Sender, msg.Recipient);
             if (chat != null) {
                 msg.Id = chat.Messages.Count();
-                User sender = GetUserByID(msg.Sender);
-                User recipient = GetUserByID(msg.Recipient);
+                Contact sender = GetUserOrContact(msg.Sender);
+                Contact recipient = GetUserOrContact(msg.Recipient);
                 if (sender != null && recipient != null) {
                     msg.Sender = sender.Name;
                     msg.Recipient = recipient.Name;

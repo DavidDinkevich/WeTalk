@@ -7,11 +7,22 @@ namespace server.Hubs {
         public async Task SendMessage(string msgJson) {
             // DISSEMINATE MESSAGE TO RECIPIENT'S GROUP
             // Get "to" group
-            MsgJson msg = JsonSerializer.Deserialize<MsgJson>(msgJson);
+            var options = new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true
+            };
+            MsgJson msg = JsonSerializer.Deserialize<MsgJson>(msgJson, options);
             await Clients.Group(msg.To).SendAsync("ReceivedMessage", msgJson);
             // DISSEMINATE MESSAGE TO SENDER'S GROUP
             await Clients.Group(msg.From).SendAsync("ReceivedMessage", msgJson);
         }
+        public async Task SendMessageFromForeignServer(MsgJson msg) {
+            // DISSEMINATE MESSAGE TO RECIPIENT'S GROUP
+            // Get "to" group
+            string msgJson = JsonSerializer.Serialize(msg);
+            await Clients.Group(msg.To).SendAsync("ReceivedMessage", msgJson);
+        }
+
+        
 
         public async Task AddContact(string groupID, string contact) {
             // DISSEMINATE CONTACT TO RECIPIENT'S GROUP

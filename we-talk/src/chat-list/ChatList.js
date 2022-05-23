@@ -1,6 +1,6 @@
 import './chat-list.css'
 
-import { getActiveUser, updateMessages, updateUserContacts } from "../DataBase"
+import { getActiveUser, updateMessages, updateUserContacts, formatTimeWithSeconds } from "../DataBase"
 import ChatInfo from "./ChatInfo";
 import {  useEffect, useState } from "react";
 import { showChatView } from "../main-view/MainView";
@@ -24,18 +24,20 @@ function ChatList({ setActiveContact }) {
 
     const sortContactsByTime = function() {
         UIChatList.sort((a, b) => {
-            if (a.lastMessage == null)
+            if (a.lastDate == null)
                 return -1;
-            if (b.lastMessage == null)
+            if (b.lastDate == null)
                 return 1;
-            let lastMessageTimeA = a.lastMessage.time;
-            let lastMessageTimeB = b.lastMessage.time;
+            let lastMessageTimeA = formatTimeWithSeconds(a.lastDate);
+            let lastMessageTimeB = formatTimeWithSeconds(b.lastDate);
             let hoursA = lastMessageTimeA.split(":")[0];
             let minutesA = lastMessageTimeA.split(":")[1];
             let secondsA = lastMessageTimeA.split(":")[2];
             let hoursB = lastMessageTimeB.split(":")[0];
             let minutesB = lastMessageTimeB.split(":")[1];
             let secondsB = lastMessageTimeB.split(":")[2];
+            console.log(lastMessageTimeA)
+            console.log(hoursA, minutesA, secondsA)
 
             return (hoursB - hoursA) * 60 * 60 + (minutesB - minutesA) * 60 + (secondsB - secondsA);
         });

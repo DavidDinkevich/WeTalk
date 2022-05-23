@@ -36,9 +36,9 @@ namespace server.Controllers {
         [HttpPost]
         [Route("Signup")]
         public async Task<IActionResult> Signup([FromBody] SignupCreds creds) {
-            // User in system
-            if (dbContext.Authenticate(creds.Id, creds.Password)) {
-                return BadRequest();
+            if (!ModelState.IsValid || dbContext.Authenticate(creds.Id, creds.Password)) {
+                string errors = ModelState.SelectMany(state => state.Value.Errors).Aggregate("", (current, error) => current + (error.ErrorMessage + ". "));
+                return BadRequest(errors);
             }
             // Add to users database
             dbContext.AddUser(new User() {

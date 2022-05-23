@@ -28,7 +28,8 @@ const onSubmitLogin = async function (navigate) {
         navigate('/chat', { state: { username:username } });
     }
     const onFail = function() {
-        //...
+        document.getElementById('not_valid_user_name_msg').style.color = 'red';
+        document.getElementById('not_valid_user_name_msg').innerHTML = "Username or password is incorrect"
     }
 
     await login(username, password, onSuccess, onFail);
@@ -47,7 +48,8 @@ const onSubmitSignup = async function (navigate) {
             navigate('/chat', { state: { username:username } });
         }
         const onFail = function() {
-            //...
+            document.getElementById('not_valid_password_msg').style.color = 'red';
+            document.getElementById('not_valid_password_msg').innerHTML = "Username or password is invalid";    
         }
     
         await signup(username, password, displayName, onSuccess, onFail);

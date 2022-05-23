@@ -12,18 +12,16 @@ function SignalRHandler() {
     // Connection handle
     const [ connection, setConnection ] = useState(null);
     sendMessageSignalR = msgText => {
+        console.log("Sending: " + msgText)
         connection.invoke("SendMessage", msgText);
     }
 
     addContactSignalR = contact => {
-        console.log("Sending: " + contact)
         connection.invoke("AddContact", getActiveUser().id, contact);
     }
 
     joinSignalRGroup = () => {
-        console.log("Joining group: " + getActiveUser().id);
         connection.invoke("JoinClientGroup", getActiveUser().id);
-        console.log("Joined group: " + getActiveUser().id);
     };
 
     useEffect(() => {
@@ -46,10 +44,10 @@ function SignalRHandler() {
                     console.log("SignalR here " + message)
                     updateUserContacts();                    
                     let msgJson = JSON.parse(message);
-                    let sender = getContactById(msgJson.From);
+                    let sender = getContactById(msgJson.from);
                     if (sender != undefined)
                         handleNewMessage(false, sender);
-                    let recipient = getContactById(msgJson.To);
+                    let recipient = getContactById(msgJson.to);
                     if (recipient != undefined)
                         handleNewMessage(false, recipient);
                 });
