@@ -20,7 +20,7 @@ function SelfInfo() {
         let ip = document.getElementById('ipBox').value;
         let port = document.getElementById('portBox').value;
         if (contactID !== '' && ip != '' && port != '') {
-            if (postContactToServer({Id: contactID, Name: contactName, Server: `${ip}:${port}`})) {
+            if (postContactToServer({id: contactID, name: contactName, server: `${ip}:${port}`})) {
                 updateUserContacts();
                 setIsOpen(false);
             } else {

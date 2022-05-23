@@ -92,9 +92,8 @@ export function DataBase() {
         });
     }
     
-    postContactToServer = async function ({ Id, Name, Server }) {
-        const json = JSON.stringify({ Id, Name, Server });
-        console.log(json)
+    postContactToServer = async function ({ id, name, server }) {
+        const json = JSON.stringify({ id, name, server });
         const response = await fetch('https://localhost:7013/api/contacts', {
             method: 'POST',
             headers: {
