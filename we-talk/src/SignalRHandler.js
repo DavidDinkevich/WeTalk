@@ -2,7 +2,7 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 import { useEffect, useState } from "react";
 import { handleNewMessage, refreshUIChatList } from './chat-list/ChatList';
 import { refreshMessagesList } from './chat-view/ChatView';
-import { getActiveUser, getContactById, updateMessages, updateUserContacts } from './DataBase';
+import { getActiveUser, getContactById, updateMessages, updateUserContacts, SERVER_NAME, getServerUrl } from './DataBase';
 import { hideChatView, showChatView } from './main-view/MainView';
 
 
@@ -28,7 +28,7 @@ function SignalRHandler() {
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:7013/Hubs/messageHub')
+            .withUrl(getServerUrl() + `/Hubs/messageHub`)
       
             .withAutomaticReconnect()
             .build();

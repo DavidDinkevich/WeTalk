@@ -5,7 +5,7 @@ import { searchBox } from "./left-screen/chat-search/ChatSearch";
 import { refreshSelfInfo } from "./self-info/SelfInfo";
 import { useNavigate } from "react-router-dom";
 
-const SERVER_NAME = "localhost:7013"
+export const SERVER_NAME = "192.168.43.81:7013"
 
 const context = {
     currentUser: {
@@ -17,6 +17,10 @@ const context = {
     },
     messages: [],
     token: ''
+}
+
+export function getServerUrl() {
+    return `https://${SERVER_NAME}`
 }
 
 export function formatTime(csTime) {
@@ -38,7 +42,7 @@ export function DataBase() {
     const navigate = useNavigate();
 
     updateUserInfo = async function () {
-        await fetch("https://localhost:7013/api/Users/info", {
+        await fetch(getServerUrl() + "/api/Users/info", {
             headers: {
                 'Authorization': `Bearer ${context.token}`
             }
@@ -55,7 +59,7 @@ export function DataBase() {
     }
     
     updateUserContacts = async function () {
-        await fetch("https://localhost:7013/api/contacts", {
+        await fetch(getServerUrl() + "/api/contacts", {
             headers: {
                 'Authorization': `Bearer ${context.token}`
             }
@@ -76,7 +80,7 @@ export function DataBase() {
     }
     
     updateMessages = async function (contactID) {
-        await fetch(`https://localhost:7013/api/contacts/${contactID}/messages`, {
+        await fetch(getServerUrl() + `/api/contacts/${contactID}/messages`, {
             headers: {
                 'Authorization': `Bearer ${context.token}`
             }
@@ -94,7 +98,7 @@ export function DataBase() {
     
     postContactToServer = async function ({ id, name, server }) {
         const json = JSON.stringify({ id, name, server });
-        const response = await fetch('https://localhost:7013/api/contacts', {
+        const response = await fetch(getServerUrl() + '/api/contacts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -111,7 +115,7 @@ export function DataBase() {
     }
     
     postMessageToServer = async function ({ content, from, to }) {
-        await fetch('https://localhost:7013/api/contacts/' + to + '/messages', {
+        await fetch(getServerUrl() + '/api/contacts/' + to + '/messages', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -135,7 +139,7 @@ export function DataBase() {
 export default DataBase;
 
 export const login = async function (username, password, onSuccess, onFail) {
-    const response = await fetch("https://localhost:7013/api/login",
+    const response = await fetch(getServerUrl() + "/api/login",
         {
             method: 'POST',
             headers: {
@@ -157,7 +161,7 @@ export const signup = async function (username, password, displayName, onSuccess
             id: username, password, name: displayName,
             server: SERVER_NAME
         }))
-    const response = await fetch("https://localhost:7013/api/signup",
+    const response = await fetch(getServerUrl() + "/api/signup",
         {
             method: 'POST',
             headers: {
