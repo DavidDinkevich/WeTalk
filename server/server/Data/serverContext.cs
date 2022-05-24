@@ -16,14 +16,14 @@ namespace server.Data
 {
     public class serverContext : DbContext {
 
-        
+        public static readonly string Server = "192.168.220.36:7013";
 
         private static List<User> usersDB = new List<User>() {
-            new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server="localhost:7013",
+            new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server=Server,
                             Contacts = new List<Contact> { new Contact() { Id="John3", Name="John", Server = "david.net:22" } }  },
-            new User() { Id="David100", Name="David", Password="yomama100", Server="localhost:7013" },
-            new User() { Id="Aviya100", Name="Aviya", Password="yomama100", Server="localhost:7013"},
-            new User() { Id="NoaEitan100", Name="Noa", Password="yomama100", Server="localhost:7013"}
+            new User() { Id="David100", Name="David", Password="yomama100", Server=Server },
+            new User() { Id="Aviya100", Name="Aviya", Password="yomama100", Server=Server},
+            new User() { Id="NoaEitan100", Name="Noa", Password="yomama100", Server=Server}
         };
 
         private static List<Chat> chatDB = new List<Chat> {

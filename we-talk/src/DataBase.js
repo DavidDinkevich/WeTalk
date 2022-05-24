@@ -5,7 +5,7 @@ import { searchBox } from "./left-screen/chat-search/ChatSearch";
 import { refreshSelfInfo } from "./self-info/SelfInfo";
 import { useNavigate } from "react-router-dom";
 
-export const SERVER_NAME = "192.168.43.81:7013"
+export const SERVER_NAME = "127.0.0.1:7013"
 
 const context = {
     currentUser: {
@@ -20,7 +20,7 @@ const context = {
 }
 
 export function getServerUrl() {
-    return `https://${SERVER_NAME}`
+    return `http://${SERVER_NAME}`
 }
 
 export function formatTime(csTime) {

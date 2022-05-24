@@ -97,11 +97,11 @@ namespace server.Controllers {
             JObject oJsonObject = new JObject();
             oJsonObject.Add("from", user.Id);
             oJsonObject.Add("to", inp.Id);
-            oJsonObject.Add("server", inp.Server);
+            oJsonObject.Add("server", user.Server);
 
             var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
             await client.PostAsync(
-                string.Format("https://{0}/api/invitations", inp.Server),
+                string.Format("http://{0}/api/invitations", inp.Server),
                 content);
 
             return Created("api/contacts/" + inp.Id, inp);
@@ -308,7 +308,7 @@ namespace server.Controllers {
 
                 var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
                 await client.PostAsync(
-                    string.Format("https://{0}/api/Users/transfer", server),
+                    string.Format("http://{0}/api/transfer", server),
                     content
                 );
             }
