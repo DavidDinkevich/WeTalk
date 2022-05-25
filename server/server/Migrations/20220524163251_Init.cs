@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -14,8 +15,8 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User1 = table.Column<int>(type: "int", nullable: false),
-                    User2 = table.Column<int>(type: "int", nullable: false)
+                    User1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    User2 = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,27 +31,12 @@ namespace server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RatingsCount = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rating", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Server = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastMessage = table.Column<int>(type: "int", nullable: false),
-                    LastDate = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
                 });
 
             migrationBuilder.CreateTable(
@@ -61,8 +47,9 @@ namespace server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Sender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Recipient = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MessageText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sent = table.Column<bool>(type: "bit", nullable: false),
                     ChatId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -75,22 +62,49 @@ namespace server.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UsersDB",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Server = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastId = table.Column<int>(type: "int", nullable: false),
+                    LastDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_UsersDB_Message_LastId",
+                        column: x => x.LastId,
+                        principalTable: "Message",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Message_ChatId",
                 table: "Message",
                 column: "ChatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersDB_LastId",
+                table: "UsersDB",
+                column: "LastId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Message");
-
-            migrationBuilder.DropTable(
                 name: "Rating");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "UsersDB");
+
+            migrationBuilder.DropTable(
+                name: "Message");
 
             migrationBuilder.DropTable(
                 name: "Chat");

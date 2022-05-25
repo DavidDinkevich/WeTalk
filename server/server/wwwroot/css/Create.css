@@ -1,0 +1,30 @@
+﻿body {
+    background-image: url('main_background_4.jpg');
+    background-size: cover;
+    color: ActiveBorder;
+    margin: 0 auto;
+}
+
+
+.createButton {
+    background: #5DC3E7;
+    color: aliceblue;
+    margin: 0;
+    border: white;
+    padding: 1.5%;
+    margin-top: 3%;
+    border-Radius: 15%;
+}
+
+.backList {
+    margin-top: 1%;
+
+}
+
+.create {
+    text-Shadow: 10px white;
+}
+
+.col-md-4 {
+    text-Shadow: 10px white;
+}

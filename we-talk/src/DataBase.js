@@ -20,7 +20,7 @@ const context = {
 }
 
 export function getServerUrl() {
-    return `http://${SERVER_NAME}`
+    return `https://${SERVER_NAME}`
 }
 
 export function formatTime(csTime) {

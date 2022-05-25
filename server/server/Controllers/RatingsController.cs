@@ -3,27 +3,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
+using server.Services;
 
 namespace server.Controllers
 {
+    [AllowAnonymous]
     public class RatingsController : Controller
     {
-        private readonly serverContext _context;
+        private IRatingService _service;
 
-        public RatingsController(serverContext context)
+        public RatingsController(IRatingService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Ratings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rating.ToListAsync());
+            if (await _service.GetRatings() == null)
+            {
+                return NotFound();
+            }
+            return View(await _service.GetRatings());
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string query)
+        {
+            if (string.IsNullOrEmpty(query)) {
+                return View(await _service.GetRatings());
+            }
+            //var q = _service.GetRatings().Where(rating => rating.RatingsCount.Contains(query));
+            var q = _service.Search(query);
+            // return View(await q.ToListAsync());
+            return Json(await q.ToListAsync());
         }
 
         // GET: Ratings/Details/5
@@ -34,8 +54,8 @@ namespace server.Controllers
                 return NotFound();
             }
 
-            var rating = await _context.Rating
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var ratings = await _service.GetRatings();
+            var rating = ratings.FirstOrDefault(m => m.Id == id);
             if (rating == null)
             {
                 return NotFound();
@@ -59,10 +79,10 @@ namespace server.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(rating);
-//                rating.setTime()
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                rating.Time = DateTime.Now;
+                await _service.Add(rating);
+               // await _service.SaveChangesAsync();
+                return RedirectToAction(nameof(Search));
             }
             return View(rating);
         }
@@ -75,12 +95,15 @@ namespace server.Controllers
                 return NotFound();
             }
 
-            var rating = await _context.Rating.FindAsync(id);
+            var ratings = await _service.GetRatings();
+            var rating = ratings.Find(m => m.Id == id);
             if (rating == null)
             {
                 return NotFound();
             }
             return View(rating);
+
+        
         }
 
         // POST: Ratings/Edit/5
@@ -88,23 +111,25 @@ namespace server.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RatingsCount,Name,Message")] Rating rating)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RatingsCount,Name,Message,Time")] Rating rating)
         {
             if (id != rating.Id)
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(rating);
-                    await _context.SaveChangesAsync();
+                    //_context.Update(rating);
+                    //await _context.SaveChangesAsync();
+                    await _service.Update(rating.Id, rating.Name, rating.RatingsCount, rating.Message);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RatingExists(rating.Id))
+                    var isExists = await RatingExists(rating.Id);
+                    if (!isExists)
                     {
                         return NotFound();
                     }
@@ -113,7 +138,7 @@ namespace server.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Search));
             }
             return View(rating);
         }
@@ -126,8 +151,8 @@ namespace server.Controllers
                 return NotFound();
             }
 
-            var rating = await _context.Rating
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var ratings = await _service.GetRatings();
+            var rating = ratings.FirstOrDefault(m => m.Id == id);
             if (rating == null)
             {
                 return NotFound();
@@ -141,15 +166,17 @@ namespace server.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rating = await _context.Rating.FindAsync(id);
-            _context.Rating.Remove(rating);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var ratings = await _service.GetRatings();
+            var rating = ratings.Find(m => m.Id == id);
+            await _service.Delete(id);
+            //_context.Rating.Remove(rating);
+            return RedirectToAction(nameof(Search));
         }
 
-        private bool RatingExists(int id)
+        private async Task<bool> RatingExists(int id)
         {
-            return _context.Rating.Any(e => e.Id == id);
+            var ratings = await _service.GetRatings();
+            return ratings.Any(e => e.Id == id);
         }
     }
 }

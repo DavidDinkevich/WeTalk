@@ -8,11 +8,11 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = server
 build_property.RootNamespace = server
-build_property.ProjectDir = C:\Users\david\Documents\github repos\wetalk\server\server\
+build_property.ProjectDir = C:\Users\david\Documents\github repos\WeTalk\server\server\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\david\Documents\github repos\wetalk\server\server
+build_property.MSBuildProjectDirectory = C:\Users\david\Documents\github repos\WeTalk\server\server
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/david/Documents/github repos/WeTalk/server/server/Views/Home/Create.cshtml]
@@ -45,6 +45,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/david/Documents/github repos/WeTalk/server/server/Views/Ratings/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/david/Documents/github repos/WeTalk/server/server/Views/Ratings/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nc1xTZWFyY2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/david/Documents/github repos/WeTalk/server/server/Views/Ratings/Search2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nc1xTZWFyY2gyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/david/Documents/github repos/WeTalk/server/server/Views/Shared/Error.cshtml]

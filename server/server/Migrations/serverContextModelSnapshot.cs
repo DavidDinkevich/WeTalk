@@ -30,11 +30,13 @@ namespace server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("User1")
-                        .HasColumnType("int");
+                    b.Property<string>("User1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("User2")
-                        .HasColumnType("int");
+                    b.Property<string>("User2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -52,7 +54,7 @@ namespace server.Migrations
                     b.Property<int?>("ChatId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MessageText")
+                    b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -63,6 +65,9 @@ namespace server.Migrations
                     b.Property<string>("Sender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Sent")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Time")
                         .IsRequired()
@@ -94,6 +99,9 @@ namespace server.Migrations
                     b.Property<int>("RatingsCount")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("Time")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Rating");
@@ -101,19 +109,23 @@ namespace server.Migrations
 
             modelBuilder.Entity("server.Models.User", b =>
                 {
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastDate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LastMessage")
+                    b.Property<int>("LastId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -123,11 +135,9 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("LastId");
 
-                    b.ToTable("User");
+                    b.ToTable("UsersDB");
                 });
 
             modelBuilder.Entity("server.Models.Message", b =>
@@ -135,6 +145,17 @@ namespace server.Migrations
                     b.HasOne("server.Models.Chat", null)
                         .WithMany("Messages")
                         .HasForeignKey("ChatId");
+                });
+
+            modelBuilder.Entity("server.Models.User", b =>
+                {
+                    b.HasOne("server.Models.Message", "Last")
+                        .WithMany()
+                        .HasForeignKey("LastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Last");
                 });
 
             modelBuilder.Entity("server.Models.Chat", b =>

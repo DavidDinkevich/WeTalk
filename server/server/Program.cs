@@ -7,6 +7,7 @@ using server.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ builder.Services.AddSingleton<IJWTAuthenticationManager>(
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -84,7 +86,8 @@ if (!app.Environment.IsDevelopment()) {
 
 
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -101,7 +104,7 @@ app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Users}/{action=GetContacts}/{id?}");
+    pattern: "{controller=Ratings}/{action=Search}/{id?}");
 
 app.UseWebSockets();
 //app.MapHub<MessageHub>("messageHub");

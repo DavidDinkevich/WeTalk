@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<server.Models.Rating>
-<link rel="stylesheet" href="~/css/Index.css">
+<link rel="stylesheet" href="~/css/Search.css">
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Search";
     float sum = 0;
     float num_elements = 0;
     float average = 0;
@@ -37,8 +37,16 @@
 
 <p>
     <a class="createNew" asp-action="Create">Create New</a>
+    @{
+        
+        <a id="backList" asp-action="Search"></a>
+    }
 </p>
 
+<form asp-action="Search">
+    <input name="query" id="search" />
+    <input type="submit" value="Search" />
+</form>
 
 
 <table class="table">
@@ -86,3 +94,9 @@
 }
     </tbody>
 </table>
+
+@section Scripts{
+    <script src="~/js/Search.js">
+    
+</script>
+}
