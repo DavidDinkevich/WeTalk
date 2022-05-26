@@ -9,3 +9,13 @@ Server             | Web client | Android App | Windows App
 # Getting Started
 Create a new user and in React in Database.js change the SERVER NAME to be ip:port according to the ip and port of the computer that you run the server on.
 In addition, in the server Package Mamager Console run the commands: Add-Migrations Init and then update-Database.
+
+# Dependencies
+Microsoft.AspNetCore.Authentucation.JwtBearer
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.VisualStudio.Web.CodeGeneration.Design
+Microsoft.AspNetCore.Authentication
+Microsoft.AspNetCore.Http
+Microsoft.EntityFrameworkCore.Tools
+Swashbuckle.AspNetCore
+System.IdentityModel.Tokens.Jwt
