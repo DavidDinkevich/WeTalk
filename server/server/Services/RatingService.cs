@@ -49,16 +49,17 @@ namespace server.Services
         }
 
 
-        public IQueryable<Rating> Search(string query)
+        public IEnumerable<Rating> Search(string query)
         {
             int numericValue;
+            IEnumerable<Rating> response = _context.Rating.ToList();
             if (int.TryParse(query, out numericValue))
             {
-                IQueryable<Rating> a_num = _context.Rating.Where(c => c.RatingsCount == numericValue);
-                return a_num;
+                // IQueryable<Rating> a_num = _context.Rating.Where(c => c.RatingsCount == numericValue);
+                return response.Where(c => c.RatingsCount == numericValue);
             }
-            IQueryable<Rating> a_str = _context.Rating.Where(c => c.Name.Contains(query));
-            return a_str;
+            // IQueryable<Rating> a_str = _context.Rating.Where(c => c.Name.Contains(query));
+            return response.Where(c => c.Name.Contains(query));
         }
 
         public async Task<Rating> Update(int id, string name, int ratingCount, string massage)

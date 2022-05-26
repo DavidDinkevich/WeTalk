@@ -16,26 +16,17 @@ namespace server.Data
 {
     public class serverContext : DbContext {
 
-        public static readonly string Server = "192.168.220.36:7013";
+        public static readonly string Server = "127.0.0.1:7013";
 
         private static List<User> usersDB = new List<User>() {
-            new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server=Server,
-                            Contacts = new List<Contact> { new Contact() { Id="John3", Name="John", Server = "david.net:22" } }  },
-            new User() { Id="David100", Name="David", Password="yomama100", Server=Server },
-            new User() { Id="Aviya100", Name="Aviya", Password="yomama100", Server=Server},
-            new User() { Id="NoaEitan100", Name="Noa", Password="yomama100", Server=Server}
+            //new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server=Server },
+            //new User() { Id="David100", Name="David", Password="yomama100", Server=Server },
+            //new User() { Id="Aviya100", Name="Aviya", Password="yomama100", Server=Server},
+            //new User() { Id="NoaEitan100", Name="Noa", Password="yomama100", Server=Server}
         };
 
         private static List<Chat> chatDB = new List<Chat> {
-            new Chat() { 
-                Id=0, User1="Shachar100", User2="John3",
-                Messages = new List<Message> {
-                    new Message("Shachar100", "John3") { Id=0, Content="Ma kore!?", Time=GetTime()},
-                    //new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=GetTime()},
-                    //new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=GetTime() }
-                }
-            },
-            new Chat() { 
+            /*new Chat() { 
                 Id=0, User1="Shachar100", User2="David100",
                 Messages = new List<Message> {
                     //new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=GetTime()},
@@ -56,15 +47,15 @@ namespace server.Data
             new Chat() {
                 Id=3, User1="David100", User2="NoaEitan100",
                 Messages= new List<Message> {}
-            }
+            }*/
             
         };
 
         static serverContext() {
-            usersDB[1].Contacts = new List<Contact>() { 
+            /*usersDB[1].Contacts = new List<Contact>() { 
                 makeContactFromUser(usersDB[0]),
                 makeContactFromUser(usersDB[2])
-            };
+            };*/
 
         }
 

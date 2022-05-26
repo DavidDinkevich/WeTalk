@@ -805,3 +805,4 @@ C:\Users\david\Documents\github repos\WeTalk\server\server\obj\Debug\net6.0\ref\
 C:\Users\shach\git repos\advanced-programming 2\WeTalk\server\server\bin\Debug\net6.0\libman.json
 C:\Users\david\Documents\github repos\WeTalk\server\server\bin\Debug\net6.0\libman.json
 C:\Users\david\Documents\github repos\WeTalk\server\server\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\shach\git repos\advanced-programming 2\WeTalk\server\server\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

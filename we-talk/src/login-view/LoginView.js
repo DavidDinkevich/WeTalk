@@ -1,4 +1,4 @@
-import { signup, setActiveUser, login } from '../DataBase';
+import { signup, setActiveUser, login, getServerUrl } from '../DataBase';
 import './login-view.css';
 import { useNavigate } from 'react-router-dom';
 import { joinSignalRGroup } from '../SignalRHandler';
@@ -106,7 +106,7 @@ function isUserNameValid() {
 export function LoginView() {
     const navigate = useNavigate();
     return (
-
+<>
         <div className="login-view-container background">
             <div className="container inner-container" >
                 <div className="row justify-content-md-center" >
@@ -154,6 +154,7 @@ export function LoginView() {
 
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/sign-up">New around here? Sign up</a>
+                            <a className="dropdown-item" href= {getServerUrl()}>Rate us!</a>
                             {/*<a className="dropdown-item" href="/">Forgot password?</a>*/}
 
                         </div>
@@ -162,8 +163,7 @@ export function LoginView() {
                 </div>
             </div>
         </div>
-
-
+    </>
     );
 }
 
@@ -237,6 +237,7 @@ export function SignupView() {
 
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/">Already have an account? Sign in</a>
+                            <a className="dropdown-item" href= {getServerUrl()}>Rate us!</a>
                             {/*<a className="dropdown-item" href="/">Forgot password?</a>*/}
                         </div>
                     </div>

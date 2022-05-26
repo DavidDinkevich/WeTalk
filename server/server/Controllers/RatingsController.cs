@@ -43,7 +43,7 @@ namespace server.Controllers
             //var q = _service.GetRatings().Where(rating => rating.RatingsCount.Contains(query));
             var q = _service.Search(query);
             // return View(await q.ToListAsync());
-            return Json(await q.ToListAsync());
+            return Json(q);
         }
 
         // GET: Ratings/Details/5

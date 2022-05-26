@@ -9,13 +9,19 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                let temp = data[0].time.split('T');
-                let time = (temp[1].split('.'))[0];
-                let date = temp[0].split('-');
-                let timeDate = date[0].concat("/", date[1], "/", date[2], " ", time);
-                let str = '<tr><td>' + data[0].ratingsCount + '</td><td>' + data[0].name + '</td><td>' + data[0].message + '</td><td>' + timeDate + '</td></tr>';
+                
+                let str = '';
+                for (var i = 0; i < data.length; i++) {
+                    let temp = data[i].time.split('T');
+                    let time = (temp[1].split('.'))[0];
+                    let date = temp[0].split('-');
+                    let timeDate = date[0].concat("/", date[1], "/", date[2], " ", time);
+                   
+                    str += '<tr><td>' + data[i].ratingsCount + '</td><td>' + data[i].name + '</td><td>' + data[i].message + '</td><td>' + timeDate + '</td></tr>';
+
+                }  
                 $('tbody').html(str);
-                $('#backList').html("told you shachar :>)")
+                $('#backList').html("Clear Search")
 
             })
 //        const data = await response.json();

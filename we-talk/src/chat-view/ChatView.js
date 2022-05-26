@@ -73,6 +73,8 @@ function ChatView({ activeContact }) {
     }
 
     const toggleMediaUploadView = function () {
+        alert("Implementation of this feature was removed");
+        return;
         let mediaUploadView = document.getElementById('media_upload_view');
         if (mediaUploadView.style.visibility === 'hidden')
             mediaUploadView.style.visibility = 'visible';
@@ -136,7 +138,13 @@ function ChatView({ activeContact }) {
                         className='button'
                         // data-bs-toggle="modal" data-bs-target="#record_audio_modal"
                         style={{ float: 'left', border: 'none', background: '#6cc4ea' }}
-                        onClick={() => setRecordAudioModalIsOpen(true)}
+                        onClick={() => 
+                            {
+                                alert("Implementation of this feature was removed");
+                                return;
+                                setRecordAudioModalIsOpen(true)
+                            }
+                    }
                     >
                         <div style={{ background: '#6cc4ea' }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="44" fill="#FFFFFF" className="bi bi-mic-fill" viewBox="-1 -1 24 24">

@@ -6,7 +6,7 @@ namespace server.Services
     {
         public Task<List<Rating>> GetRatings();
 
-        public IQueryable<Rating> Search(string query);
+        public IEnumerable<Rating> Search(string query);
 
         public Task<Rating> Get(int id);
 

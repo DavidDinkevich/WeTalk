@@ -93,17 +93,22 @@ namespace server.Controllers {
             await _hubContext.Clients.Group(user.Id).SendAsync("NewContact", contactJson);
 
             // SEND INVITATION TO OTHER SERVER
+            var other = _context.GetUserByID(inp.Id);
+            if (other == null && inp.Server != user.Server) {
+                JObject oJsonObject = new JObject();
+                oJsonObject.Add("from", user.Id);
+                oJsonObject.Add("to", inp.Id);
+                oJsonObject.Add("server", user.Server);
 
-            JObject oJsonObject = new JObject();
-            oJsonObject.Add("from", user.Id);
-            oJsonObject.Add("to", inp.Id);
-            oJsonObject.Add("server", user.Server);
-
-            var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
-            await client.PostAsync(
-                string.Format("https://{0}/api/invitations", inp.Server),
-                content);
-
+                var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
+                await client.PostAsync(
+                    string.Format("https://{0}/api/invitations", inp.Server),
+                    content);
+            }
+            else {
+                Contact curr_user = serverContext.makeContactFromUser(user);
+                _context.AddContact(other.Id, curr_user);
+            }
             return Created("api/contacts/" + inp.Id, inp);
         }
 
