@@ -7,8 +7,14 @@ Server             | Web client | Android App | Windows App
 | <ul><li>SignalR</li><li>Asp.net</li></ul>| <ul><li>ReactJS</li><li>NodeJS</li><li>HTML/CSS</li><li>React-router, React-bootstrap</li></ul> |  | 
 
 # Getting Started
-Create a new user and in React in Database.js change the SERVER NAME to be ip:port according to the ip and port of the computer that you run the server on.
-In addition, in the server Package Mamager Console run the commands: Add-Migrations Init and then update-Database.
+First start up the server. This can be done by accessing the solution.sln file in WeTalk/server/solution.sln. If you do not have the dependencies listed below, download them using the NuGet package manager in visual studio.
+In addition, in the Package Manager Console run the commands: <br>
+<code>Add-Migrations Init</code> 
+and then
+<code>Update-Database</code>
+<br>
+Next, we run the web client. <b>Prior to doing so, we must configure the server address that the web client will connect to.</b> We can do this by modifying the <code>SERVER_NAME</code> variable in wetalk/src/Database.js.<br>
+Now we can run the web client by navigating to the WeTalk directory and executing <code>npm start</code>.<br>
 
 # Dependencies (Can be installed via NuGet Package Manager)
 
