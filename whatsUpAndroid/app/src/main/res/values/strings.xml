@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">weTalk</string>
+    <string name="user_name">aviya elgrably</string>
+    <string name="nickname">Shachar Moreshet</string>
+    <string name="last_message">Hi, how are you?</string>
+    <string name="login_userName">Username</string>
+    <string name="login_password">Password</string>
+    <string name="messageInput">Type message here</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="login_button">Login</string>
+    <string name="signUp_button">Sign Up</string>
+    <string name="go_to_signIn">Already registered?</string>
+    <string name="logo_text">We Talk</string>
+    <string name="nick_name">Nickname</string>
+    <string name="register_btn">Not here? click to sign up</string>
+
+</resources>
