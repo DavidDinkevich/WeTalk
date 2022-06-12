@@ -14,6 +14,9 @@
         android:theme="@style/Theme.WhatsUpAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".UserItem"
+            android:exported="false" />
+        <activity
             android:name=".Settings"
             android:exported="false" />
         <activity
