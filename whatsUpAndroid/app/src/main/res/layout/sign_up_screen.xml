@@ -88,7 +88,7 @@
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -100,7 +100,7 @@
     </LinearLayout>
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip4"
+            android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

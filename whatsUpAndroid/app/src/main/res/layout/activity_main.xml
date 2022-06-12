@@ -55,7 +55,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -65,13 +65,24 @@
 
             />
 
+
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip4"
+            android:id="@+id/buttonRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="monospace"
             android:text="@string/register_btn" />
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:backgroundTint="@color/btn_color"
+            android:fontFamily="monospace"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="20dp" />
     </LinearLayout>
 
 
