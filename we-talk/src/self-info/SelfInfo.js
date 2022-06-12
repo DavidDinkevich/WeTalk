@@ -1,27 +1,45 @@
 import { addContact } from "../chat-list/ChatList";
 import { Modal } from "react-bootstrap";
-import { useState } from "react";
-import { getActiveUser, getContactByName, users } from "../DataBase";
-import { getUserByName } from "../DataBase";
+import { useEffect, useState } from "react";
+import { getActiveUser, postContactToServer, updateUserContacts, updateUserInfo } from "../DataBase";
 import './self-info.css';
+
+export let refreshSelfInfo;
 
 function SelfInfo() {
     let [isOpen, setIsOpen] = useState(false);
+    let [renderState, _refreshSelfInfo] = useState()
+    refreshSelfInfo = () => _refreshSelfInfo(renderState + 1);
+
+    useEffect(updateUserInfo, [1]);
 
 
     function addNewContact() {
-        let input = document.getElementById('inputBox').value;
-        if (input !== '') {
-            let contactInDataBase = getUserByName(input);
-            if (contactInDataBase != null && (getContactByName(input) == null) && (getContactByName(contactInDataBase.displayName) === undefined)) {
-                let newContact = { name: contactInDataBase.displayName, image: contactInDataBase.image, messagesList: [], time: '' };
-                addContact(newContact);
+        let contactID = document.getElementById('contactIdBox').value;
+        let contactName = document.getElementById('contactNameBox').value;
+        let ip = document.getElementById('ipBox').value;
+        let port = document.getElementById('portBox').value;
+        if (contactID !== '' && ip != '' && port != '') {
+            if (postContactToServer({id: contactID, name: contactName, server: `${ip}:${port}`})) {
+                updateUserContacts();
                 setIsOpen(false);
             } else {
                 document.getElementById('messageContactNotRegistered').style.color = 'red';
                 document.getElementById('messageContactNotRegistered').style.paddingLeft = "2%"
-                document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered or already exists";
+                document.getElementById('messageContactNotRegistered').innerHTML 
+                                = "Contact is not registered or already exists";
             }
+
+            // let contactInDataBase = getUserByName(input);
+            // if (contactInDataBase != null && (getContactByName(input) == null) && (getContactByName(contactInDataBase.displayName) === undefined)) {
+            //     let newContact = { name: contactInDataBase.displayName, image: contactInDataBase.image, messagesList: [], time: '' };
+            //     addContact(newContact);
+            //     setIsOpen(false);
+            // } else {
+            //     document.getElementById('messageContactNotRegistered').style.color = 'red';
+            //     document.getElementById('messageContactNotRegistered').style.paddingLeft = "2%"
+            //     document.getElementById('messageContactNotRegistered').innerHTML = "Contact is not registered or already exists";
+            // }
         }
     }
 
@@ -29,13 +47,13 @@ function SelfInfo() {
         setIsOpen(false);
     }
 
-    let backImage = getActiveUser().image.length > 0 ? `url(${getActiveUser().image})` : 'anonymous_profile.webp';
+    let backImage = getActiveUser().image.length > 0 ? `url(${getActiveUser().image})` : 'url(anonymous_profile.webp)';
 
     return (
         <div className="list-group-item col-xl-13 d-flex justify-content-between align-items-start">
             <div className="thumb" style={{backgroundImage: backImage}}></div>
 
-            <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().displayName}</div>
+            <div id="selfInfo name" className="fw-bold self-info-name" >{getActiveUser().name}</div>
 
             <button className='button adding-contact-button' onClick={() => {
                 setIsOpen(true);
@@ -57,14 +75,10 @@ function SelfInfo() {
                     <div className="input-group flex-nowrap">
                         <div className="col">
                             <div className="col">
-                                <input type="text" id="inputBox" className="form-control" placeholder="Name"
-                                    onKeyUp={(e) => {
-                                        if (!e) e = window.event;
-                                        var keyCode = e.code || e.key;
-                                        if (keyCode === 'Enter') {
-                                            addNewContact();
-                                        }
-                                    }} required></input>
+                                <input type="text" id="contactIdBox" className="form-control inner-add-contact-form" placeholder="Contact ID" required></input>
+                                <input type="text" id="contactNameBox" className="form-control inner-add-contact-form" placeholder="Contact Name" required></input>
+                                <input type="text" id="ipBox" className="form-control inner-add-contact-form" placeholder="IP" minLength="7" maxLength="15" size="15"></input>
+                                <input type="number" id="portBox" className="form-control inner-add-contact-form" placeholder="Port" required></input>
                             </div>
                             <div className="col message-not-registered">
                                 <span id='messageContactNotRegistered'></span>

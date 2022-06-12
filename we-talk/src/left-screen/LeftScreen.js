@@ -5,12 +5,12 @@ import SelfInfo from "../self-info/SelfInfo";
 import ChatSearch from "./chat-search/ChatSearch";
 
 
-function LeftScreen({ selfInfo, activeContact, setActiveContact}) {
+function LeftScreen({ selfInfo, setActiveContact}) {
     return (
         <div className='left-screen'>
             <SelfInfo name={selfInfo} />
             <ChatSearch />
-            <ChatList activeContact={activeContact} setActiveContact={setActiveContact} />
+            <ChatList setActiveContact={setActiveContact} />
         </div>
     );
 }

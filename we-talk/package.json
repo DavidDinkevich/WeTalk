@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@microsoft/signalr": "^6.0.5",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -19,12 +20,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -36,5 +31,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "WeTalk is a flexible and lightweight messaging platform. Complete with a web client, Android and Windows applications, WeTalk is available on most of the popular platforms. Behind the scenes, a powerful server keeps everything synchronized.\r <br><br>\r <b>Tools:</b>\r Server             | Web client | Android App | Windows App\r :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:\r |  | <ul><li>ReactJS</li><li>NodeJS</li><li>HTML/CSS</li><li>React-router, React-bootstrap</li></ul> |  |",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }

@@ -1,6 +1,7 @@
-import { getUserByName, addNewUser, setActiveUser } from '../DataBase';
+import { signup, setActiveUser, login, getServerUrl } from '../DataBase';
 import './login-view.css';
 import { useNavigate } from 'react-router-dom';
+import { joinSignalRGroup } from '../SignalRHandler';
 
 const checkPasswordsMatch = function () {
     let passwordFieldID = `signup_form_password_field`;
@@ -17,52 +18,41 @@ const checkPasswordsMatch = function () {
     }
 }
 
-const checkUserExists = function () {
-    const userNameField = document.getElementById('login_form_username_field');
-    const passwordField = document.getElementById('login_form_password_field');
-    let user = getUserByName(userNameField.value);
-
-    if (user == null || user.password != passwordField.value) {
-        document.getElementById('user_not_exist_msg').style.color = 'red';
-        document.getElementById('user_not_exist_msg').innerHTML = "User doesn't exist, please sign up first"
-        return false;
-    }
-    return true;
-}
-
-const onSubmitLogin = function (navigate) {
-    if (checkUserExists()) {
-        const username = document.getElementById(`login_form_username_field`).value;
+const onSubmitLogin = async function (navigate) {
+    const username = document.getElementById(`login_form_username_field`).value;
+    const password = document.getElementById(`login_form_password_field`).value;
+    
+    const onSuccess = function() {
         setActiveUser(username);
+        joinSignalRGroup();
         navigate('/chat', { state: { username:username } });
     }
+    const onFail = function() {
+        document.getElementById('not_valid_user_name_msg').style.color = 'red';
+        document.getElementById('not_valid_user_name_msg').innerHTML = "Username or password is incorrect"
+    }
+
+    await login(username, password, onSuccess, onFail);
 }
 
-const onSubmitSignup = function (navigate) {
+const onSubmitSignup = async function (navigate) {
     const username = document.getElementById(`signup_form_username_field`).value;
     const displayName = document.getElementById(`signup_form_displayName_field`).value;
     const password = document.getElementById('signup_form_password_field').value;
-    const imageField = document.getElementById('upload');
+    // const imageField = document.getElementById('upload');
 
-    if (isUserNameValid() && isPasswordValid() && checkPasswordsMatch() && getUserByName(username) === undefined) {
-        var fReader = new FileReader();
-        if (imageField.files.length > 0) {
-            fReader.readAsDataURL(imageField.files[0]);
-
-            fReader.onloadend = function (event) {
-                addNewUser({ username: username, displayName: displayName, password: password, image: event.target.result });
-                setActiveUser(username);
-                navigate('/chat', { state: { displayname: displayName } });
-            }    
-        // window.location.replace('/');
-        } else {
-            addNewUser({ username: username, displayName: displayName, password: password, image: 'anonymous_profile.webp' });
+    if (isUserNameValid() && isPasswordValid() && checkPasswordsMatch()) {
+        const onSuccess = function() {
             setActiveUser(username);
-            navigate('/chat', { state: { displayname: displayName } });
+            joinSignalRGroup();
+            navigate('/chat', { state: { username:username } });
         }
-    }
-    else if (getUserByName(username) !== undefined) {
-        alert("Username is already taken, please choose another");
+        const onFail = function() {
+            document.getElementById('not_valid_password_msg').style.color = 'red';
+            document.getElementById('not_valid_password_msg').innerHTML = "Username or password is invalid";    
+        }
+    
+        await signup(username, password, displayName, onSuccess, onFail);
     }
 
 }
@@ -116,7 +106,7 @@ function isUserNameValid() {
 export function LoginView() {
     const navigate = useNavigate();
     return (
-
+<>
         <div className="login-view-container background">
             <div className="container inner-container" >
                 <div className="row justify-content-md-center" >
@@ -164,6 +154,7 @@ export function LoginView() {
 
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/sign-up">New around here? Sign up</a>
+                            <a className="dropdown-item" href= {getServerUrl()}>Rate us!</a>
                             {/*<a className="dropdown-item" href="/">Forgot password?</a>*/}
 
                         </div>
@@ -172,8 +163,7 @@ export function LoginView() {
                 </div>
             </div>
         </div>
-
-
+    </>
     );
 }
 
@@ -247,6 +237,7 @@ export function SignupView() {
 
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="/">Already have an account? Sign in</a>
+                            <a className="dropdown-item" href= {getServerUrl()}>Rate us!</a>
                             {/*<a className="dropdown-item" href="/">Forgot password?</a>*/}
                         </div>
                     </div>

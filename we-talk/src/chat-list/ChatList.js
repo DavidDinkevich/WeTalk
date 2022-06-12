@@ -1,30 +1,35 @@
 import './chat-list.css'
 
-import { getActiveUser, getContactList } from "../DataBase"
+import { getActiveUser, updateMessages, updateUserContacts, formatTimeWithSeconds } from "../DataBase"
 import ChatInfo from "./ChatInfo";
-import { useState } from "react";
+import {  useEffect, useState } from "react";
 import { showChatView } from "../main-view/MainView";
+import { activeContact } from '../App';
 
 export let addContact;
 export let setUIChatList;
 export let refreshUIChatList;
+export let handleNewMessage;
 
 function zeroUnReadMessages(contact) {
     document.getElementById(contact.name + "unread messages").style.visibility = "hidden";
 }
 
-function ChatList({ activeContact, setActiveContact }) {
-    let contactList = getContactList(getActiveUser().displayName);
+function ChatList({ setActiveContact }) {
+    useEffect(updateUserContacts, [1]);
+
+    let contactList = getActiveUser().contacts;
     let [UIChatList, setUIChatListHandle] = useState(contactList);
+    UIChatList = contactList;
 
     const sortContactsByTime = function() {
         UIChatList.sort((a, b) => {
-            if (a.messagesList.length === 0)
+            if (a.lastDate == null)
                 return -1;
-            if (b.messagesList.length === 0)
+            if (b.lastDate == null)
                 return 1;
-            let lastMessageTimeA = a.messagesList[a.messagesList.length - 1].time;
-            let lastMessageTimeB = b.messagesList[b.messagesList.length - 1].time;
+            let lastMessageTimeA = formatTimeWithSeconds(a.lastDate);
+            let lastMessageTimeB = formatTimeWithSeconds(b.lastDate);
             let hoursA = lastMessageTimeA.split(":")[0];
             let minutesA = lastMessageTimeA.split(":")[1];
             let secondsA = lastMessageTimeA.split(":")[2];
@@ -37,18 +42,7 @@ function ChatList({ activeContact, setActiveContact }) {
     }
 
     refreshUIChatList = () => {
-        // sortContactsByTime();
-        // Force refresh of UIChatList
-        if (UIChatList.length > 0) {
-            for (var i in UIChatList) {
-                if (UIChatList[i].messagesList.length > 0) {
-                    displayActiveContact(UIChatList[i]);
-                    break;
-                }
-            }
-        }
         sortContactsByTime();
-
         setUIChatListHandle(UIChatList.concat([]));
     }
     setUIChatList = (value) => {
@@ -57,8 +51,8 @@ function ChatList({ activeContact, setActiveContact }) {
     }
 
     function displayActiveContact(newContact) {
-        for (let i in getActiveUser().contactList) {
-            let name = getActiveUser().contactList[i].name;
+        for (let i in getActiveUser().contacts) {
+            let name = getActiveUser().contacts[i].name;
             let oldContactButton = document.getElementById(`contact_button_${name}`);
             if (oldContactButton != null)
                 oldContactButton.style.background = 'white';
@@ -66,9 +60,19 @@ function ChatList({ activeContact, setActiveContact }) {
         let newContactButton = document.getElementById(`contact_button_${newContact.name}`);
         if (newContactButton != null)
             newContactButton.style.background = '#DDDDDD';      
-        zeroUnReadMessages(newContact);
+        // zeroUnReadMessages(newContact);
     }
 
+    handleNewMessage = (change=true, contact) => {
+        updateUserContacts();
+        if (change || contact.id == activeContact.id) {
+            setActiveContact(contact);
+            displayActiveContact(contact);
+            updateMessages(contact.id)
+            showChatView();
+        }
+        
+    }
 
     addContact = function (newContact) {
         contactList.push(newContact);
@@ -76,23 +80,21 @@ function ChatList({ activeContact, setActiveContact }) {
         refreshUIChatList();
     };
 
-    // sortContactsByTime();
+    sortContactsByTime();
+    if (activeContact != null)
+        displayActiveContact(activeContact)
 
 
     let chatInfos = UIChatList.map((contact, key) => {
         return (
             <button id={`contact_button_${contact.name}`} key={key} className='button chat-info-button-container'
         
-            onClick={() => {
-                setActiveContact(contact);
-                displayActiveContact(contact);
-                showChatView();
-            }
-            } >
+            onClick={() => handleNewMessage(true, contact)} >
                 <ChatInfo contact={contact} />
             </button>
         );
     });
+
     return (
         <ul className="list-group list-group-unordered chat-list">
             {chatInfos}

@@ -1,18 +1,21 @@
-import { getContactByName } from "../DataBase";
 import './chat-info.css'
+import {formatTime} from '../DataBase'
 
 function ChatInfo({ contact }) {
-    const maxMessageLength = 25;
-
-    let messages = contact.messagesList;
+    const maxMessageLength = 25;    
+    // let messages = contact.messagesList;
     let lastMessageText = ''
     let time = ''
-    let contactImage = getContactByName(contact.name).image;
-    if (messages.length > 0) {
-        let lastMessage = messages[messages.length - 1];
-        time = lastMessage.time.substring(0, 5);
-        if (lastMessage.message.length > 0) {
-            lastMessageText = messages[messages.length - 1].message;
+    let lastMessage = contact.last;
+    // let contactImage = getContactByName(contact.name).image;
+    let contactImage = 'anonymous_profile.webp'
+    if (lastMessage !== undefined && lastMessage != null) {
+        lastMessageText = lastMessage.content;
+        // let lastMessage = messages[messages.length - 1];
+        time = formatTime(lastMessage.time);
+        // time = lastMessage.time;
+        if (lastMessage.content.length > 0) {
+            lastMessageText = lastMessage.content;
             if (lastMessageText.length > maxMessageLength)
                 lastMessageText = lastMessageText.substring(0, maxMessageLength - 3) + '...';
         }
@@ -33,7 +36,7 @@ function ChatInfo({ contact }) {
             </div>
             <div className="chat-info-container">
                 <span id={contact.name + "unread messages"} className="ms-2 mb-2 badge rounded-pill chat-info-unread">
-                    {contact.unread}</span>
+                    {contact.unread}</span> 
                 <div>{time}</div>
             </div>
         </li>
