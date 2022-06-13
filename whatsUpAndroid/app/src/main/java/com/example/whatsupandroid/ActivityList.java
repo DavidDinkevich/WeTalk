@@ -57,8 +57,8 @@ public class ActivityList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 Intent intent = new Intent(getApplicationContext(), UserChat.class);
-                String message = "abc";
-                intent.putExtra("new_msg", message);
+                intent.putExtra("id", contacts.get(position).getId());
+                intent.putExtra("name", contacts.get(position).getName());
                 startActivity(intent);
             }
         });

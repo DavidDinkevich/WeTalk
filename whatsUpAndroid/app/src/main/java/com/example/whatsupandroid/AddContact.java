@@ -19,7 +19,7 @@ public class AddContact extends AppCompatActivity {
         Button btnAddContact = findViewById(R.id.buttonAdd);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         contactDao = db.contactDao();
 
 
