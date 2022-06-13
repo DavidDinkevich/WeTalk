@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using server.Services;
 
 namespace server.Controllers
 {
+    [AllowAnonymous]
     public class RatingsController : Controller
     {
         private IRatingService _service;
@@ -35,15 +37,13 @@ namespace server.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(string query)
         {
-
-            //var q = _service.GetRatings().Where(rating => rating.RatingsCount.Contains(query));
-            if (string.IsNullOrEmpty(query))
-            {
+            if (string.IsNullOrEmpty(query)) {
                 return View(await _service.GetRatings());
             }
+            //var q = _service.GetRatings().Where(rating => rating.RatingsCount.Contains(query));
             var q = _service.Search(query);
             // return View(await q.ToListAsync());
-            return Json(await q.ToListAsync());
+            return Json(q);
         }
 
         // GET: Ratings/Details/5

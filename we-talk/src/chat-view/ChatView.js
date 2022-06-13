@@ -4,7 +4,7 @@ import Message from '../message/Message';
 import MediaUploadView from './MediaUploadView';
 import RecordAudioModal from './RecordAudioModal';
 import { refreshUIChatList } from '../chat-list/ChatList';
-import { createMessageID, emptyMessageJSON, getActiveUser } from '../DataBase'
+import { createMessageID, emptyMessageJSON, getActiveUser, getMessages, postMessageToServer, updateMessages } from '../DataBase'
 
 
 export const hideMediaUploadView = function () {
@@ -12,39 +12,51 @@ export const hideMediaUploadView = function () {
     mediaUploadView.style.visibility = 'hidden';
 }
 
+export let refreshMessagesList;
+
 function ChatView({ activeContact }) {
-    useEffect(() => {
-            // Scroll to bottom
-            scrollDown();
-        
-    });
-
+    // Scroll to bottom
+    useEffect(scrollDown);
+    useEffect(() => updateMessages(activeContact.id), [1]);
+    
     const [recordAudioModalIsOpen, setRecordAudioModalIsOpen] = useState(false);
-    let [UIMessageList, setUIMessagesList] = useState(activeContact.messagesList);
+    let [UIMessageList, setUIMessagesList] = useState(getMessages());
+    refreshMessagesList = () => setUIMessagesList(UIMessageList.concat([]));
     // Ensure that UIMessageLest is = to activeContact.messagesList on EVERY rerender
-    UIMessageList = activeContact.messagesList;
+    UIMessageList = getMessages();
 
-    const uiList = UIMessageList.map((message, key) => {
-        return <Message {...message} messageID={createMessageID(activeContact.name, key)} key={key} />;
-    });
+    let uiList = [];
+    if (UIMessageList != null)
+        uiList = UIMessageList.map((message, key) => {
+            let source =   message.sender !== getActiveUser().name 
+                        && message.sender !== getActiveUser().id ? "remote" : "self";
+            return <Message {...message} source={source} messageID={message.id} key={key} />;
+        });
 
     const sendMessage = function ({ message = '', image = '', video = '', audio = '' }) {
         // Get date for message
-        // console.log(String(new Date()).split(" "))
         let date = String(new Date()).split(" ")[4]
         // date = date.substring(0, date.lastIndexOf(":"));
 
-        let activeUserName = getActiveUser().displayName;
-
         let newMessage = Object.assign(
             emptyMessageJSON(),
-            { source: 'self', author: activeUserName, time: date },
-            { message, image, video, audio }
+            { sender: getActiveUser().id, recipient: activeContact.id, time: date },
+            { content: message, image, video, audio }
         );
 
-        activeContact.messagesList.push(newMessage);
-        setUIMessagesList(UIMessageList.concat([newMessage]));
+        postMessageToServer(
+            {
+                to: activeContact.id, 
+                from: getActiveUser().id,
+                // content: JSON.stringify(newMessage)
+                content: newMessage.content
+            });
+
+        
+        
         refreshUIChatList();
+        refreshMessagesList();
+        setUIMessagesList(UIMessageList.concat([newMessage]));
     }
 
     const sendMessageFromInputBox = function () {
@@ -61,6 +73,8 @@ function ChatView({ activeContact }) {
     }
 
     const toggleMediaUploadView = function () {
+        alert("Implementation of this feature was removed");
+        return;
         let mediaUploadView = document.getElementById('media_upload_view');
         if (mediaUploadView.style.visibility === 'hidden')
             mediaUploadView.style.visibility = 'visible';
@@ -124,7 +138,13 @@ function ChatView({ activeContact }) {
                         className='button'
                         // data-bs-toggle="modal" data-bs-target="#record_audio_modal"
                         style={{ float: 'left', border: 'none', background: '#6cc4ea' }}
-                        onClick={() => setRecordAudioModalIsOpen(true)}
+                        onClick={() => 
+                            {
+                                alert("Implementation of this feature was removed");
+                                return;
+                                setRecordAudioModalIsOpen(true)
+                            }
+                    }
                     >
                         <div style={{ background: '#6cc4ea' }}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="44" fill="#FFFFFF" className="bi bi-mic-fill" viewBox="-1 -1 24 24">

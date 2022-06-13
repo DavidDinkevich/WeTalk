@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/main_background_4"
+    android:backgroundTint="@color/grey"
     android:orientation="vertical"
     >
 
@@ -15,12 +15,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="monospace"
         android:gravity="center"
         android:text="@string/settings"
-        android:textColor="@color/white"
-        android:textSize="40sp"
+        android:textColor="@color/btn_color"
+        android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:text="@string/choose_server"
-            android:textColor="@color/black"
+            android:textColor="@color/purple_500"
             android:textSize="20sp" />
 
         <EditText
@@ -69,56 +69,69 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:text="@string/choose_theme"
-            android:textColor="@color/black"
+            android:textColor="@color/purple_500"
             android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                app:srcCompat="@drawable/img2" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="7dp"
+                app:srcCompat="@drawable/images" />
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="-50dp"
+                app:srcCompat="@drawable/sun" />
 
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:srcCompat="@drawable/img3"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"/>
-            <ImageButton
-                android:id="@+id/imageButton5"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:srcCompat="@drawable/img5"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"/>
-            <ImageButton
-                android:id="@+id/imageButton7"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                app:srcCompat="@drawable/img7"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"/>
 
-            <Button
-                android:id="@+id/defaultImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="125dp"
-                android:layout_marginTop="4dp"
-                android:textSize="7.3sp"
-                android:textColor="@color/black"
-                android:layout_weight="1"
-                android:backgroundTint="@color/btn_color"
-                android:text="@string/default_image" />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/btg_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+                    <!--                <Button-->
+                    <!--                    android:id="@+id/btnDefualt"-->
+                    <!--                    android:gravity="center"-->
+                    <!--                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:text="Default" />-->
+                    <Button
+                        android:id="@+id/btnDark"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Dark" />
+                    <Button
+                        android:id="@+id/btnLight"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Light" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+            </LinearLayout>
 
         </LinearLayout>
 

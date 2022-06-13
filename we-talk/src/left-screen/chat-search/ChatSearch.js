@@ -1,16 +1,21 @@
 import './chat-search.css'
 
 import {useRef} from 'react';
-import {setUIChatList} from '../../chat-list/ChatList'
-import { getActiveUser } from '../../DataBase';
+import {refreshUIChatList, setUIChatList} from '../../chat-list/ChatList'
+import { getContacts, updateUserContacts } from '../../DataBase';
+
+export let searchBox;
 
 function ChatSearch() {
-    const searchBox = useRef(null);
+    const _searchBox = useRef(null);
+    searchBox = _searchBox;
 
     const search = function() {
-        setUIChatList(getActiveUser().contactList.filter((value) => {
-            return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
-        }));
+        // setUIChatList(getContacts().filter((value) => {
+        //     return value.name.toLowerCase().includes(searchBox.current.value.toLowerCase());
+        // }));
+        // refreshUIChatList();
+        updateUserContacts();
     }
 
 
@@ -31,7 +36,7 @@ function ChatSearch() {
                 </svg>
 
             </span>
-            <input ref={searchBox} type="text" className="form-control chat-search-box" placeholder="Search a contact" aria-label="displayName" aria-describedby="addon-wrapping" onKeyUp={search} />
+            <input ref={_searchBox} type="text" className="form-control chat-search-box" placeholder="Search a contact" aria-label="displayName" aria-describedby="addon-wrapping" onKeyUp={search} />
         </div>
 
     );
