@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class Settings extends AppCompatActivity {
 
@@ -16,6 +17,17 @@ public class Settings extends AppCompatActivity {
         btnBackToList.setOnClickListener( view -> {
             Intent i = new Intent( this, ActivityList.class);
             startActivity(i);
+        });
+
+        Button dark = findViewById(R.id.btnDark);
+        dark.setOnClickListener(view -> {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        });
+        Button light = findViewById(R.id.btnLight);
+        light.setOnClickListener(view -> {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         });
     }
 }

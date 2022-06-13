@@ -17,5 +17,11 @@ public class AddContact extends AppCompatActivity {
             Intent i = new Intent( this, ActivityList.class);
             startActivity(i);
         });
+
+        Button btnBackToList= findViewById(R.id.backToList);
+        btnBackToList.setOnClickListener( view -> {
+            Intent i = new Intent( this, ActivityList.class);
+            startActivity(i);
+        });
     }
 }
