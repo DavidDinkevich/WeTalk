@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "289687750377",
+    "project_id": "whatsupandroid-5a1e6",
+    "storage_bucket": "whatsupandroid-5a1e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289687750377:android:d8f63567b87d9ba5fcd278",
+        "android_client_info": {
+          "package_name": "com.example.whatsupandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289687750377-v0l17g1265uurh99ukiaq0g5db1cbp2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMq7uSYdOUUukDNbEAQS4sh62DoS7uArw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289687750377-v0l17g1265uurh99ukiaq0g5db1cbp2s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
