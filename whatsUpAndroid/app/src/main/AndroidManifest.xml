@@ -23,6 +23,9 @@
         </service>
 
         <activity
+            android:name=".UserItem"
+            android:exported="false" />
+        <activity
             android:name=".Settings"
             android:exported="false" />
         <activity
