@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 namespace server.Models {
     public class Contact {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RealId { get; set; }
         public string Id { get; set; } = string.Empty;
         public string Name { get; set; }
         public string Server { get; set; }

@@ -62,16 +62,15 @@ namespace server.Controllers {
             var userContacts = new List<User>();
             for (var i = 0; i < contacts.Count; i++) {
                 var contact = contacts[i];
-                //                string lastMessage = _context.
-                //Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
+                //_context.UpdateLastInfo(user.Id, contact.Id);
+                ////                string lastMessage = _context.
+                Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
                 User u = new User() {
                     Id = contact.Id,
                     Name = contact.Name,
                     Server = contact.Server,
-                    //Last = lastMessage.Content,
-                    Last = "last",
-                    //LastDate = lastMessage != null ? lastMessage.Time : null
-                    LastDate = "lastDate"
+                    Last = lastMessage != null ? lastMessage.Time : null,
+                    LastDate = lastMessage != null ? lastMessage.Time : null
                 };
                 userContacts.Add(u);
             }

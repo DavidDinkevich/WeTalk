@@ -64,7 +64,6 @@ namespace server.Controllers {
                 Password = creds.Password,
                 Server = creds.Server
             });
-            dbContext.SaveChanges();
 
             // Make token for user
             var token = authMan.MakeToken(creds.Id);

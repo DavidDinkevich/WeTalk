@@ -86,13 +86,14 @@ namespace server.Data
             return ContactsDB.Where(c => (c.UserId == uid && c.Id == cid)).SingleOrDefault(); 
         }
 
-        public async void AddUser(User u) {
+        public void AddUser(User u) {
             //usersDB.Add(u);
             UsersDB.Add(u);
-//            await SaveChangesAsync();
-            
+            //            await SaveChangesAsync();
+            SaveChanges();
+
         }
-        
+
         public bool AddContact(string u1ID, Contact other) {
             if (u1ID == other.Id)
                 return false;
@@ -118,20 +119,6 @@ namespace server.Data
         public IList<Contact> GetContactsOfUser(string uid) {
             return ContactsDB.Where(c => c.UserId == uid).ToList();
         }
-
-        public Chat getChat(string u1Id, string u2Id) {
-            Chat chat = chatDB.FirstOrDefault(
-                        c => (c.User1 == u1Id && c.User2 == u2Id)
-                                || c.User1 == u2Id && c.User2 == u1Id);
-            return chat;
-        }
-
-        //public Contact GetContact(string activeUserID,string contactId) {
-        //    User currUser = GetUserByID(activeUserID);
-        //    Contact c = currUser.Contacts.FirstOrDefault((c) => c.Id == contactId);
-        //    return c;
-        //}
-
         public bool RemoveContact(string activeUserID, string contactId) {
             var contact = GetContact(activeUserID, contactId);
             if (contact == null)
@@ -168,22 +155,6 @@ namespace server.Data
             return res[0];
         }
 
-        public Contact GetUserOrContact(string id) {
-            User u = GetUserByID(id);
-            if (u != null)
-                return makeContactFromUser(u);
-            else {
-                foreach (User user in usersDB) {
-                    //foreach (Contact c in user.Contacts) {
-                    //    if (c.Id == id)
-                    //        return c;
-                    //}
-                    // TODO
-                }
-            }
-            return null;
-        }
-
         public void UpdateUser(User user) {
             usersDB[usersDB.FindIndex((u) => u.Id == user.Id)] = user;
         }
@@ -208,22 +179,46 @@ namespace server.Data
         }
 
         public void UpdateLastInfo(string u1ID, string u2ID) {
-            Chat chat = getChat(u1ID, u2ID);
+            Message last = GetLastMessageWithContact(u1ID, u2ID);
+            if (last == null)
+                return;
             User u1 = GetUserByID(u1ID);
             User u2 = GetUserByID(u2ID);
-            var last = chat == null || chat.Messages.Count() == 0 ? null : chat.Messages[chat.Messages.Count() - 1];
-            if (u1 != null)
+            if (u1 != null) {
                 u1.Last = last.Content;
-            if (u2 != null)
+                u1.LastDate = last.Time;
+            }
+            if (u2 != null) {
                 u2.Last = last.Content;
+                u2.LastDate = last.Time;
+            }
+
+            //Chat chat = getChat(u1ID, u2ID);
+            //User u1 = GetUserByID(u1ID);
+            //User u2 = GetUserByID(u2ID);
+            //var last = chat == null || chat.Messages.Count() == 0 ? null : chat.Messages[chat.Messages.Count() - 1];
+            //if (u1 != null)
+            //    u1.Last = last.Content;
+            //if (u2 != null)
+            //    u2.Last = last.Content;
         }
 
         public Message GetLastMessageWithContact(string activeUserID, string contactId) {
-            User curr = GetUserByID(activeUserID);
-            Chat chat = getChat(curr.Id, contactId);
-            if (chat == null || chat.Messages.Count == 0)
+            // Get messages
+            IList<Message> messages = GetMessagesWithContact(activeUserID, contactId);
+            if (messages.Count == 0)
                 return null;
-            return chat.Messages[chat.Messages.Count - 1];
+            // Sort messages
+            IEnumerable<Message> sortedEnum = messages.OrderBy(m => m.Id);
+            messages = sortedEnum.ToList();
+
+            return messages.Last();
+
+            //User curr = GetUserByID(activeUserID);
+            //Chat chat = getChat(curr.Id, contactId);
+            //if (chat == null || chat.Messages.Count == 0)
+            //    return null;
+            //return chat.Messages[chat.Messages.Count - 1];
         }
 
         public bool SetMessage(string activeUserID, string contactId, int msgId, string content) {
