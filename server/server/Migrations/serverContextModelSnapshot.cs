@@ -43,6 +43,30 @@ namespace server.Migrations
                     b.ToTable("Chat");
                 });
 
+            modelBuilder.Entity("server.Models.Contact", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Server")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ContactsDB");
+                });
+
             modelBuilder.Entity("server.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -110,18 +134,19 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Last")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastDate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LastId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -135,9 +160,20 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("LastId");
+                    b.HasKey("Id");
 
                     b.ToTable("UsersDB");
+                });
+
+            modelBuilder.Entity("server.Models.Contact", b =>
+                {
+                    b.HasOne("server.Models.User", "User")
+                        .WithMany("Contacts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("server.Models.Message", b =>
@@ -147,20 +183,14 @@ namespace server.Migrations
                         .HasForeignKey("ChatId");
                 });
 
-            modelBuilder.Entity("server.Models.User", b =>
-                {
-                    b.HasOne("server.Models.Message", "Last")
-                        .WithMany()
-                        .HasForeignKey("LastId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Last");
-                });
-
             modelBuilder.Entity("server.Models.Chat", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("server.Models.User", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

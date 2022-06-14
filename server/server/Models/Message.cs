@@ -1,5 +1,8 @@
-﻿namespace server.Models {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace server.Models {
     public class Message {
+        [Key]
         public int Id { get; set; }
         public string Sender { get; set; }
         public string Recipient { get; set; }

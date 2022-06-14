@@ -58,18 +58,20 @@ namespace server.Controllers {
             if (user == null) {
                 return NotFound();
             }
-            var contacts = user.Contacts;
+            var contacts = _context.GetContactsOfUser(user.Id);
             var userContacts = new List<User>();
             for (var i = 0; i < contacts.Count; i++) {
                 var contact = contacts[i];
                 //                string lastMessage = _context.
-                Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
+                //Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
                 User u = new User() {
                     Id = contact.Id,
                     Name = contact.Name,
                     Server = contact.Server,
-                    Last = lastMessage,
-                    LastDate = lastMessage != null ? lastMessage.Time : null
+                    //Last = lastMessage.Content,
+                    Last = "last",
+                    //LastDate = lastMessage != null ? lastMessage.Time : null
+                    LastDate = "lastDate"
                 };
                 userContacts.Add(u);
             }
@@ -78,9 +80,15 @@ namespace server.Controllers {
 
         [HttpPost]
         [Route("contacts")]
-        public async Task<ActionResult> AddContact(Contact inp) {
+        public async Task<ActionResult> AddContact(ParamContact input) {
             //var user = await _context.User.FindAsync(0);
             var user = GetCurrentUser();
+            Contact inp = new Contact {
+                Id = input.Id,
+                Name = input.Name,
+                Server = input.Server,
+                UserId = user.Id,
+            };
             // Add to us
             if (!_context.AddContact(user.Id, inp))
                 return NotFound();
@@ -177,18 +185,19 @@ namespace server.Controllers {
         [Route("contacts/{id}")]
         public async Task<ActionResult<Contact>> GetContactByID(string id) {
             var user = GetCurrentUser();
-            Contact contact = user.Contacts.FirstOrDefault(contact => contact.Id == id);
+            IList<Contact> contacts = _context.GetContactsOfUser(user.Id);
+            Contact contact = contacts.FirstOrDefault(contact => contact.Id == id);
             if (contact == null) {
                 return NotFound();
             }
-            _context.UpdateLastInfo(user.Id, contact.Id);
-            Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
+            //_context.UpdateLastInfo(user.Id, contact.Id);
+            //Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
             User u = new User() {
                 Id = contact.Id,
                 Name = contact.Name,
                 Server = contact.Server,
-                Last = lastMessage,
-                LastDate = lastMessage != null ? lastMessage.Time : null
+                //Last = lastMessage.Content,
+                //LastDate = lastMessage != null ? lastMessage.Time : null
             };
 
             return Ok(u);
