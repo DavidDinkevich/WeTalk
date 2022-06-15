@@ -21,6 +21,7 @@ import com.example.whatsupandroid.room.ContactDao;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,7 +79,13 @@ public class ActivityList extends AppCompatActivity {
             }
         });
 
-        // here
+        // FILL ROOM FROM SERVER
+        Dog dog = new Dog(getApplicationContext());
+        dog.fetchContacts(() -> {
+            contacts.clear();
+            contacts.addAll(contactDao.index());
+            adapter.notifyDataSetChanged();
+        });
     }
 
 

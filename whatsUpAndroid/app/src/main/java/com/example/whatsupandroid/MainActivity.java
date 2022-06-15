@@ -15,12 +15,14 @@ import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.api.WebServiceAPI;
 import com.example.whatsupandroid.models.SignupCreds;
 import com.example.whatsupandroid.models.UserCred;
+import com.example.whatsupandroid.room.Contact;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -42,31 +44,12 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener( view -> {
             String id = ((EditText)findViewById(R.id.editTextPersonName)).getText().toString();
             String password = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();
-            Call<ResponseBody> callLogin = this.webServiceAPI.login(new UserCred(id,password));
 
-            callLogin.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    String token = null;
-                    try {
-                        token = response.body().string();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Token.mytoken = "Bearer " + token;
-                    Intent i = new Intent( context, ActivityList.class);
-                    startActivity(i);
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
+            Dog dog = new Dog(getApplicationContext());
+            dog.login(id, password, () -> {
+                Intent i = new Intent( this, ActivityList.class);
+                startActivity(i);
             });
-
-
-            Intent i = new Intent( this, ActivityList.class);
-            startActivity(i);
         });
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>(){

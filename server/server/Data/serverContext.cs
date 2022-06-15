@@ -52,10 +52,10 @@ namespace server.Data
         };
 
         static serverContext() {
-            /*usersDB[1].Contacts = new List<Contact>() { 
-                makeContactFromUser(usersDB[0]),
-                makeContactFromUser(usersDB[2])
-            };*/
+            usersDB[0].Contacts = new List<Contact>() { 
+                //makeContactFromUser(usersDB[0]),
+                makeContactFromUser(usersDB[1])
+            };
 
         }
 
