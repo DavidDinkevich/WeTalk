@@ -8,6 +8,10 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.whatsupandroid.room.AppDB;
+import com.example.whatsupandroid.room.Contact;
+import com.example.whatsupandroid.room.ContactDao;
+
 public class AddContact extends AppCompatActivity {
     private AppDB db;
     private ContactDao contactDao;

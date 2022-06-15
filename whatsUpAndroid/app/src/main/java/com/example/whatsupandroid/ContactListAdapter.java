@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.whatsupandroid.room.Contact;
+
 import java.util.List;
 
 public class ContactListAdapter extends ArrayAdapter<Contact> {

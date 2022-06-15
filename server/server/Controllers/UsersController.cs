@@ -25,7 +25,7 @@ namespace server.Controllers {
             //            this.authMan = authMan;
         }
 
-        public User GetCurrentUser() {
+        private User GetCurrentUser() {
             Console.WriteLine(User.Claims.ToList()[0].ToString());
             var claim = User.Claims.SingleOrDefault(x => x.Type.Equals("username")).Value;
             return _context.GetUserByID(claim);

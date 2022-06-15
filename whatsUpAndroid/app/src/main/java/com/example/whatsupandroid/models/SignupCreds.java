@@ -1,24 +1,13 @@
-package com.example.whatsupandroid;
+package com.example.whatsupandroid.models;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+public class SignupCreds {
+    String id, name, password, server;
 
-@Entity
-public class Contact {
-    @PrimaryKey
-    @NonNull
-    private String id = "";
-    private String name;
-    private String server;
-
-    public Contact(String id, String name, String server) {
+    public SignupCreds(String id, String name, String password, String server) {
         this.id = id;
         this.name = name;
+        this.password = password;
         this.server = server;
-    }
-
-    public Contact() {
     }
 
     public String getId() {
@@ -37,6 +26,14 @@ public class Contact {
         this.name = name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getServer() {
         return server;
     }
@@ -44,5 +41,4 @@ public class Contact {
     public void setServer(String server) {
         this.server = server;
     }
-
 }

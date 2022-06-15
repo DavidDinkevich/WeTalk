@@ -11,6 +11,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.whatsupandroid.room.Message;
+import com.example.whatsupandroid.room.MessageDao;
+import com.example.whatsupandroid.room.MessagesDB;
+
 import java.util.ArrayList;
 import java.util.List;
 

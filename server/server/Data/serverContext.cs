@@ -16,23 +16,23 @@ namespace server.Data
 {
     public class serverContext : DbContext {
 
-        public static readonly string Server = "127.0.0.1:7013";
+        public static readonly string Server = "127.0.0.1:5013";
 
         private static List<User> usersDB = new List<User>() {
-            //new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server=Server },
-            //new User() { Id="David100", Name="David", Password="yomama100", Server=Server },
+            new User() { Id="Shachar100", Name="Shachar", Password="yomama100", Server=Server },
+            new User() { Id="David100", Name="David", Password="yomama100", Server=Server },
             //new User() { Id="Aviya100", Name="Aviya", Password="yomama100", Server=Server},
             //new User() { Id="NoaEitan100", Name="Noa", Password="yomama100", Server=Server}
         };
 
         private static List<Chat> chatDB = new List<Chat> {
-            /*new Chat() { 
+            new Chat() { 
                 Id=0, User1="Shachar100", User2="David100",
                 Messages = new List<Message> {
-                    //new Message("David", "Shachar") { Id=0, MessageText="Ma kore!?", Time=GetTime()},
+                    new Message("David", "Shachar") { Id=0, Content="Ma kore!?", Time=GetTime()},
                     //new Message("Shachar", "David") { Id=1, MessageText="אנחנו לא מתקדמיםםםםםםםםם", Time=GetTime() }
                 }
-            },
+            },/*
             new Chat() { 
                 Id=1, User1="Shachar100", User2="Aviya100",
                 Messages = new List<Message> {

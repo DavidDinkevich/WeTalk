@@ -1,4 +1,4 @@
-package com.example.whatsupandroid;
+package com.example.whatsupandroid.room;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

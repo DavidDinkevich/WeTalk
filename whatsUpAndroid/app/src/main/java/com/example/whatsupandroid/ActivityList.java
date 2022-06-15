@@ -11,8 +11,19 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.whatsupandroid.api.ContactAPI;
+import com.example.whatsupandroid.api.Token;
+import com.example.whatsupandroid.api.WebServiceAPI;
+import com.example.whatsupandroid.room.AppDB;
+import com.example.whatsupandroid.room.Contact;
+import com.example.whatsupandroid.room.ContactDao;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivityList extends AppCompatActivity {
     private AppDB db;
@@ -20,9 +31,13 @@ public class ActivityList extends AppCompatActivity {
     private List<Contact> contacts;
     private ArrayAdapter<Contact> adapter;
     private ListView listView;
+    private WebServiceAPI webServiceAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ContactAPI contactAPI = new ContactAPI();
+        this.webServiceAPI = contactAPI.getWebServiceAPI();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
@@ -46,8 +61,8 @@ public class ActivityList extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         Button addContact = findViewById(R.id.add_contact_b);
-        addContact.setOnClickListener( view -> {
-            Intent i = new Intent( this, AddContact.class);
+        addContact.setOnClickListener(view -> {
+            Intent i = new Intent(this, AddContact.class);
             startActivity(i);
         });
 
@@ -63,7 +78,9 @@ public class ActivityList extends AppCompatActivity {
             }
         });
 
+        // here
     }
+
 
     @Override
     protected void onResume() {

@@ -25,4 +25,5 @@
     <string name="default_image">Default image</string>
     <string name="channel_name">Channel 1</string>
     <string name="channel_description">Main Channel</string>
+    <string name="BaseUrl">http://10.0.2.2:5013/api/</string>
 </resources>

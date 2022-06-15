@@ -1,4 +1,4 @@
-package com.example.whatsupandroid;
+package com.example.whatsupandroid.room;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

@@ -58,8 +58,8 @@ builder.Services.AddCors(options => {
     options.AddPolicy("Allow All",
         builder => {
             builder
-//                .SetIsOriginAllowed(origin=> true)
-                .WithOrigins("http://localhost:3000")
+                .SetIsOriginAllowed(origin=> true)
+//                .WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
                 .AllowCredentials()
                 .AllowAnyHeader();
@@ -81,12 +81,10 @@ if (app.Environment.IsDevelopment()) {
 if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    //app.UseHsts();
 }
 
-
-
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 

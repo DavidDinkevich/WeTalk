@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.whatsupandroid.room.Message;
+
 import java.util.List;
 
 public class MessageListAdapter extends ArrayAdapter<Message> {
