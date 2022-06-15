@@ -15,7 +15,7 @@ public interface MessageDao {
     List<Message> index();
 
     @Query("SELECT * FROM message WHERE id = :id")
-    Contact get(String id);
+    Message get(int id);
 
     @Query("SELECT * FROM message WHERE sender = :contactID OR recipient = :contactID")
     List<Message> getMessagesWithContact(String contactID);

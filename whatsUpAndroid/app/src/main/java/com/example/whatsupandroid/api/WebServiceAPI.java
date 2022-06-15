@@ -36,5 +36,5 @@ public interface WebServiceAPI {
                             @Path("id") String contactName);
 
     @POST("contacts/{id}/messages")
-    Call <Message> postMessage(@Header("Authorization") String token, @Body Message m);
+    Call <Message> postMessage(@Header("Authorization") String token, @Path("id") String contact, @Body Message m);
 }

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.room.AppDB;
 import com.example.whatsupandroid.room.Contact;
 import com.example.whatsupandroid.room.ContactDao;
@@ -60,6 +61,6 @@ public class AddContact extends AppCompatActivity {
         String contactPort = etContactPort.getText().toString();
         String server = contactIP + ":" + contactPort;
 
-        return new Contact(contactID, contactName, server);
+        return new Contact(contactID, contactName, server, Token.currentUser);
     }
 }

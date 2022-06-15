@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.example.whatsupandroid.api.ContactAPI;
-import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.api.WebServiceAPI;
 import com.example.whatsupandroid.room.AppDB;
 import com.example.whatsupandroid.room.Contact;
@@ -20,11 +19,6 @@ import com.example.whatsupandroid.room.ContactDao;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ActivityList extends AppCompatActivity {
     private AppDB db;
@@ -51,7 +45,7 @@ public class ActivityList extends AppCompatActivity {
 //        });
 
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
-                .allowMainThreadQueries().build();
+                .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         contactDao = db.contactDao();
 //        contactDao.nukeTable();
 

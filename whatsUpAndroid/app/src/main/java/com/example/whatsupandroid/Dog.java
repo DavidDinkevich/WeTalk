@@ -47,6 +47,8 @@ public class Dog extends Activity {
     }
 
     public void login(String id, String password, Runnable onDone) {
+        Token.currentUser = id;
+
         Call<ResponseBody> callLogin = this.webServiceAPI.login(new UserCred(id,password));
 
         callLogin.enqueue(new Callback<ResponseBody>() {
@@ -126,7 +128,7 @@ public class Dog extends Activity {
     }
 
     public void postMessage(Message m, Runnable onDone) {
-        Call<Message> callMessage = webServiceAPI.postMessage(Token.mytoken, m);
+        Call<Message> callMessage = webServiceAPI.postMessage(Token.mytoken, m.getRecipient(), m);
 
         callMessage.enqueue(new Callback<Message>() {
             @Override

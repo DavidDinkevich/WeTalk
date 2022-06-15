@@ -59,7 +59,7 @@ builder.Services.AddCors(options => {
         builder => {
             builder
                 .SetIsOriginAllowed(origin=> true)
-//                .WithOrigins("http://localhost:3000")
+                //.WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
                 .AllowCredentials()
                 .AllowAnyHeader();
@@ -84,7 +84,9 @@ if (!app.Environment.IsDevelopment()) {
     //app.UseHsts();
 }
 
-// app.UseHttpsRedirection();
+
+
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 

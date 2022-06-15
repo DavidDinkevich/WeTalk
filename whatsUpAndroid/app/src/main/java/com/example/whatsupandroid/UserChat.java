@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.room.Message;
 import com.example.whatsupandroid.room.MessageDao;
 import com.example.whatsupandroid.room.MessagesDB;
@@ -54,7 +55,7 @@ public class UserChat extends AppCompatActivity {
             EditText messageTextView = findViewById(R.id.messageTextField);
 
             Message newMessage = new Message(
-                    "CurrUser",
+                    Token.currentUser,
                     activeContactID,
                     messageTextView.getText().toString(),
                     "sometime",

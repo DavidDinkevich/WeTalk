@@ -21,6 +21,18 @@ namespace server.Controllers {
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserCred userCred) {
+            //Contact c = new Contact { 
+            //Id="SomeContact", Name="SomeName", Server="bla", UserId="temp"};
+            //dbContext.AddContact("temp", c);
+            //dbContext.SaveChanges();
+
+            //User u = new User() { Id = "temp2",Name="David", Password="abcdefg12345", Server="df",Image="", Last="ddf", LastDate="" };
+            //u.Contacts.Add(c);
+            //dbContext.UsersDB.Add(u);
+            //dbContext.SaveChanges();
+
+
+
             // User not in system
             if (!dbContext.Authenticate(userCred.Username, userCred.Password)) {
                 return BadRequest();
@@ -47,6 +59,7 @@ namespace server.Controllers {
                 Password = creds.Password,
                 Server = creds.Server
             });
+
             // Make token for user
             var token = authMan.MakeToken(creds.Id);
             if (token == null)

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace server.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,6 +40,23 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UsersDB",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Server = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Last = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersDB", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Message",
                 columns: table => new
                 {
@@ -63,48 +80,49 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UsersDB",
+                name: "ContactsDB",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Server = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastId = table.Column<int>(type: "int", nullable: false),
-                    LastDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_ContactsDB", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UsersDB_Message_LastId",
-                        column: x => x.LastId,
-                        principalTable: "Message",
+                        name: "FK_ContactsDB_UsersDB_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UsersDB",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContactsDB_UserId",
+                table: "ContactsDB",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Message_ChatId",
                 table: "Message",
                 column: "ChatId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UsersDB_LastId",
-                table: "UsersDB",
-                column: "LastId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ContactsDB");
+
+            migrationBuilder.DropTable(
+                name: "Message");
+
+            migrationBuilder.DropTable(
                 name: "Rating");
 
             migrationBuilder.DropTable(
                 name: "UsersDB");
-
-            migrationBuilder.DropTable(
-                name: "Message");
 
             migrationBuilder.DropTable(
                 name: "Chat");
