@@ -116,7 +116,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:textSize="24sp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                />
 
 
 

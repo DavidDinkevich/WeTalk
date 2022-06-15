@@ -2,23 +2,19 @@ package com.example.whatsupandroid;
 
 import static com.example.whatsupandroid.MyApplication.context;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatsupandroid.api.ContactAPI;
 import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.api.WebServiceAPI;
 import com.example.whatsupandroid.models.SignupCreds;
-import com.example.whatsupandroid.room.Contact;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

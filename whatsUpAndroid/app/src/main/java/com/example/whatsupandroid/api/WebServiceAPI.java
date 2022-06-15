@@ -28,4 +28,13 @@ public interface WebServiceAPI {
     @GET("contacts")
     Call <List<Contact>> getContacts(@Header("Authorization") String token);
 
+    @POST("contacts")
+    Call <Contact> postContact(@Header("Authorization") String token, @Body Contact c);
+    @GET("contacts/{id}/messages")
+    Call <List<Message>> getMessagesWithContact(
+                            @Header("Authorization") String token,
+                            @Path("id") String contactName);
+
+    @POST("contacts/{id}/messages")
+    Call <Message> postMessage(@Header("Authorization") String token, @Body Message m);
 }

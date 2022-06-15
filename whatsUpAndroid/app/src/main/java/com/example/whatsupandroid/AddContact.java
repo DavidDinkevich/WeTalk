@@ -29,14 +29,17 @@ public class AddContact extends AppCompatActivity {
 
         btnAddContact.setOnClickListener( view -> {
             Contact newContact = makeContactFromFields();
-            contactDao.insert(newContact);
+            // Post to server
+            Dog dog = new Dog(getApplicationContext());
+            dog.postContact(newContact, () -> {
+                Intent i = new Intent( this, ActivityList.class);
+                i.putExtra("contactID", newContact.getId());
+                i.putExtra("lastMessage", "not implemented");
 
-            Intent i = new Intent( this, ActivityList.class);
-            i.putExtra("contactID", newContact.getId());
-            i.putExtra("lastMessage", "not implemented");
+                startActivity(i);
+                finish();
+            });
 
-            startActivity(i);
-            finish();
         });
 
         Button btnBackToList= findViewById(R.id.backToList);

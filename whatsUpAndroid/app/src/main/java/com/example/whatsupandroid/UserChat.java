@@ -42,8 +42,6 @@ public class UserChat extends AppCompatActivity {
         adapter = new MessageListAdapter(this, R.layout.message_item, messages);
         listView.setAdapter(adapter);
 
-
-
         Intent intent = getIntent();
         TextView nameView = findViewById(R.id.user_name);
 
@@ -63,8 +61,22 @@ public class UserChat extends AppCompatActivity {
                 true
             );
 
-            messageDao.insert(newMessage);
-            recreate();
+            Dog dog = new Dog(getApplicationContext());
+            dog.postMessage(newMessage, () -> {
+                messages.clear();
+                messages.addAll(messageDao.getMessagesWithContact(activeContactID));
+                adapter.notifyDataSetChanged();
+                recreate();
+            });
+
+        });
+
+        // FILL ROOM FROM SERVER
+        Dog dog = new Dog(getApplicationContext());
+        dog.fetchMessages(activeContactID, () -> {
+            messages.clear();
+            messages.addAll(messageDao.index());
+            adapter.notifyDataSetChanged();
         });
     }
 

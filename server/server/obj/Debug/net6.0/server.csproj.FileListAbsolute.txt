@@ -808,3 +808,5 @@ C:\Users\david\Documents\github repos\WeTalk\server\server\bin\Debug\net6.0\Micr
 C:\Users\shach\git repos\advanced-programming 2\WeTalk\server\server\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\shach\git repos\advanced-programming 2\WeTalk\server\server\bin\Debug\net6.0\MySqlConnector.dll
 C:\Users\shach\git repos\advanced-programming 2\WeTalk\server\server\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\david\Documents\github repos\WeTalk\server\server\bin\Debug\net6.0\MySqlConnector.dll
+C:\Users\david\Documents\github repos\WeTalk\server\server\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
