@@ -40,7 +40,7 @@ public class UserChat extends AppCompatActivity {
         messages = new ArrayList<>();
 
         listView = findViewById(R.id.message_list_view);
-        adapter = new MessageListAdapter(this, R.layout.message_item, messages);
+        adapter = new MessageListAdapter(this, R.layout.message_item_left, messages);
         listView.setAdapter(adapter);
 
         Intent intent = getIntent();
@@ -61,6 +61,7 @@ public class UserChat extends AppCompatActivity {
                     "sometime",
                 true
             );
+            messageTextView.setText("");
 
             Dog dog = new Dog(getApplicationContext());
             dog.postMessage(newMessage, () -> {

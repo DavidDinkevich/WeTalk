@@ -19,13 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:background="@color/noColor"
             android:orientation="horizontal">
 
             <!--tools:src="@drawable/blue"-->
 
             <androidx.cardview.widget.CardView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_margin="9dp"
                 android:elevation="10dp"
                 app:cardCornerRadius="60dp">
@@ -35,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="7dp"
                     android:background="@color/white"
                     android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
@@ -45,14 +46,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
                 android:layout_marginStart="8dp"
+                android:background="@color/noColor"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/blue"
                     android:textSize="26sp"
+                    android:background="@color/noColor"
                     android:textStyle="bold"
                     tools:text="@string/user_name" />
 
@@ -62,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/black"
+                    android:background="@color/noColor"
                     android:textSize="14sp"
                     tools:text="@string/last_message" />
 
@@ -76,7 +80,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="-3dp"
             android:padding="15dp"
-            android:textColor="@color/white"
+            android:background="@color/noColor"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="10:00" />

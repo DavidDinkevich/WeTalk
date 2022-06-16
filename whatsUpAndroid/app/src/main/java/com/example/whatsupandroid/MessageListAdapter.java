@@ -14,9 +14,11 @@ import java.util.List;
 public class MessageListAdapter extends ArrayAdapter<Message> {
     private final int resourceLayout;
     private final Context mContext;
+    private  List<Message> messages;
 
     public MessageListAdapter(Context context, int resource, List<Message> items) {
         super(context, resource, R.id.messageTextView, items);
+        messages = items;
         this.resourceLayout = resource;
         this.mContext = context;
     }
@@ -29,7 +31,12 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(mContext);
-            v = vi.inflate(resourceLayout, null);
+            if (messages.get(position).isSent()){
+                v = vi.inflate(R.layout.message_item_right, null);
+            }
+            else{
+                v = vi.inflate(R.layout.message_item_left, null);
+            }
         }
 
         Message p = getItem(position);

@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:backgroundTint="@color/grey"
     android:orientation="vertical"
     >
 
@@ -19,8 +18,9 @@
         android:fontFamily="monospace"
         android:gravity="center"
         android:text="@string/settings"
-        android:textColor="@color/btn_color"
-        android:textSize="45sp"
+        android:background="@color/noColor"
+        android:textColor="@color/blue"
+        android:textSize="60sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/noColor"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -41,6 +42,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:text="@string/choose_server"
+            android:textStyle="bold"
+            android:background="@color/noColor"
             android:textColor="@color/purple_500"
             android:textSize="20sp" />
 
@@ -69,12 +72,15 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:text="@string/choose_theme"
+            android:background="@color/noColor"
+            android:textStyle="bold"
             android:textColor="@color/purple_500"
             android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/noColor"
             android:orientation="vertical">
 
             <ImageView
@@ -83,11 +89,13 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="7dp"
-                app:srcCompat="@drawable/images" />
+                android:background="@color/noColor"
+                app:srcCompat="@drawable/cloudy" />
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:background="@color/noColor"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="-50dp"
                 app:srcCompat="@drawable/sun" />
@@ -96,12 +104,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/noColor"
                 android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/btg_theme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:background="@color/noColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

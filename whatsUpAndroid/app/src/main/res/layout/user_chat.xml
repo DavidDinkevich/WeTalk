@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/main_background_4"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,27 +17,25 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:orientation="vertical">
-            <!--android:background="@drawable/main_background_4"-->
 
             <RelativeLayout
                 android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
                 android:background="@color/trans"
                 android:backgroundTint="#EDE8EC">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginVertical="0dp"
+                    android:background="@color/noColor"
                     android:orientation="horizontal">
 
-                    <!--tools:src="@drawable/blue"-->
-
                     <androidx.cardview.widget.CardView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_margin="10dp"
                         android:elevation="10dp"
                         app:cardCornerRadius="60dp">
@@ -58,14 +55,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="20dp"
                         android:layout_marginStart="8dp"
+                        android:background="@color/noColor"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="26sp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/noColor"
+                            android:textColor="@color/blue"
+                            android:textSize="30sp"
                             android:textStyle="bold"
                             tools:text="@string/nickname" />
 
@@ -77,16 +78,16 @@
             </RelativeLayout>
 
         </LinearLayout>
+
+
         <ListView
             android:id="@+id/message_list_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="13"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="14"
             android:orientation="vertical"
-            tools:listitem="@layout/user_item"
-/>
-
+            tools:listitem="@layout/message_item_left" />
 
         <LinearLayout
             android:id="@+id/footer"
@@ -100,25 +101,23 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="bottom"
-                app:srcCompat="?attr/actionModeCloseDrawable"
-                android:contentDescription="TODO" />
+                app:srcCompat="?attr/actionModeCloseDrawable" />
 
             <EditText
                 android:id="@+id/messageTextField"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/trans"
                 android:ems="10"
                 android:hint="@string/messageInput"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="auto"
                 android:inputType="text"
                 android:paddingStart="7dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:textSize="24sp"
-                tools:ignore="RtlSymmetry"
-                />
-
+                android:textSize="24sp" />
 
 
         </LinearLayout>

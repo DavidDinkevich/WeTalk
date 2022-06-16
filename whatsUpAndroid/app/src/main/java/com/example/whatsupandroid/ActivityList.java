@@ -6,12 +6,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.example.whatsupandroid.api.ContactAPI;
+import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.api.WebServiceAPI;
 import com.example.whatsupandroid.room.AppDB;
 import com.example.whatsupandroid.room.Contact;
@@ -35,6 +38,9 @@ public class ActivityList extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        TextView userName = findViewById(R.id.textView4);
+        userName.setText(Token.currentUser);
 
 
 //        ListView btnContact = findViewById(R.id.list_view);

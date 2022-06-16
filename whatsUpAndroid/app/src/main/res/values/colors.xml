@@ -10,5 +10,7 @@
     <color name="trans">#8CFFFFFF</color>
     <color name="btn_color">#D26EC5ED</color>
     <color name="grey">#E3DBDB</color>
+    <color name="blue">#3c93f3</color>
+    <color name="noColor">#00000000</color>
 
 </resources>

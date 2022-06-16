@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.WhatsUpAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:background"> @color/grey</item>
+        <item name="android:background"> @drawable/gradient_background</item>
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
