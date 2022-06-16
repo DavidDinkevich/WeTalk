@@ -1,5 +1,6 @@
 package com.example.whatsupandroid.api;
 
+import com.example.whatsupandroid.models.SetFirebaseTokenRequest;
 import com.example.whatsupandroid.models.SignupCreds;
 import com.example.whatsupandroid.models.UserCred;
 import com.example.whatsupandroid.room.Contact;
@@ -37,4 +38,7 @@ public interface WebServiceAPI {
 
     @POST("contacts/{id}/messages")
     Call <Message> postMessage(@Header("Authorization") String token, @Path("id") String contact, @Body Message m);
+
+    @POST("notificationToken")
+    Call <Void> createToken (@Body SetFirebaseTokenRequest req, @Header("Authorization") String jwtToken);
 }

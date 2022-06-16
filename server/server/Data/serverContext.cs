@@ -270,6 +270,13 @@ namespace server.Data
             return true;
         }
 
+        public bool AddUserToken(string idUser, string token) {
+            //UserTokenDB.Add(idUser);
+            //UserTokenDB.Add(token);
+            SaveChanges();
+            return true;
+        }
+
         public serverContext (DbContextOptions<serverContext> options)
             : base(options)
         {

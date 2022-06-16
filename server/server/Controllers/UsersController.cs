@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using System.Text.Json;
 using Microsoft.AspNetCore.SignalR;
 using server.Hubs;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using FirebaseAdmin.Messaging;
+using Message = server.Models.Message;
 
 namespace server.Controllers {
     [Authorize]
@@ -76,6 +80,9 @@ namespace server.Controllers {
             }
             return Ok(userContacts);
         }
+
+
+
 
         [HttpPost]
         [Route("contacts")]
@@ -250,13 +257,35 @@ namespace server.Controllers {
                 return BadRequest("Sender is not a contact of one of our users");
 
             // Push to clients with signalr
-            string msgJson = JsonSerializer.Serialize(transfer, new JsonSerializerOptions { 
-                                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            string msgJson = JsonSerializer.Serialize(transfer, new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            await SendToClientInFirebase(transfer);     
             await _hubContext.Clients.Group(transfer.To).SendAsync("ReceivedMessage", msgJson);
-
-
             return Created(string.Format("api/contacts/{0}/messages/{1}", transfer.From, msg.Id), msg);
         }
+
+        private async Task SendToClientInFirebase(MsgJson transfer) {
+            User to = _context.GetUserByID(transfer.To);
+            var firebaseToken = FirebaseManager.GetTokenByUsername(transfer.To);
+            if (firebaseToken == null) return;
+            
+            if(FirebaseApp.DefaultInstance == null) {
+                FirebaseApp.Create(new AppOptions() {
+                    Credential = GoogleCredential.FromFile("keyForFirebase.json")
+                });
+            }
+
+            var msg = new FirebaseAdmin.Messaging.Message() {
+                Token = firebaseToken,
+                Notification = new Notification() {
+                    Title = "New Message from " + transfer.From,
+                    Body = transfer.Content
+                }
+            };
+
+            await FirebaseMessaging.DefaultInstance.SendAsync(msg);
+          }
 
         [HttpGet]
         [Route("contacts/{id}/messages")]

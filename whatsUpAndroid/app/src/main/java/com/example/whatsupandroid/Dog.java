@@ -2,12 +2,14 @@ package com.example.whatsupandroid;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.room.Room;
 
 import com.example.whatsupandroid.api.ContactAPI;
 import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.api.WebServiceAPI;
+import com.example.whatsupandroid.models.SetFirebaseTokenRequest;
 import com.example.whatsupandroid.models.UserCred;
 import com.example.whatsupandroid.room.AppDB;
 import com.example.whatsupandroid.room.Contact;
@@ -15,6 +17,9 @@ import com.example.whatsupandroid.room.ContactDao;
 import com.example.whatsupandroid.room.Message;
 import com.example.whatsupandroid.room.MessageDao;
 import com.example.whatsupandroid.room.MessagesDB;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +32,7 @@ import retrofit2.Response;
 public class Dog extends Activity {
     private final WebServiceAPI webServiceAPI;
     private AppDB contactsDB;
+    public static MainActivity activity;
     private ContactDao contactDao;
     private MessagesDB messagesDB;
     private MessageDao messageDao;
@@ -46,6 +52,25 @@ public class Dog extends Activity {
 
     }
 
+    public void setFirebaseTokenInServer() {
+        String id = Token.currentUser;
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, (OnSuccessListener<InstanceIdResult>) instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            Call <Void> tokenCall = webServiceAPI.createToken(new SetFirebaseTokenRequest(newToken), Token.mytoken);
+            tokenCall.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Log.d("firebase", "success");
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.e("firebase", "failure");
+                }
+            });
+        });
+    }
+
     public void login(String id, String password, Runnable onDone) {
         Token.currentUser = id;
 
@@ -61,9 +86,9 @@ public class Dog extends Activity {
                     e.printStackTrace();
                 }
                 Token.mytoken = "Bearer " + token;
+                setFirebaseTokenInServer();
 //                Intent i = new Intent(context, ActivityList.class);
                 //startActivity(i);
-
                 onDone.run();
 
             }

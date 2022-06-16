@@ -47,14 +47,18 @@ public class SignUp extends AppCompatActivity {
                     String token = null;
                     try {
                         token = response.body().string();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     Token.mytoken = "Bearer " + token;
+                    Dog dog = new Dog(getApplicationContext());
+                    dog.setFirebaseTokenInServer();
                     Intent i = new Intent( context, ActivityList.class);
                     startActivity(i);
 
                 }
+
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {

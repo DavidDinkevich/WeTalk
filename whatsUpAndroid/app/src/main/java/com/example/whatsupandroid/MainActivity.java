@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         ContactAPI contactAPI = new ContactAPI();
         this.webServiceAPI = contactAPI.getWebServiceAPI();
-
+        Dog.activity = MainActivity.this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -52,11 +52,26 @@ public class MainActivity extends AppCompatActivity {
             });
         });
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>(){
+
+        /*FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>(){
             public void onSuccess (InstanceIdResult instanceIdResult){
                 String newToken = instanceIdResult.getToken();
-            }
-        });
+                Dog dog = new Dog(getApplicationContext());
+                dog.setFirebaseTokenInServer(MainActivity.this);*/
+                //Call <ResponseBody> tokenCall = webServiceAPI.createToken(newToken);
+                /*tokenCall.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });*/
+        /*    }
+        });*/
 
 
         Button btnRegister = findViewById(R.id.buttonRegister);
