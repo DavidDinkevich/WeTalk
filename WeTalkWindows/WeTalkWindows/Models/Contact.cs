@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WeTalkWindows.Models {
-    class Contact {
+    public class Contact {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Server { get; set; }

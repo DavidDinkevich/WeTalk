@@ -8,11 +8,11 @@
                         <Border Width="30" Height="30" Background="CornflowerBlue" CornerRadius="30"/>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding Sender}" Foreground="White" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,-5,0"/>
-                                <Label Content="{Binding Time}" Foreground="Gray" FontSize="8" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <Label Content="{Binding Sender}" Foreground="Purple" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                <Label Content="{Binding Time}" Foreground="Gray" FontSize="8" VerticalAlignment="Center"/>
                         
                             </StackPanel>
-                             <Label Content="{Binding Content}" Foreground="White" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                             <Label Content="{Binding Content}" Foreground="White" VerticalAlignment="Center"/>
                         
                         </StackPanel>
                     

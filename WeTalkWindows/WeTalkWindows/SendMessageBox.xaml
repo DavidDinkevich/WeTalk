@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
     <Style TargetType="TextBox" x:Key="SendMessageBox">
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="FontWeight" Value="Medium"/>
@@ -9,9 +10,9 @@
                 <ControlTemplate TargetType="TextBox">
                     <Border CornerRadius="10" Background="#3e4147">
                         <Grid>
-                            <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" x:Name="SendMessageBox" Background="Transparent" TextWrapping="Wrap" BorderThickness="0" Foreground="Gray" CaretBrush="Gray" Margin="8,0,0,0" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" x:Name="SendMessageBox" Background="Transparent" TextWrapping="Wrap" BorderThickness="0" Foreground="Gray" CaretBrush="Gray" Margin="8,0,0,0" Text="{Binding MessageText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
-                                    <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
+                                    <KeyBinding Command="{Binding SendMessage}" Key="Return" />
                                 </TextBox.InputBindings>
                             </TextBox>
                             <TextBlock IsHitTestVisible="False" Text="Type a message..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
@@ -26,6 +27,7 @@
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
+                            <Button Content="Send" HorizontalAlignment="Left" Height="30" Margin="451,24,0,0" VerticalAlignment="Top" Width="39"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
