@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
@@ -14,16 +16,14 @@ using System.Windows;
 namespace WeTalkWindows.Models {
     public class Context : Obs {
         private static readonly HttpClient client = new HttpClient();
-        private static string SERVER = "127.0.0.1:5013";
-        private static string TOKEN = "";
-        private static string EMAIL = "";
-        private static string PASSWORD = "";
+        public static string SERVER = "127.0.0.1:5013";
+        public static string TOKEN = "";
+        public static string ActiveUserName { get; set; } = "David";
+        public static string ActiveUserID { get; set; } = "David100";
 
         public ObservableCollection<Message> Messages { get; set; }
         public ObservableCollection<Contact> Contacts { get; set; }
 
-        public string ActiveUserName { get; set; } = "David";
-        public string ActiveUserID { get; set; } = "David100";
 
         private Contact activeContact;
         public Contact ActiveContact {
@@ -50,7 +50,7 @@ namespace WeTalkWindows.Models {
         //public TextBox Message { get; set; }
 
         public Context() {
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikl0YXkxMDAiLCJuYmYiOjE2NTU0MjkzNDIsImV4cCI6MTY1NTQzMjk0MiwiaWF0IjoxNjU1NDI5MzQyfQ.VlArrelDu_QpyRl4QDf7yq2q8N99v4QC56m3-4G_omY");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + TOKEN);
 
 
             Messages = new ObservableCollection<Message>();
@@ -71,7 +71,6 @@ namespace WeTalkWindows.Models {
             //var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
 
             GetContacts();
-            GetMessages();
 
         }
 
@@ -124,6 +123,7 @@ namespace WeTalkWindows.Models {
             var task = Task.Run(() => client.PostAsync(string.Format("http://{0}/api/contacts/{1}/messages", SERVER, ActiveContact.Id), content));
             //task.Wait();
         }
+
     }
 
 }

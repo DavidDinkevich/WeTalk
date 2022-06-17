@@ -1,0 +1,23 @@
+﻿<Window x:Class="WeTalkWindows.SignupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeTalkWindows"
+        mc:Ignorable="d"
+        Title="WeTalk" Height="341" Width="400">
+    <Grid Background="#FF070A14">
+        <Label Content="Sign up" HorizontalAlignment="Center" Height="87" VerticalAlignment="Top" Width="179" Background="#00504848" Foreground="#FFA1A1A1" FontWeight="Bold" FontSize="35" Margin="0,20,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button Content="Sign up" Click="AttemptSignUp" HorizontalAlignment="Left" Height="20" Margin="168,271,0,0" VerticalAlignment="Top" Width="68" Background="#FFA1A1A1"/>
+        <Button Content="Log in" Click="GotoLogin" HorizontalAlignment="Left" Height="20" Margin="259,271,0,0" VerticalAlignment="Top" Width="68" Background="#FFA1A1A1"/>
+        <TextBox Name="UsernameField" Text="{Binding UsernameField}" HorizontalAlignment="Left" Height="24" Margin="168,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159" Background="#FF2D2D34" Foreground="#FFA1A19E"/>
+        <PasswordBox Name="PasswordField" HorizontalAlignment="Left" Height="24" Margin="169,190,0,0" VerticalAlignment="Top" Width="159" Background="#FF2D2D34" Foreground="#FFA1A1A1"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="81,116,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top" Width="59" Foreground="#FFA1A1A1"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="86,192,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Width="54" Foreground="#FFA1A1A1"/>
+        <PasswordBox Name="ConfirmPassword" HorizontalAlignment="Left" Height="24" Margin="169,226,0,0" VerticalAlignment="Top" Width="159" Background="#FF2D2D34" Foreground="#FFA1A1A1"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="42,228,0,0" TextWrapping="Wrap" Text="Confirm Password:" VerticalAlignment="Top" Width="98" Foreground="#FFA1A1A1"/>
+        <TextBox Name="NameField" Text="{Binding NameField}" HorizontalAlignment="Left" Height="24" Margin="169,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159" Background="#FF2D2D34" Foreground="#FFA1A19E" RenderTransformOrigin="0.262,0.763"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="101,156,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="39" Foreground="#FFA1A1A1"/>
+
+    </Grid>
+</Window>

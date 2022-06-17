@@ -18,36 +18,40 @@ using WeTalkWindows.Models;
 
 namespace WeTalkWindows {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for SignupWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window {
+    public partial class SignupWindow : Window {
         private static readonly HttpClient client = new HttpClient();
 
-
-        public LoginWindow() {
+        public SignupWindow() {
             InitializeComponent();
-
-
         }
 
-        private void GotoSignup(object sender, RoutedEventArgs e) {
-            SignupWindow lw = new SignupWindow();
+
+        private void GotoLogin(object sender, RoutedEventArgs e) {
+            LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();
         }
 
+        private void AttemptSignUp(object sender, RoutedEventArgs e) {
+            if (PasswordField.Password != ConfirmPassword.Password) {
+                MessageBox.Show("Passwords do not match");
+                return;
+            }
 
-        private void AttemptLogin(object sender, RoutedEventArgs e) {
-            Context.ActiveUserID = EmailField.Text;
-            Context.ActiveUserName = EmailField.Text;
+            Context.ActiveUserID = UsernameField.Text;
+            Context.ActiveUserName = NameField.Text;
 
             JObject oJsonObj = new JObject();
-            oJsonObj.Add("username", Context.ActiveUserID);
+            oJsonObj.Add("id", Context.ActiveUserID);
+            oJsonObj.Add("name", Context.ActiveUserName);
             oJsonObj.Add("password", PasswordField.Password);
+            oJsonObj.Add("server", Context.SERVER);
 
             var content = new StringContent(oJsonObj.ToString(), Encoding.UTF8, "application/json");
 
-            var task = Task.Run(() => client.PostAsync(string.Format("http://{0}/api/login", Context.SERVER), content));
+            var task = Task.Run(() => client.PostAsync(string.Format("http://{0}/api/signup", Context.SERVER), content));
             task.Wait();
             var response = task.Result;
             if (response.StatusCode == System.Net.HttpStatusCode.OK) {
@@ -64,6 +68,7 @@ namespace WeTalkWindows {
                 MessageBox.Show("Username or password is invalid");
             }
         }
+
 
     }
 }

@@ -19,11 +19,17 @@ namespace WeTalkWindows {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        //public ObservableCollection<Contact> Contacts { get; set; }
 
         public MainWindow() {
             InitializeComponent();
-            //___ContactList_.
+
+        }
+
+        private void OpenAddContactDialog(object sender, RoutedEventArgs e) {
+            AddContactWindow addContactWindow = new AddContactWindow();
+            addContactWindow.Show();
+            
+
         }
     }
 }

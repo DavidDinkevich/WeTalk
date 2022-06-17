@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WeTalkWindows.Models {
     public class LoginContext : Obs {
+
+        public string Password { get; set; }
+
         private string _emailText = "";
         public string EmailText {
             get { return _emailText; }
