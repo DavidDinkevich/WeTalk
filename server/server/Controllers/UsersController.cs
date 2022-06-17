@@ -73,7 +73,7 @@ namespace server.Controllers {
                     Id = contact.Id,
                     Name = contact.Name,
                     Server = contact.Server,
-                    Last = lastMessage != null ? lastMessage.Time : null,
+                    Last = lastMessage != null ? lastMessage.Content : null,
                     LastDate = lastMessage != null ? lastMessage.Time : null
                 };
                 userContacts.Add(u);
@@ -197,13 +197,13 @@ namespace server.Controllers {
                 return NotFound();
             }
             //_context.UpdateLastInfo(user.Id, contact.Id);
-            //Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
+            Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
             User u = new User() {
                 Id = contact.Id,
                 Name = contact.Name,
                 Server = contact.Server,
-                //Last = lastMessage.Content,
-                //LastDate = lastMessage != null ? lastMessage.Time : null
+                Last = lastMessage != null ? lastMessage.Content : null,
+                LastDate = lastMessage != null ? lastMessage.Time : null
             };
 
             return Ok(u);

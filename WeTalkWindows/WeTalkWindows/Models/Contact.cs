@@ -10,6 +10,6 @@ namespace WeTalkWindows.Models {
         public string Name { get; set; }
         public string Server { get; set; }
         public string UserID { get; set; }
-        public string LastMessage { get; set; } = "bla";
+        public string Last { get; set; } = "";
     }
 }

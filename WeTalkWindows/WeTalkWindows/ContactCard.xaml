@@ -17,7 +17,7 @@
                                 <Border Width="30" Height="30" Background="CornflowerBlue" CornerRadius="30"/>
                                 <StackPanel>
                                     <Label Content="{Binding Name}" Foreground="White"/>
-                                        <Label Content="{Binding LastMessage}" Foreground="Gray" FontSize="10"/>
+                                        <Label Content="{Binding Last}" Foreground="Gray" FontSize="10"/>
                                 </StackPanel>
                             </StackPanel>
                                 

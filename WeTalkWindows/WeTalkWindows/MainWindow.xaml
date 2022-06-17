@@ -36,7 +36,7 @@
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Label Content="Contacts" VerticalAlignment="Center" FontWeight="Medium" Foreground="LightGray" FontSize="15" Margin="8,0,0,0"/>
+                <Label Content="{Binding ActiveUserID}" VerticalAlignment="Center" FontWeight="Medium" Foreground="LightGray" FontSize="15" Margin="8,0,0,0"/>
                 <Button Name="AddContactButton" Content="+" Click="OpenAddContactDialog"  Foreground="LightGray" BorderThickness="0" FontSize="40" VerticalAlignment="Top"  Background="Transparent"  Grid.Column="1" Margin="0,-5,0,0"></Button>
                 <!--<ToggleButton x:Name="TogglePopupButton" Height="30" Width="150" HorizontalAlignment="Left">
                     <StackPanel>
@@ -55,7 +55,7 @@
                     </StackPanel>
                 </ToggleButton>-->
             </Grid>
-            <ListView ItemsSource="{Binding Path=Contacts}" SelectedItem="{Binding ActiveContact}"  Background="Transparent" BorderThickness="0" Grid.Row="1" ItemContainerStyle="{StaticResource ContactCard}" BorderBrush="#FF252525"/>
+            <ListView Name="ContactsListView" ItemsSource="{Binding Path=Contacts}" SelectedItem="{Binding ActiveContact}"  Background="Transparent" BorderThickness="0" Grid.Row="1" ItemContainerStyle="{StaticResource ContactCard}" BorderBrush="#FF252525"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -65,7 +65,7 @@
             </Grid.RowDefinitions>
             <Border BorderBrush="#FF2F3136">
                 <Grid HorizontalAlignment="Stretch" Margin="8" >
-                    <Label Content="{Binding ActiveUserName}" Foreground="White" FontWeight="Bold" Margin="5,0,5,0" VerticalAlignment="Center"></Label>
+                    <Label Content="{Binding ActiveContactName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" FontWeight="Bold" Margin="5,0,5,0" VerticalAlignment="Center"></Label>
                 </Grid>
             </Border>
 

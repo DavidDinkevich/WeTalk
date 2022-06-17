@@ -25,10 +25,21 @@ namespace WeTalkWindows.Models {
         public ObservableCollection<Contact> Contacts { get; set; }
 
 
+        private string _activeContactName = "";
+        public string ActiveContactName {
+            get { return _activeContactName; }
+            set {
+                if (value != null) {
+                    _activeContactName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private Contact activeContact;
         public Contact ActiveContact {
             set {
                 activeContact = value;
+                ActiveContactName = activeContact?.Name;
                 GetMessages();
             }
             get { return activeContact; }
@@ -67,8 +78,6 @@ namespace WeTalkWindows.Models {
                 }
                 GetContacts();
             });
-
-            //var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
 
             GetContacts();
 
