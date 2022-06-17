@@ -83,7 +83,7 @@ namespace WeTalkWindows.Models {
                     Messages.Add(newMessage);
                     PostMessage(newMessage.Content);
                     // Send signal r
-                    FakeAsync(connection.InvokeAsync("SendMessage", MessageText));
+                    FakeAsync(() => connection.InvokeAsync("SendMessage", MessageText));
 
                     MessageText = "";
                     GetContacts();
@@ -198,8 +198,15 @@ namespace WeTalkWindows.Models {
 
         }
 
-        public static void FakeAsync(Task f) {
-            var task = Task.Run(() => f.RunSynchronously());
+        public static void PostContactSignalR(ReducedContact rc) {
+            string contactJson = JsonSerializer.Serialize(rc, new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            FakeAsync(() => Context.connection.InvokeAsync("AddContact", ActiveUserID, contactJson));
+        }
+
+        public static void FakeAsync(Action a) {
+            var task = Task.Run(a);
             task.Wait();
         }
 

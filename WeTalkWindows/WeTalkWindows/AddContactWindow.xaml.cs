@@ -39,13 +39,19 @@ namespace WeTalkWindows {
                 var task = Task.Run(() => client.PostAsync(string.Format("http://{0}/api/contacts", Context.SERVER), content));
                 task.Wait();
                 var response = task.Result;
-                //if (response.StatusCode == System.Net.HttpStatusCode.Created) {
-                    // Change screens
                     this.Close();
+                if (response.StatusCode == System.Net.HttpStatusCode.Created) {
+                    //Change screens
+                    ReducedContact cont = new ReducedContact();
+                    cont.Id = UsernameField.Text;
+                    cont.Name = NameField.Text;
+                    cont.Server = IPField.Text + ":" + PortField.Text;
+                    Context.PostContactSignalR(cont);
 
-                //} else {
-                    //MessageBox.Show("Couldn't add requested contact");
-                //}
+                } else {
+                    MessageBox.Show("Couldn't add requested contact");
+                }
+
 
 
         }

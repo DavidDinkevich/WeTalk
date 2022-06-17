@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:WeTalkWindows"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./ContactCard.xaml"/>
