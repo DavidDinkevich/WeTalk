@@ -5,7 +5,7 @@ import { searchBox } from "./left-screen/chat-search/ChatSearch";
 import { refreshSelfInfo } from "./self-info/SelfInfo";
 import { useNavigate } from "react-router-dom";
 
-export const SERVER_NAME = "127.0.0.1:7013"
+export const SERVER_NAME = "127.0.0.1:5013"
 
 const context = {
     currentUser: {
@@ -20,11 +20,12 @@ const context = {
 }
 
 export function getServerUrl() {
-    return `https://${SERVER_NAME}`
+    return `http://${SERVER_NAME}`
 }
 
 export function formatTime(csTime) {
-    return csTime.substring(11, 16);
+    return "10:20:55"
+    // return csTime.substring(11, 16);
 }
 
 export function formatTimeWithSeconds(csTime) {
@@ -147,6 +148,7 @@ export const login = async function (username, password, onSuccess, onFail) {
             },
             body: JSON.stringify({ username, password })
         })
+    
     if (!response.ok) {
         onFail();
     } else {

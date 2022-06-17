@@ -12,14 +12,19 @@ using System.Windows.Controls;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Windows;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace WeTalkWindows.Models {
     public class Context : Obs {
         private static readonly HttpClient client = new HttpClient();
+        public static HubConnection connection;
+        private static bool InitializedSignalR = false;
+
         public static string SERVER = "127.0.0.1:5013";
         public static string TOKEN = "";
         public static string ActiveUserName { get; set; } = "David";
         public static string ActiveUserID { get; set; } = "David100";
+
 
         public ObservableCollection<Message> Messages { get; set; }
         public ObservableCollection<Contact> Contacts { get; set; }
@@ -61,6 +66,9 @@ namespace WeTalkWindows.Models {
         //public TextBox Message { get; set; }
 
         public Context() {
+            if (!InitializedSignalR)
+                InitSignalR();
+
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + TOKEN);
 
 
@@ -74,9 +82,12 @@ namespace WeTalkWindows.Models {
                     };
                     Messages.Add(newMessage);
                     PostMessage(newMessage.Content);
+                    // Send signal r
+                    FakeAsync(connection.InvokeAsync("SendMessage", MessageText));
+
                     MessageText = "";
+                    GetContacts();
                 }
-                GetContacts();
             });
 
             GetContacts();
@@ -133,6 +144,66 @@ namespace WeTalkWindows.Models {
             //task.Wait();
         }
 
+        private async void InitSignalR() {
+            connection = new HubConnectionBuilder()
+                .WithUrl(string.Format("https://127.0.0.1:7013/Hubs/messageHub", Context.SERVER), options => {
+                    options.UseDefaultCredentials = true;
+                    options.HttpMessageHandlerFactory = (msg) => {
+                        if (msg is HttpClientHandler clientHandler) {
+                            // bypass SSL certificate
+                            clientHandler.ServerCertificateCustomValidationCallback +=
+                                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                        }
+
+                        return msg;
+                    };
+                })
+            .WithAutomaticReconnect()
+            .Build();
+
+            connection.Closed += async (error) => {
+                await Task.Delay(new Random().Next(0, 5) * 1000);
+                await connection.StartAsync();
+            };
+            // Handle operations
+            connection.On<string>("ReceivedMessage", msgJson => {
+                GetMessages();
+                GetContacts();
+            });
+            connection.On<string>("NewContact", newContact => {
+                GetMessages();
+                GetContacts();
+            });
+            connection.On("ReloadContacts", () => {
+                GetMessages();
+                GetContacts();
+            });
+
+            // Configure connection
+            try {
+                await connection.StartAsync();
+                //messagesList.Items.Add("Connection started");
+                //connectButton.IsEnabled = false;
+                //sendButton.IsEnabled = true;
+
+            } catch (Exception ex) {
+                MessageBox.Show("Couldn't connect to SignalR");
+                //messagesList.Items.Add(ex.Message);
+            }
+            try {
+                await connection.InvokeAsync("JoinClientGroup", ActiveUserID);
+            } catch (Exception ex) {
+                MessageBox.Show("Couldn't join SignalR user group");
+            }
+
+        }
+
+        public static void FakeAsync(Task f) {
+            var task = Task.Run(() => f.RunSynchronously());
+            task.Wait();
+        }
+
     }
+
 
 }

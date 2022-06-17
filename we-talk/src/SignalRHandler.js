@@ -54,6 +54,7 @@ function SignalRHandler() {
                 });
 
                 connection.on('NewContact', contact => {
+                    console.log("sdfsdfsfsdfsdf")
                      updateUserContacts();
                      hideChatView();
                 });

@@ -14,15 +14,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WeTalkWindows.Models;
 
+
 namespace WeTalkWindows {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
 
+
         public MainWindow() {
             InitializeComponent();
-
         }
 
         private void OpenAddContactDialog(object sender, RoutedEventArgs e) {
