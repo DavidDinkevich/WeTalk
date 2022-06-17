@@ -1,0 +1,24 @@
+﻿<Window x:Class="WeTalkWindows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeTalkWindows" xmlns:models="clr-namespace:WeTalkWindows.Models" d:DataContext="{d:DesignInstance Type=models:Context}"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="368" Width="400">
+
+    <Window.DataContext>
+        <models:LoginContext />
+    </Window.DataContext>
+
+    <Grid Background="#FF070A14">
+        <Label Content="WeTalk" HorizontalAlignment="Center" Height="87" VerticalAlignment="Top" Width="179" Background="#00504848" Foreground="#FFA1A1A1" FontWeight="Bold" FontSize="48" Margin="0,68,0,0"/>
+        <TextBox Text="{Binding EmailText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="24" Margin="163,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="159" Background="#FF2D2D34" Foreground="#FFA1A19E"/>
+        <PasswordBox HorizontalAlignment="Left" Height="24" Margin="163,226,0,0" VerticalAlignment="Top" Width="159" Background="#FF2D2D34" Foreground="#FFA1A1A1"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="84,189,0,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top" Width="51" Foreground="#FFA1A1A1"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="76,228,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Width="59" Foreground="#FFA1A1A1"/>
+        <Button Content="Sign in" Click="AttemptLogin" HorizontalAlignment="Left" Height="20" Margin="163,278,0,0" VerticalAlignment="Top" Width="68" Background="#FFA1A1A1"/>
+        <Button Content="Sign up" HorizontalAlignment="Left" Height="20" Margin="254,278,0,0" VerticalAlignment="Top" Width="68" Background="#FFA1A1A1"/>
+
+    </Grid>
+</Window>

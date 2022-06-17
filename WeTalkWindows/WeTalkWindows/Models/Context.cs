@@ -8,17 +8,22 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Windows.Controls;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace WeTalkWindows.Models {
     public class Context : Obs {
         private static readonly HttpClient client = new HttpClient();
         private static string SERVER = "127.0.0.1:5013";
-
+        private static string TOKEN = "";
+        private static string EMAIL = "";
+        private static string PASSWORD = "";
 
         public ObservableCollection<Message> Messages { get; set; }
         public ObservableCollection<Contact> Contacts { get; set; }
 
         public string ActiveUserName { get; set; } = "David";
+        public string ActiveUserID { get; set; } = "David100";
 
         private Contact activeContact;
         public Contact ActiveContact {
@@ -41,6 +46,7 @@ namespace WeTalkWindows.Models {
         public RelayCommand SendMessage { get; set; }
 
 
+
         //public TextBox Message { get; set; }
 
         public Context() {
@@ -52,11 +58,11 @@ namespace WeTalkWindows.Models {
 
             SendMessage = new RelayCommand(o => {
                 if (ActiveContact != null) {
-                    Console.WriteLine("Happy bday!!!");
                     Message newMessage = new(ActiveUserName, ActiveContact.Name) {
                         Content = _msgText
                     };
                     Messages.Add(newMessage);
+                    PostMessage(newMessage.Content);
                     MessageText = "";
                 }
                 GetContacts();
@@ -100,16 +106,24 @@ namespace WeTalkWindows.Models {
                 var options = new JsonSerializerOptions {
                     PropertyNameCaseInsensitive = true
                 };
-                var messages= JsonSerializer.Deserialize<List<Message>>(strResp, options);
+                var messages = JsonSerializer.Deserialize<List<Message>>(strResp, options);
                 Messages.Clear();
                 foreach (var c in messages)
                     Messages.Add(c);
             }
-
-
         }
 
-    }
+        public void PostMessage(string msg) {
+            JObject oJsonObject = new JObject();
+            oJsonObject.Add("from", ActiveUserID);
+            oJsonObject.Add("to", activeContact.Id);
+            oJsonObject.Add("content", msg);
 
+            var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
+
+            var task = Task.Run(() => client.PostAsync(string.Format("http://{0}/api/contacts/{1}/messages", SERVER, ActiveContact.Id), content));
+            //task.Wait();
+        }
+    }
 
 }

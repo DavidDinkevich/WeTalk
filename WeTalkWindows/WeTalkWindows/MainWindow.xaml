@@ -31,7 +31,14 @@
                 <RowDefinition/>
                 <!--<RowDefinition Height="50"/>-->
             </Grid.RowDefinitions>
-            <Label Content="Contacts" VerticalAlignment="Center" FontWeight="Medium" Foreground="Gray" Margin="8,0,0,0"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Content="Contacts" VerticalAlignment="Center" FontWeight="Medium" Foreground="LightGray" FontSize="15" Margin="8,0,0,0"/>
+                <Button Content="+" Foreground="LightGray" IsHitTestVisible="False" BorderThickness="0" FontSize="40" VerticalAlignment="Top"  Background="Transparent"  Grid.Column="1" Margin="0,-5,0,0"></Button>
+            </Grid>
             <ListView ItemsSource="{Binding Path=Contacts}" SelectedItem="{Binding ActiveContact}"  Background="Transparent" BorderThickness="0" Grid.Row="1" ItemContainerStyle="{StaticResource ContactCard}"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
@@ -57,7 +64,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,16,0">
                     <Image Source="./send_image.png" Width="60" Height="35" RenderOptions.BitmapScalingMode="Fant"/>
                 </StackPanel>
-                
+
 
             </Grid>
         </Grid>

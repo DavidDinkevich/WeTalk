@@ -27,7 +27,6 @@
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
-                            <Button Content="Send" HorizontalAlignment="Left" Height="30" Margin="451,24,0,0" VerticalAlignment="Top" Width="39"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
