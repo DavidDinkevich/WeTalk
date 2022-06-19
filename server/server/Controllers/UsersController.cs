@@ -116,7 +116,7 @@ namespace server.Controllers {
 
                 var content = new StringContent(oJsonObject.ToString(), Encoding.UTF8, "application/json");
                 await client.PostAsync(
-                    string.Format("https://{0}/api/invitations", inp.Server),
+                    string.Format("http://{0}/api/invitations", inp.Server),
                     content);
             }
             else if (other != null) {
@@ -241,6 +241,7 @@ namespace server.Controllers {
         [HttpPost]
         [Route("transfer")]
         public async Task<IActionResult> Transfer(MsgJson transfer) {
+            User activeUser = GetCurrentUser();
             User to = _context.GetUserByID(transfer.To);
             User from = _context.GetUserByID(transfer.From);
             // Transfers only allowed from foreign servers
@@ -251,7 +252,8 @@ namespace server.Controllers {
                 return NotFound();
             var msg = new Message(transfer.From, transfer.To) {
                 Content = transfer.Content,
-                Time = serverContext.GetTime()
+                Time = serverContext.GetTime(),
+                Sent = transfer.From == activeUser.Id
             };
             if (!_context.AddMessage(msg))
                 return BadRequest("Sender is not a contact of one of our users");
@@ -327,7 +329,8 @@ namespace server.Controllers {
                 // Foreign client
                 msg = new Message(activeUser.Id, toId) {
                     Content = msgJson.Content,
-                    Time = serverContext.GetTime()
+                    Time = serverContext.GetTime(),
+                    Sent = msgJson.From == activeUser.Id
                 };
             }
             // Try to add the message to the database

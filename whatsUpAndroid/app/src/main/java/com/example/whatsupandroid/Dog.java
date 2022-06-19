@@ -10,6 +10,7 @@ import androidx.room.Room;
 import com.example.whatsupandroid.api.ContactAPI;
 import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.api.WebServiceAPI;
+import com.example.whatsupandroid.models.MsgJson;
 import com.example.whatsupandroid.models.SetFirebaseTokenRequest;
 import com.example.whatsupandroid.models.UserCred;
 import com.example.whatsupandroid.room.AppDB;
@@ -178,17 +179,18 @@ public class Dog extends Activity {
     }
 
     public void postMessage(Message m, Runnable onDone) {
-        Call<Message> callMessage = webServiceAPI.postMessage(Token.mytoken, m.getRecipient(), m);
+        MsgJson msgJson = new MsgJson(m.getSender(), m.getRecipient(), m.getContent());
+        Call<MsgJson> callMessage = webServiceAPI.postMessage(Token.mytoken, m.getRecipient(), msgJson);
 
-        callMessage.enqueue(new Callback<Message>() {
+        callMessage.enqueue(new Callback<MsgJson>() {
             @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
+            public void onResponse(Call<MsgJson> call, Response<MsgJson> response) {
                 messageDao.insert(m);
                 onDone.run();
             }
 
             @Override
-            public void onFailure(Call<Message> call, Throwable t) {
+            public void onFailure(Call<MsgJson> call, Throwable t) {
                 serverConnectionError();
             }
         });

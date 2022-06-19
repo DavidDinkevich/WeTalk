@@ -17,10 +17,25 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
     private  List<Message> messages;
 
     public MessageListAdapter(Context context, int resource, List<Message> items) {
-        super(context, resource, R.id.messageTextView, items);
+        super(context, resource, R.id.messageTextViewLeft, items);
         messages = items;
         this.resourceLayout = resource;
         this.mContext = context;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (messages.get(position).isSent()){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
     }
 
     @Override
@@ -42,7 +57,11 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
         Message p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.messageTextView);
+            TextView tt1;
+            if (p.isSent())
+                tt1 = (TextView) v.findViewById(R.id.messageTextViewRight);
+            else
+                tt1 = (TextView) v.findViewById(R.id.messageTextViewLeft);
 
             if (tt1 != null) {
                 tt1.setText(p.getContent());
@@ -52,6 +71,8 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
 
         return v;
     }
+
+
 
 
 }
