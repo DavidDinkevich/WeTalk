@@ -3,6 +3,7 @@ package com.example.whatsupandroid;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.room.Room;
 
@@ -24,10 +25,13 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.io.IOException;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HTTP;
 
 public class Dog extends Activity {
     private final WebServiceAPI webServiceAPI;
@@ -36,9 +40,11 @@ public class Dog extends Activity {
     private ContactDao contactDao;
     private MessagesDB messagesDB;
     private MessageDao messageDao;
+    private Context context;
 
 
     public Dog(Context context) {
+        this.context = context;
 
         ContactAPI contactAPI = new ContactAPI();
         this.webServiceAPI = contactAPI.getWebServiceAPI();
@@ -49,6 +55,12 @@ public class Dog extends Activity {
         messagesDB = Room.databaseBuilder(context, MessagesDB.class, "MessagesDB")
                 .allowMainThreadQueries().build();
         messageDao = messagesDB.messageDao();
+
+    }
+
+    public void serverConnectionError() {
+        Toast toat = Toast.makeText(context, "Couldn't establish server connection", Toast.LENGTH_SHORT);
+        toat.show();
 
     }
 
@@ -71,30 +83,35 @@ public class Dog extends Activity {
         });
     }
 
-    public void login(String id, String password, Runnable onDone) {
-        Token.currentUser = id;
+    public void login(String id, String password, Runnable onSuccess, Runnable onFailure) {
 
-        Call<ResponseBody> callLogin = this.webServiceAPI.login(new UserCred(id,password));
+        Call<ResponseBody> callLogin = this.webServiceAPI.login(new UserCred(id, password));
 
         callLogin.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String token = null;
-                try {
-                    token = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Token.mytoken = "Bearer " + token;
-                setFirebaseTokenInServer();
+                if (response.code() == HttpsURLConnection.HTTP_OK) {
+                    String token = null;
+                    try {
+                        token = response.body().string();
+                        Token.currentUser = id;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Token.mytoken = "Bearer " + token;
+                    setFirebaseTokenInServer();
 //                Intent i = new Intent(context, ActivityList.class);
-                //startActivity(i);
-                onDone.run();
+                    //startActivity(i);
+                    onSuccess.run();
+                } else {
+                    onFailure.run();
+                }
 
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                serverConnectionError();
             }
         });
 
@@ -114,6 +131,7 @@ public class Dog extends Activity {
             }
             @Override
             public void onFailure(Call<List<Contact>> call, Throwable t) {
+                serverConnectionError();
             }
         });
     }
@@ -124,12 +142,18 @@ public class Dog extends Activity {
         callLogin.enqueue(new Callback<Contact>() {
             @Override
             public void onResponse(Call<Contact> call, Response<Contact> response) {
-                contactDao.insert(c);
-                onDone.run();
+                if (response.code() == HttpsURLConnection.HTTP_CREATED) {
+                    contactDao.insert(c);
+                    onDone.run();
+                } else {
+                    Toast toast = Toast.makeText(context, "Contact details are invalid", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
 
             @Override
             public void onFailure(Call<Contact> call, Throwable t) {
+                serverConnectionError();
             }
         });
     }
@@ -148,6 +172,7 @@ public class Dog extends Activity {
             }
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
+                serverConnectionError();
             }
         });
     }
@@ -164,6 +189,7 @@ public class Dog extends Activity {
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
+                serverConnectionError();
             }
         });
     }

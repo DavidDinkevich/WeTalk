@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,8 @@ import com.example.whatsupandroid.api.WebServiceAPI;
 import com.example.whatsupandroid.models.SignupCreds;
 
 import java.io.IOException;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -44,25 +47,30 @@ public class SignUp extends AppCompatActivity {
             callSignup.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse( Call<ResponseBody> call, Response<ResponseBody> response) {
-                    String token = null;
-                    try {
-                        token = response.body().string();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (response.code() == HttpsURLConnection.HTTP_OK) {
+                        String token = null;
+                        try {
+                            token = response.body().string();
+                            Token.currentUser = id;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Token.mytoken = "Bearer " + token;
+                        Dog dog = new Dog(getApplicationContext());
+                        dog.setFirebaseTokenInServer();
+                        Intent i = new Intent(context, ActivityList.class);
+                        startActivity(i);
+                    } else {
+                        Toast t = Toast.makeText(getApplicationContext(), "Username or password is invalid", Toast.LENGTH_SHORT);
+                        t.show();
                     }
-                    Token.mytoken = "Bearer " + token;
-                    Dog dog = new Dog(getApplicationContext());
-                    dog.setFirebaseTokenInServer();
-                    Intent i = new Intent( context, ActivityList.class);
-                    startActivity(i);
-
                 }
 
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    Toast toat = Toast.makeText(getApplicationContext(), "Couldn't establish server connection", Toast.LENGTH_SHORT);
+                    toat.show();
                 }
             });
         });

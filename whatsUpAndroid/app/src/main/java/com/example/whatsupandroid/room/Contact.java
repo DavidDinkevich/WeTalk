@@ -11,12 +11,15 @@ public class Contact {
     private String name;
     private String server;
     private String userID;
+    private String last;
 
-    public Contact(String id, String name, String server, String userID) {
+
+    public Contact(String id, String name, String server, String userID, String last) {
         this.id = id;
         this.name = name;
         this.server = server;
         this.userID = userID;
+        this.last = last;
     }
 
     public Contact() {
@@ -59,5 +62,14 @@ public class Contact {
     public void setServer(String server) {
         this.server = server;
     }
+
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
+    }
+
 
 }

@@ -43,7 +43,7 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
             }
 
             if (tt2 != null) {
-                tt2.setText("not implemented");
+                tt2.setText(p.getLast());
             }
         }
 

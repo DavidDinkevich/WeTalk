@@ -73,7 +73,7 @@ namespace server.Controllers {
                     Id = contact.Id,
                     Name = contact.Name,
                     Server = contact.Server,
-                    Last = lastMessage != null ? lastMessage.Time : null,
+                    Last = lastMessage != null ? lastMessage.Content : null,
                     LastDate = lastMessage != null ? lastMessage.Time : null
                 };
                 userContacts.Add(u);
@@ -119,7 +119,7 @@ namespace server.Controllers {
                     string.Format("https://{0}/api/invitations", inp.Server),
                     content);
             }
-            else {
+            else if (other != null) {
                 Contact curr_user = serverContext.makeContactFromUser(user);
                 _context.AddContact(other.Id, curr_user);
             }
@@ -197,13 +197,13 @@ namespace server.Controllers {
                 return NotFound();
             }
             //_context.UpdateLastInfo(user.Id, contact.Id);
-            //Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
+            Message lastMessage = _context.GetLastMessageWithContact(user.Id, contact.Id);
             User u = new User() {
                 Id = contact.Id,
                 Name = contact.Name,
                 Server = contact.Server,
-                //Last = lastMessage.Content,
-                //LastDate = lastMessage != null ? lastMessage.Time : null
+                Last = lastMessage != null ? lastMessage.Content : null,
+                LastDate = lastMessage != null ? lastMessage.Time : null
             };
 
             return Ok(u);
@@ -279,7 +279,7 @@ namespace server.Controllers {
             var msg = new FirebaseAdmin.Messaging.Message() {
                 Token = firebaseToken,
                 Notification = new Notification() {
-                    Title = "New Message from " + transfer.From,
+                    Title = transfer.From,
                     Body = transfer.Content
                 }
             };
@@ -333,6 +333,8 @@ namespace server.Controllers {
             // Try to add the message to the database
             if (!_context.AddMessage(msg))
                 return BadRequest();
+
+            await SendToClientInFirebase(msgJson);
 
             // DO TRANSFER
 

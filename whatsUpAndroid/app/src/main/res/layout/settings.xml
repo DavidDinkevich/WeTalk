@@ -90,7 +90,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="7dp"
                 android:background="@color/noColor"
-                app:srcCompat="@drawable/cloudy" />
+                app:srcCompat="@drawable/sun" />
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="50dp"

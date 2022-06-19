@@ -23,6 +23,7 @@ namespace server.Hubs {
                 PropertyNameCaseInsensitive = true
             };
             Contact contactObj = JsonSerializer.Deserialize<Contact>(contact, options);
+            //contactObj.UserId = groupID;
             await Clients.Group(contactObj.Id).SendAsync("NewContact", contact);
             // DISSEMINATE CONTACT TO SENDER'S GROUP
             await Clients.Group(groupID).SendAsync("NewContact", contact);
