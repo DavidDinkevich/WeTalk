@@ -24,7 +24,8 @@ export function getServerUrl() {
 }
 
 export function formatTime(csTime) {
-    return csTime.substring(11, 16);
+    // return csTime.substring(11, 16);
+    return csTime;
 }
 
 export function formatTimeWithSeconds(csTime) {
