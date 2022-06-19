@@ -89,4 +89,16 @@ public class ActivityList extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Dog dog = new Dog(getApplicationContext());
+        dog.fetchContacts(() -> {
+            contacts.clear();
+            contacts.addAll(contactDao.index());
+            adapter.notifyDataSetChanged();
+        });
+    }
+
 }

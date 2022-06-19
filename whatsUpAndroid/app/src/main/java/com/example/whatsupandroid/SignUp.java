@@ -29,10 +29,10 @@ public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         ContactAPI contactAPI = new ContactAPI();
         this.webServiceAPI = contactAPI.getWebServiceAPI();
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_screen);
         Button btnSignup = findViewById(R.id.buttonSignup);
         btnSignup.setOnClickListener( view -> {
