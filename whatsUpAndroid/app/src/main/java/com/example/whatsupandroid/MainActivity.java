@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import com.example.whatsupandroid.api.ContactAPI;
 import com.example.whatsupandroid.api.Token;
@@ -49,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
             dog.login(id, password, () -> {
                 Intent i = new Intent( this, ActivityList.class);
                 startActivity(i);
+            }, () -> {
+                Toast t = Toast.makeText(getApplicationContext(), "Username or password is invalid", Toast.LENGTH_SHORT);
+                t.show();
             });
         });
 

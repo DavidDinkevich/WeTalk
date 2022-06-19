@@ -42,14 +42,6 @@ public class ActivityList extends AppCompatActivity {
         TextView userName = findViewById(R.id.textView4);
         userName.setText(Token.currentUser);
 
-
-//        ListView btnContact = findViewById(R.id.list_view);
-//        btnContact.setClickable(true);
-//        btnContact.setOnClickListener( view -> {
-//            Intent i = new Intent( this, UserChat.class);
-//            startActivity(i);
-//        });
-
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "ContactsDB")
                 .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         contactDao = db.contactDao();
@@ -95,6 +87,18 @@ public class ActivityList extends AppCompatActivity {
         contacts.clear();
         contacts.addAll(contactDao.index());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Dog dog = new Dog(getApplicationContext());
+        dog.fetchContacts(() -> {
+            contacts.clear();
+            contacts.addAll(contactDao.index());
+            adapter.notifyDataSetChanged();
+        });
     }
 
 }

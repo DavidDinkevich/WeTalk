@@ -40,7 +40,7 @@ public class UserChat extends AppCompatActivity {
         messages = new ArrayList<>();
 
         listView = findViewById(R.id.message_list_view);
-        adapter = new MessageListAdapter(this, R.layout.message_item_left, messages);
+        adapter = new MessageListAdapter(this, R.layout.message_item_right, messages);
         listView.setAdapter(adapter);
 
         Intent intent = getIntent();
@@ -53,6 +53,8 @@ public class UserChat extends AppCompatActivity {
 
         sendButton.setOnClickListener((view) -> {
             EditText messageTextView = findViewById(R.id.messageTextField);
+            if (messageTextView.getText().toString().isEmpty())
+                return;
 
             Message newMessage = new Message(
                     Token.currentUser,
@@ -68,7 +70,7 @@ public class UserChat extends AppCompatActivity {
                 messages.clear();
                 messages.addAll(messageDao.getMessagesWithContact(activeContactID));
                 adapter.notifyDataSetChanged();
-                recreate();
+//                recreate();
             });
 
         });

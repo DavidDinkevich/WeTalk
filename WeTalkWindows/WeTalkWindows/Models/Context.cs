@@ -71,7 +71,6 @@ namespace WeTalkWindows.Models {
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + TOKEN);
 
-
             Messages = new ObservableCollection<Message>();
             Contacts = new ObservableCollection<Contact>();
 
@@ -86,6 +85,7 @@ namespace WeTalkWindows.Models {
                     FakeAsync(() => connection.InvokeAsync("SendMessage", MessageText));
 
                     MessageText = "";
+                    GetMessages();
                     GetContacts();
                 }
             });

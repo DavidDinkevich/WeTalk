@@ -73,7 +73,8 @@ namespace server.Data
 
         public bool Authenticate(string username, string password) {
             //            return usersDB.Any(u => u.Id == username && u.Password == password);
-            return UsersDB.Any(u => u.Id == username && u.Password == password);
+            return UsersDB.Where(u => u.Id == username && u.Password == password).ToList().Count() > 0;
+            //return UsersDB.Any(u => u.Id == username && u.Password == password);
         }
 
 

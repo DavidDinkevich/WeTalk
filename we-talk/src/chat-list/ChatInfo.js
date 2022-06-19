@@ -10,21 +10,15 @@ function ChatInfo({ contact }) {
     // let contactImage = getContactByName(contact.name).image;
     let contactImage = 'anonymous_profile.webp'
     if (lastMessage !== undefined && lastMessage != null) {
-        lastMessageText = lastMessage;
+        lastMessageText = lastMessage.content;
         // let lastMessage = messages[messages.length - 1];
-        time = formatTime(lastMessage);
+        time = formatTime(lastMessage.time);
         // time = lastMessage.time;
-        // if (lastMessage.content.length > 0) {
-            // lastMessageText = lastMessage.content;
-            // if (lastMessageText.length > maxMessageLength)
-                // lastMessageText = lastMessageText.substring(0, maxMessageLength - 3) + '...';
-        // }
-        // else if (lastMessage.image.length > 0)
-            // lastMessageText = <LastMediaMessageIcon mediaType='Photo' />
-        // else if (lastMessage.video.length > 0)
-            // lastMessageText = <LastMediaMessageIcon mediaType='Video' />;
-        // else if (lastMessage.audio.length > 0)
-            // lastMessageText = <LastMediaMessageIcon mediaType='Audio' />;
+        if (lastMessage.length > 0) {
+            lastMessageText = lastMessage;
+            if (lastMessageText.length > maxMessageLength)
+                lastMessageText = lastMessageText.substring(0, maxMessageLength - 3) + '...';
+        }
     }
 
     return (

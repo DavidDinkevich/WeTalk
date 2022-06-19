@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -30,13 +31,16 @@ public class AddContact extends AppCompatActivity {
 
         btnAddContact.setOnClickListener( view -> {
             Contact newContact = makeContactFromFields();
+            if (newContact == null) {
+                Toast t = Toast.makeText(this, "Contact details are invalid", Toast.LENGTH_SHORT);
+                t.show();
+            }
             // Post to server
             Dog dog = new Dog(getApplicationContext());
             dog.postContact(newContact, () -> {
                 Intent i = new Intent( this, ActivityList.class);
                 i.putExtra("contactID", newContact.getId());
                 i.putExtra("lastMessage", "not implemented");
-
                 startActivity(i);
                 finish();
             });
@@ -61,6 +65,9 @@ public class AddContact extends AppCompatActivity {
         String contactPort = etContactPort.getText().toString();
         String server = contactIP + ":" + contactPort;
 
-        return new Contact(contactID, contactName, server, Token.currentUser);
+        if (contactID.isEmpty() || contactName.isEmpty() || contactIP.isEmpty() || contactPort.isEmpty())
+            return null;
+
+        return new Contact(contactID, contactName, server, Token.currentUser, "");
     }
 }
