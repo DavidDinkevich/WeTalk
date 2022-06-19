@@ -20,6 +20,7 @@ You can log in with this information on the Login page.
 When you click on the "Add Contact" button, you can add a contact to talk with the main user. To add a contact from the server we are on, you will need to register it first on the sign-up page.
 <br>our server IP - **127.0.0.1** and port **5013**.<br>
 You can also add a contact that is on another server.
+<br> Looks best on **pixel 5 API 30**
 
 # Server Dependencies (Can be installed via NuGet Package Manager)
 
