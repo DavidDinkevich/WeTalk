@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.whatsupandroid.api.Token;
 import com.example.whatsupandroid.room.Message;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).isSent()){
+        if (messages.get(position).getSender().equals(Token.currentUser)) {
             return 0;
         }
         else{
@@ -46,10 +47,9 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(mContext);
-            if (messages.get(position).isSent()){
+            if (messages.get(position).getSender().equals(Token.currentUser)){
                 v = vi.inflate(R.layout.message_item_right, null);
-            }
-            else{
+            } else {
                 v = vi.inflate(R.layout.message_item_left, null);
             }
         }
@@ -58,7 +58,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
 
         if (p != null) {
             TextView tt1;
-            if (p.isSent())
+            if (messages.get(position).getSender().equals(Token.currentUser))
                 tt1 = (TextView) v.findViewById(R.id.messageTextViewRight);
             else
                 tt1 = (TextView) v.findViewById(R.id.messageTextViewLeft);
@@ -71,8 +71,4 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
 
         return v;
     }
-
-
-
-
 }

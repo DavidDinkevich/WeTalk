@@ -42,6 +42,11 @@ public class SignUp extends AppCompatActivity {
             String confirm_password = ((EditText)findViewById(R.id.confirmPassword)).getText().toString();
             String server = "10.0.2.2:5013";
 
+            if (!password.equals(confirm_password)) {
+                Toast t = Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT);
+                t.show();
+                return;
+            }
 
             Call<ResponseBody> callSignup = this.webServiceAPI.signup(new SignupCreds(id,nickname,password, server));
             callSignup.enqueue(new Callback<ResponseBody>() {

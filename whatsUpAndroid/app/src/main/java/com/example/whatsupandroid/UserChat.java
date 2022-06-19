@@ -53,6 +53,8 @@ public class UserChat extends AppCompatActivity {
 
         sendButton.setOnClickListener((view) -> {
             EditText messageTextView = findViewById(R.id.messageTextField);
+            if (messageTextView.getText().toString().isEmpty())
+                return;
 
             Message newMessage = new Message(
                     Token.currentUser,
