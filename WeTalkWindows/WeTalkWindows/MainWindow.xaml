@@ -55,7 +55,7 @@
                     </StackPanel>
                 </ToggleButton>-->
             </Grid>
-            <ListView Name="ContactsListView" ItemsSource="{Binding Path=Contacts}" SelectedItem="{Binding ActiveContact}"  Background="Transparent" BorderThickness="0" Grid.Row="1" ItemContainerStyle="{StaticResource ContactCard}" BorderBrush="#FF252525"/>
+            <ListView Name="ContactsListView" ItemsSource="{Binding Path=Contacts}" SelectedItem="{Binding ActiveContact}" IsSelected="{Binding IsSelected}"  Background="Transparent" BorderThickness="0" Grid.Row="1" ItemContainerStyle="{StaticResource ContactCard}" BorderBrush="#FF252525"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>

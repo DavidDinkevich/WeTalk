@@ -95,6 +95,8 @@ namespace WeTalkWindows.Models {
         }
 
         public void GetContacts() {
+            Contact origActiveContact = ActiveContact;
+
             var task = Task.Run(() => client.GetAsync(string.Format("http://{0}/api/contacts", SERVER)));
             task.Wait();
             var response = task.Result;
@@ -109,6 +111,7 @@ namespace WeTalkWindows.Models {
                 Contacts.Clear();
                 foreach (var c in contacts)
                     Contacts.Add(c);
+                ActiveContact = origActiveContact;
             }
         }
 
